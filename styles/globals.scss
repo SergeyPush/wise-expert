@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "variables";
-@import "reset";
+@import 'variables';
+@import 'reset';
+@import 'mixins';
 
 :root {
 }
@@ -12,6 +13,12 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-size: 14px;
+  line-height: 20px;
+  @include xl {
+    font-size: 18px;
+    line-height: 25px;
+  }
 }
 
 body {
