@@ -4,6 +4,7 @@ import { Nunito_Sans } from '@next/font/google';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
 import Button from '@/components/Button/Button';
+import Hamburger from '@/components/Button/Hamburger';
 const nunito = Nunito_Sans({
   subsets: ['latin'],
   style: 'normal',
@@ -27,6 +28,7 @@ const Header = () => {
             <IconList color={'black'} />
             <Button type={'black'} text={'Замовити дзвінок'} size={'normal'} />
           </div>
+          <Hamburger />
         </div>
       </Wrapper>
     </nav>

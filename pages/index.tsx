@@ -2,8 +2,7 @@ import { Inter } from '@next/font/google';
 import client from '@/utils/contentful.api';
 import { Entry } from 'contentful';
 import { IHero } from '@/interfaces/hero.interface';
-import SlideOne from '@/components/Hero/SlideOne';
-import SlideTwo from '@/components/Hero/SlideTwo';
+import HeroSwiper from '@/components/Hero/HeroSwiper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,8 +13,7 @@ export default function Home({ slides }: HomeInterface) {
   return (
     <>
       <main className={inter.className}>
-        {/*<SlideOne data={slides[0]} />*/}
-        <SlideTwo data={slides[1]} />
+        <HeroSwiper slides={slides} />
       </main>
     </>
   );
