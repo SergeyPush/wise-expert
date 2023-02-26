@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
-const Hamburger = () => {
-  const [isActive, setIsActive] = useState(false);
+interface HamburgerInterface {
+  className?: string;
+  isActive: boolean;
+  setIsActive: Dispatch<SetStateAction<boolean>>;
+}
 
+const Hamburger = ({
+  isActive,
+  setIsActive,
+  className,
+}: HamburgerInterface) => {
   return (
-    <button
-      className={`hamburger hamburger--slider${isActive ? ' is-active' : ''}`}
-      type="button"
+    <div
+      className={`menu-toggle${isActive ? ' active' : ''} ${className}`}
       onClick={() => {
         setIsActive((prevState) => !prevState);
       }}
     >
-      <span className="hamburger-box hamburger--slider">
-        <span className="hamburger-inner"></span>
-      </span>
-    </button>
+      <div className="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div className="cross">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   );
 };
 

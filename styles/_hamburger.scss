@@ -1,0 +1,79 @@
+.menu-toggle {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(15, 15, 15);
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  z-index: 100;
+}
+.hamburger,
+.cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hamburger span {
+  display: block;
+  width: 14px;
+  height: 2px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  position: relative;
+}
+.hamburger span:last-child {
+  margin: 0;
+}
+.hamburger span:before,
+.hamburger span:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(15, 15, 15);
+  transform: translateX(-200%);
+  transition: transform ease 300ms;
+}
+.hamburger span:after {
+  transform: translateX(0);
+}
+.hamburger span:nth-child(2):before,
+.hamburger span:nth-child(2):after {
+  transition-delay: 75ms;
+}
+.hamburger span:last-child:before,
+.hamburger span:last-child:after {
+  transition-delay: 150ms;
+}
+.menu-toggle:hover .hamburger span:before {
+  transform: translateX(0);
+}
+.menu-toggle:hover .hamburger span:after {
+  transform: translateX(200%);
+}
+.menu-toggle.active .hamburger span:before {
+  transform: translateX(100%);
+}
+.menu-toggle.active .hamburger span:after {
+  transform: translateX(200%);
+}
+.cross span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: rgb(15, 15, 15);
+  transform: translateY(50%) rotate(45deg) scaleX(0);
+  transition: transform ease 200ms;
+}
+.cross span:last-child {
+  transform: translateY(-50%) rotate(-45deg) scaleX(0);
+}
+.menu-toggle.active .cross span {
+  transition-delay: 450ms;
+  transform: translateY(50%) rotate(45deg) scaleX(1);
+}
+.menu-toggle.active .cross span:last-child {
+  transform: translateY(-50%) rotate(-45deg) scaleX(1);
+}

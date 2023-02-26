@@ -20,7 +20,6 @@ const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
       speed={800}
       loop={true}
       pagination={{
-        // el: 'hero-swiper-pagination',
         clickable: true,
         bulletClass: 'hero-swiper-bullet',
         bulletActiveClass: 'hero-swiper-bullet-active',
