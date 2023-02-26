@@ -27,9 +27,9 @@ const Header = () => {
       <Wrapper>
         <div className="flex flex-row items-center justify-between">
           <span className="text-xl relative z-20">WisExpert</span>
-          <LinkList />
+          <LinkList className={'hidden'} />
           <div className={'flex flex-row gap-4 lg:gap-10 items-center'}>
-            <IconList color={'black'} />
+            <IconList color={'black'} className={'hidden lg:flex'} />
             <Button
               type={'black'}
               text={'Замовити дзвінок'}
