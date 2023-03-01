@@ -10,7 +10,9 @@ const IconItem = ({ item: { link, Icon }, color }: IconItemInterface) => {
   return (
     <li>
       <Link href={link} target="_blank">
-        <Icon className={`hover:text-color-blue text-color-${color}`} />
+        <Icon
+          className={`hover:${color} text-color-${color} visited:${color}`}
+        />
       </Link>
     </li>
   );

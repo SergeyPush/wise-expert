@@ -19,3 +19,30 @@
 .hero-swiper-bullet-active {
   background-color: #fff;
 }
+
+.tiles-swiper-pagination-bullets {
+  position: absolute;
+  bottom: -10%;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  gap: 10px;
+}
+
+.tiles-swiper-bullet {
+  width: 12px;
+  height: 12px;
+  border: 1px solid black;
+  display: flex;
+  border-radius: 50%;
+}
+.tiles-swiper-bullet-active {
+  background-color: black;
+}
+.swiper {
+  overflow: visible !important;
+}
+.swiper-slide {
+  height: 100% !important;
+}

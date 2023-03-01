@@ -17,11 +17,13 @@ body {
   overflow-x: hidden;
   font-size: 14px;
   line-height: 20px;
+  scroll-behavior: smooth;
   @include xl {
     font-size: 18px;
     line-height: 25px;
   }
 }
 
-body {
+.stop-scrolling {
+  overflow: hidden;
 }
