@@ -1,12 +1,15 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 interface SubtitleInterface {
-  children: ReactNode;
+  text: string;
   className?: string;
 }
-const Subtitle = ({ children, className }: SubtitleInterface) => {
+const Subtitle = ({ text, className }: SubtitleInterface) => {
   return (
-    <p className={`text-center text-[24px] md:text-[48px] ${className}`}></p>
+    <p
+      className={`text-center text-[24px] md:text-[48px] ${className}`}
+      dangerouslySetInnerHTML={{ __html: text }}
+    />
   );
 };
 

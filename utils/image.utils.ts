@@ -1,3 +1,3 @@
 export const getUrl = (path: string) => {
-  return `http://${path}`;
+  return `http:${path}`;
 };

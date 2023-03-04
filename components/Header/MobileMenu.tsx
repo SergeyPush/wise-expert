@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from '@/styles/MobileMenu.module.scss';
 import LinkList from '@/components/Header/LinkList';
 import Button from '@/components/Button/Button';
