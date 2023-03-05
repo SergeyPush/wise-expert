@@ -28,12 +28,12 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
 
         <div className="flex flex-col md:flex-row gap-4 items-start gap-2">
           <Button
-            type={'white'}
+            format={'white'}
             text={'Розрахувати власність'}
             size={'wide'}
             className={''}
           />
-          <Button type={'outlined'} text={'Дізнатися більше'} size={'wide'} />
+          <Button format={'outlined'} text={'Дізнатися більше'} size={'wide'} />
         </div>
       </Wrapper>
     </div>

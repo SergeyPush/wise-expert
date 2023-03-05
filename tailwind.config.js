@@ -16,6 +16,8 @@ module.exports = {
       'color-light-blue': '#e2eeff',
       'color-light-gray': '#f9fcff',
       'color-extra-black': '#000000',
+      'color-red': '#f03200',
+      'color-light-black': '#262626',
     },
     letterSpacing: {
       'custom-wide': '1px',

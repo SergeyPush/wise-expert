@@ -9,6 +9,7 @@ import Table from '@/components/Table/Table';
 import { ITable } from '@/interfaces/table.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import Clients from '@/components/Clients/Clients';
+import Calculator from '@/components/Calculator/Calculator';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ export default function Home({ slides, tiles, table, clients }: HomeInterface) {
         <Tiles tiles={tiles} />
         <Table table={table} />
         <Clients clients={clients} />
+        <Calculator />
       </main>
     </>
   );
