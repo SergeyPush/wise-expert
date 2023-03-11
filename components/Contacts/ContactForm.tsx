@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@/components/Button/Button';
 import { IContactForm } from '@/interfaces/form.interface';
+import InputLabel from '@/components/Contacts/InputLabel';
 
 const ContactForm = () => {
   const {
@@ -16,9 +17,9 @@ const ContactForm = () => {
   };
 
   return (
-    <div>
+    <div className={'flex-1'}>
       <form
-        className={'p-10 bg-color-white rounded-3xl'}
+        className={'p-5 lg:p-10 bg-color-white rounded-3xl'}
         onSubmit={handleSubmit(handleForm)}
       >
         <div
@@ -28,48 +29,55 @@ const ContactForm = () => {
           <p>консультацію</p>
         </div>
 
-        <div className={'flex font-normal flex-col relative mb-6'}>
-          <label htmlFor="email" className={'mb-2 font-bold text-xl ml-2'}>
-            Email:
-          </label>
-          <input
-            id="email"
-            className={
-              'font-normal px-4 py-3 border border-color-light-blue rounded-3xl placeholder:text-color-black'
-            }
-            type="email"
-            placeholder="Введіть email*"
-            {...register('email', { required: 'email is required' })}
-          />
-          {errors?.email && (
-            <span
+        <div
+          className={'flex flex-col md:flex-row gap-2 lg:gap-4 mb-2 lg:mb-6'}
+        >
+          <div className={'flex font-normal flex-col relative flex-1'}>
+            <InputLabel text={'Email:'} htmlFor={'email'} />
+            <input
+              id="email"
               className={
-                'text-color-red text-base absolute bottom-[-28px] ml-2'
+                'font-normal px-4 py-2 border border-color-light-blue rounded-3xl placeholder:text-color-black'
               }
-            >
-              Email обов&apos;язковий
-            </span>
-          )}
-        </div>
+              type="email"
+              placeholder="Введіть email*"
+              {...register('email', { required: 'email is required' })}
+            />
+            {errors?.email && (
+              <span
+                className={
+                  'text-color-red text-sm absolute bottom-[-22px] ml-2'
+                }
+              >
+                Email обов&apos;язковий
+              </span>
+            )}
+          </div>
 
-        <div className={'flex font-normal flex-col relative mb-6'}>
-          <label htmlFor="phone" className={'mb-2 font-bold text-xl ml-2'}>
-            Phone:
-          </label>
-          <input
-            id="phone"
-            className={
-              'font-normal px-4 py-3 border border-color-light-blue rounded-3xl placeholder:text-color-black'
-            }
-            type="text"
-            placeholder="Введіть телефон*"
-            {...register('phone', { required: 'Телефон is required' })}
-          />
+          <div className={'flex font-normal flex-col relative flex-1'}>
+            <InputLabel text={'Phone:'} htmlFor={'phone'} />
+            <input
+              id="phone"
+              className={
+                'font-normal px-4 py-2 border border-color-light-blue rounded-3xl placeholder:text-color-black'
+              }
+              type="text"
+              placeholder="Введіть телефон*"
+              {...register('phone', { required: 'Телефон is required' })}
+            />
+            {errors?.email && (
+              <span
+                className={
+                  'text-color-red text-sm absolute bottom-[-22px] ml-2'
+                }
+              >
+                Телефон обов&apos;язковий
+              </span>
+            )}
+          </div>
         </div>
         <div className={'flex font-normal flex-col relative mb-8'}>
-          <label htmlFor="question" className={'mb-2 font-bold text-xl ml-2'}>
-            Уточнююче питання:
-          </label>
+          <InputLabel text={'Уточнююче питання:'} htmlFor={'question'} />
           <textarea
             rows={3}
             id="question"

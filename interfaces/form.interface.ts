@@ -3,3 +3,8 @@ export interface IContactForm {
   phone: string;
   question: string;
 }
+
+export interface IDropdown {
+  value: string;
+  label: string;
+}

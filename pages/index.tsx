@@ -11,7 +11,10 @@ import { IClients } from '@/interfaces/clients.interface';
 import Clients from '@/components/Clients/Clients';
 import Calculator from '@/components/Calculator/Calculator';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+});
 
 interface HomeInterface {
   slides: IHero[];
