@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useId } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useId,
+  useState,
+} from 'react';
 import { IDropdown } from '@/interfaces/form.interface';
 import Select from 'react-select';
 import InputLabel from '@/components/Contacts/InputLabel';
@@ -41,7 +47,9 @@ const CalculatorDropdown = ({
   // };
   //TODO https://codesandbox.io/s/custom-visible-multivalues-8zh8c?file=/example.js
 
+  const [selectedValue, setSelectedValue] = useState<IDropdown | IDropdown[]>();
   const handleChange = (data: IDropdown | IDropdown[]) => {
+    setSelectedValue(data);
     if (Array.isArray(data)) {
       setState((prevState) => ({
         ...prevState,
@@ -52,10 +60,21 @@ const CalculatorDropdown = ({
     }
   };
 
+  useEffect(() => {
+    console.log(selectedValue);
+  }, [selectedValue]);
+  // const selectInputRef = useRef();
+  // const clear = () => {
+  //   if (selectInputRef) {
+  //     selectInputRef?.current.select.clearValue();
+  //   }
+  // };
+
   return (
     <div className={className}>
       <InputLabel text={label} className={'text-color-white'} />
       <Select
+        value={selectedValue}
         isMulti={isMulti}
         options={options}
         instanceId={useId()}

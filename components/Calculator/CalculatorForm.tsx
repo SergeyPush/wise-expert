@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ContactForm from '@/components/Contacts/ContactForm';
 import Title from '@/components/Title';
 import CalculatorDropdown from '@/components/Calculator/CalculatorDropdown';
@@ -12,10 +12,6 @@ import CalculatorInput from '@/components/Calculator/CalculatorInput';
 
 const CalculatorForm = () => {
   const [calculatorForm, setCalculatorForm] = useState({});
-
-  useEffect(() => {
-    console.log(calculatorForm);
-  }, [calculatorForm]);
 
   return (
     <div className={'flex flex-col lg:flex-row gap-8'}>
@@ -76,7 +72,7 @@ const CalculatorForm = () => {
           </div>
         </div>
       </div>
-      <ContactForm />
+      <ContactForm calculatorFormData={calculatorForm} />
     </div>
   );
 };

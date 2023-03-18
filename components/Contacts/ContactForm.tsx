@@ -4,7 +4,15 @@ import Button from '@/components/Button/Button';
 import { IContactForm } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
 
-const ContactForm = () => {
+interface CalculatorData {
+  [key: string]: string;
+}
+
+interface ContactFormInterface {
+  calculatorFormData?: CalculatorData;
+}
+
+const ContactForm = ({ calculatorFormData }: ContactFormInterface) => {
   const {
     handleSubmit,
     register,
@@ -12,7 +20,7 @@ const ContactForm = () => {
     formState: { errors },
   } = useForm<IContactForm>({ mode: 'onBlur' });
   const handleForm = (data: IContactForm) => {
-    console.log(data);
+    console.log({ ...data, ...calculatorFormData });
     reset();
   };
 
