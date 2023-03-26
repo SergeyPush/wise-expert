@@ -10,6 +10,8 @@ import { ITable } from '@/interfaces/table.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import Clients from '@/components/Clients/Clients';
 import Calculator from '@/components/Calculator/Calculator';
+import Faq from '@/components/Faq/Faq';
+import { IFAQ } from '@/interfaces/faq.interface';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,8 +23,15 @@ interface HomeInterface {
   tiles: ITiles;
   table: ITable;
   clients: IClients;
+  faq: IFAQ;
 }
-export default function Home({ slides, tiles, table, clients }: HomeInterface) {
+export default function Home({
+  slides,
+  tiles,
+  table,
+  clients,
+  faq,
+}: HomeInterface) {
   return (
     <>
       <main className={inter.className}>
@@ -31,6 +40,7 @@ export default function Home({ slides, tiles, table, clients }: HomeInterface) {
         <Table table={table} />
         <Clients clients={clients} />
         <Calculator />
+        <Faq faq={faq} />
       </main>
     </>
   );
@@ -51,12 +61,17 @@ export async function getStaticProps() {
     '6edFDs7Q0MuqIhyxT3jVGX'
   );
 
+  const { fields: faqResponse } = await client.getEntry(
+    '4eCRCqmvlHL2fjo8FfxVNi'
+  );
+
   return {
     props: {
       slides: data,
       tiles: tilesResponse,
       table: tableResponse,
       clients: clientResponse,
+      faq: faqResponse,
     },
   };
 }
