@@ -13,6 +13,7 @@ import Calculator from '@/components/Calculator/Calculator';
 import Faq from '@/components/Faq/Faq';
 import { IFAQ } from '@/interfaces/faq.interface';
 import Map from '@/components/Map/Map';
+import Questions from '@/components/Questions/Questions';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -43,6 +44,7 @@ export default function Home({
         <Calculator />
         <Faq faq={faq} />
         <Map />
+        <Questions />
       </main>
     </>
   );
