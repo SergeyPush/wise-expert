@@ -14,6 +14,7 @@ import Faq from '@/components/Faq/Faq';
 import { IFAQ } from '@/interfaces/faq.interface';
 import Map from '@/components/Map/Map';
 import Questions from '@/components/Questions/Questions';
+import Footer from '@/components/Footer/Footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -45,6 +46,7 @@ export default function Home({
         <Faq faq={faq} />
         <Map />
         <Questions />
+        <Footer />
       </main>
     </>
   );

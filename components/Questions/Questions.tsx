@@ -7,9 +7,7 @@ const Questions = () => {
     <div className="bg-color-black">
       <Wrapper>
         <div
-          className={
-            'pt-14 pb-10 lg:pb-16 flex flex-col lg:flex-row gap-10 border-b border-color-gray'
-          }
+          className={'pt-14 pb-10 lg:pb-16 flex flex-col lg:flex-row gap-10'}
         >
           <div
             className={
