@@ -9,7 +9,7 @@ interface ClientsInterface {
 }
 const Clients = ({ clients }: ClientsInterface) => {
   return (
-    <div className={'pt-8 pb-10 lg:pt-14 lg:pb-14'}>
+    <div className={'pt-8 pb-10 lg:pt-14 lg:pb-14'} id={'clients'}>
       <Wrapper>
         <Title text={clients.title} className={'mb-24'} />
         <ClientsSwiper clients={clients} />

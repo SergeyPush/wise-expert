@@ -9,9 +9,26 @@ import {
   taxSystem,
 } from '@/constants/calculator.const';
 import CalculatorInput from '@/components/Calculator/CalculatorInput';
+import { IDropdown } from '@/interfaces/form.interface';
 
 const CalculatorForm = () => {
-  const [calculatorForm, setCalculatorForm] = useState({});
+  interface calculatorFormInterface {
+    [key: string]: string | IDropdown | IDropdown[];
+  }
+
+  const initialState: calculatorFormInterface = {
+    OrganisationalForm: '',
+    OrganizationalType: '',
+    TaxSystem: '',
+    AdditionalInfo: '',
+    NumberOfEmployees: '',
+    DocumentQuantity: '',
+  };
+
+  const [calculatorForm, setCalculatorForm] = useState(initialState);
+  const clearCalculatorForm = () => {
+    setCalculatorForm(() => initialState);
+  };
 
   return (
     <div className={'flex flex-col lg:flex-row gap-8'}>
@@ -28,6 +45,7 @@ const CalculatorForm = () => {
               label={'Організаційна форма'}
               className={'flex-1'}
               name={'OrganisationalForm'}
+              value={calculatorForm.OrganisationalForm}
               setState={setCalculatorForm}
             />
             <CalculatorDropdown
@@ -37,6 +55,7 @@ const CalculatorForm = () => {
               className={'flex-1'}
               name={'OrganizationalType'}
               setState={setCalculatorForm}
+              value={calculatorForm.OrganizationalType}
             />
           </div>
           <div className={'flex flex-col xl:flex-row gap-4 lg:gap-3'}>
@@ -46,6 +65,7 @@ const CalculatorForm = () => {
               className={'flex-1'}
               name={'TaxSystem'}
               setState={setCalculatorForm}
+              value={calculatorForm.TaxSystem}
             />
             <CalculatorDropdown
               options={additional}
@@ -54,6 +74,7 @@ const CalculatorForm = () => {
               className={'flex-1'}
               name={'AdditionalInfo'}
               setState={setCalculatorForm}
+              value={calculatorForm.AdditionalInfo}
             />
           </div>
           <div className={'flex flex-col xl:flex-row gap-4 lg:gap-3'}>
@@ -62,17 +83,22 @@ const CalculatorForm = () => {
               placeholder={'Введіть значення'}
               name={'NumberOfEmployees'}
               setState={setCalculatorForm}
+              value={calculatorForm.NumberOfEmployees}
             />
             <CalculatorInput
               label={'Кількість документів/міс'}
               placeholder={'Введіть значення'}
               name={'DocumentQuantity'}
               setState={setCalculatorForm}
+              value={calculatorForm.DocumentQuantity}
             />
           </div>
         </div>
       </div>
-      <ContactForm calculatorFormData={calculatorForm} />
+      <ContactForm
+        calculatorFormData={calculatorForm}
+        clearCalculatorForm={clearCalculatorForm}
+      />
     </div>
   );
 };

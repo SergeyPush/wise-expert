@@ -1,17 +1,20 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import InputLabel from '@/components/Contacts/InputLabel';
+import { IDropdown } from '@/interfaces/form.interface';
 
 interface CalculatorInterface {
   label: string;
   placeholder: string;
   name: string;
   setState: Dispatch<SetStateAction<{}>>;
+  value: string | IDropdown | IDropdown[];
 }
 const CalculatorInput = ({
   label,
   placeholder,
   name,
   setState,
+  value,
 }: CalculatorInterface) => {
   const handleChange = (data: string) => {
     setState((prevState) => ({ ...prevState, [name]: data }));
@@ -28,6 +31,7 @@ const CalculatorInput = ({
         style={{ borderWidth: '0.4px', padding: '11px 18px' }}
         name={name}
         onChange={(e) => handleChange(e.target.value)}
+        value={value as string}
       />
     </div>
   );

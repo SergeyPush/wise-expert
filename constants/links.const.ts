@@ -1,9 +1,10 @@
 import { ILink } from '@/interfaces/link.interface';
 
 export const LINKS: ILink[] = [
-  { id: 1, title: 'Послуги', link: '' },
-  { id: 2, title: 'Ціни', link: '' },
-  { id: 3, title: 'Калькулятор вартості', link: '' },
-  { id: 4, title: 'Контакти', link: '' },
-  { id: 5, title: 'FAQ', link: '' },
+  { id: 'useful', title: 'Кому корисні', link: '' },
+  { id: 'prices', title: 'Ціни', link: '' },
+  { id: 'clients', title: 'Клієнти', link: '' },
+  { id: 'calc', title: 'Калькулятор', link: '' },
+  { id: 'faq', title: 'FAQ', link: '' },
+  { id: 'contacts', title: 'Контакти', link: '' },
 ];

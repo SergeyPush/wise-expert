@@ -4,7 +4,7 @@ import CalculatorForm from '@/components/Calculator/CalculatorForm';
 
 const Calculator = () => {
   return (
-    <div className={'bg-color-blue pt-20 pb-20'}>
+    <div className={'bg-color-blue pt-20 pb-20'} id={'calc'}>
       <Wrapper>
         <CalculatorForm />
       </Wrapper>

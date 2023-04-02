@@ -11,6 +11,7 @@ interface TilesInterface {
 const Tiles = ({ tiles }: TilesInterface) => {
   return (
     <div
+      id={'useful'}
       className={'pt-12 pb-10 lg:pt-32 lg:pb-20'}
       style={{
         background:

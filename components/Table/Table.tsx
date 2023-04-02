@@ -15,7 +15,7 @@ const Table = ({ table }: TableInterface) => {
   const [active, setActive] = useState<ServiceTypes>('fop');
 
   return (
-    <div className={'pt-12 pb-12'}>
+    <div className={'pt-12 pb-12'} id={'prices'}>
       <Wrapper>
         <Title text={`${table.title}`} />
         <p className={'text-center mb-10'}>{table.subtitle}</p>

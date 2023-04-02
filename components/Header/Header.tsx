@@ -31,7 +31,7 @@ const Header = () => {
           <div className={'flex flex-row gap-4 lg:gap-10 items-center'}>
             <IconList color={'black'} className={'hidden lg:flex'} />
             <Button
-              type={'black'}
+              format={'black'}
               text={'Замовити дзвінок'}
               size={'normal'}
               className={'relative z-20'}

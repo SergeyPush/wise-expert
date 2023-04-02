@@ -15,6 +15,7 @@ const Faq = ({ faq }: FaqInterface) => {
   return (
     <div
       className={'pt-20 pb-20'}
+      id={'faq'}
       style={{
         background:
           'radial-gradient(46.56% 196.35% at 6.15% 5.86%, rgba(0, 70, 250, 0.12) 0%, rgba(0, 130, 250, 0.03) 17.49%, rgba(255, 255, 255, 0.3) 79.11%)',

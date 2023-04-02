@@ -2,11 +2,16 @@ import React from 'react';
 import Wrapper from '@/components/Wrapper';
 import IconList from '@/components/Header/IconList';
 import { LINKS } from '@/constants/links.const';
+import { scrollToId } from '@/utils/scroll.utils';
 
 const Footer = () => {
   // const filteredLinks = LINKS.splice(3, 1);
   const filteredLinks = [...LINKS];
-  filteredLinks.splice(3, 1);
+  filteredLinks.splice(4, 1);
+
+  const handleClick = (id: string) => {
+    scrollToId(id);
+  };
 
   return (
     <footer className={'bg-color-black pt-8'}>
@@ -23,9 +28,13 @@ const Footer = () => {
           </div>
           <div className={'flex flex-col md:flex-row gap-6 md:gap-20'}>
             <ul>
-              {filteredLinks.map((link, index) => (
-                <li key={index} className={'mb-3 uppercase'}>
-                  {link.title}
+              {filteredLinks.map(({ title, id }, index) => (
+                <li
+                  key={index}
+                  className={'mb-3 uppercase cursor-pointer'}
+                  onClick={() => handleClick(id)}
+                >
+                  {title}
                 </li>
               ))}
             </ul>
