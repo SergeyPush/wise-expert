@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Button from '@/components/Button/Button';
 import { IContactForm, IDropdown } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
+import { formatData } from '@/utils/formatData.utils';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
@@ -26,6 +27,7 @@ const ContactForm = ({
   const handleForm = (data: IContactForm) => {
     console.log({ ...data, ...calculatorFormData });
     reset();
+    console.log(formatData({ ...data, ...calculatorFormData }));
     if (clearCalculatorForm) {
       clearCalculatorForm();
     }

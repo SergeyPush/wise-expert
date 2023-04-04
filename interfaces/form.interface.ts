@@ -8,3 +8,5 @@ export interface IDropdown {
   value: string;
   label: string;
 }
+
+export type IDropdownValue = string | IDropdown | IDropdown[];
