@@ -4,6 +4,7 @@ import Button from '@/components/Button/Button';
 import { IContactForm, IDropdown } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
 import { formatData } from '@/utils/formatData.utils';
+import InputMask from 'react-input-mask';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
@@ -73,7 +74,8 @@ const ContactForm = ({
 
           <div className={'flex font-normal flex-col relative flex-1'}>
             <InputLabel text={'Phone:'} htmlFor={'phone'} />
-            <input
+            <InputMask
+              mask={'+38(099)999-99-99'}
               id="phone"
               className={
                 'font-normal px-4 py-2 border border-color-light-blue rounded-3xl placeholder:text-color-black'
