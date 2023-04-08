@@ -4,6 +4,7 @@ import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
 import styles from '@/styles/SlideOne.module.scss';
 import { makeBolder } from '@/utils/bolder.utils';
+import { scrollToId } from '@/utils/scroll.utils';
 
 interface HeroInterface {
   data: IHero;
@@ -26,14 +27,20 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
           dangerouslySetInnerHTML={{ __html: subtitle ? subtitle : '' }}
         />
 
-        <div className="flex flex-col md:flex-row gap-4 items-start gap-2">
+        <div className="flex flex-col md:flex-row gap-4 items-start">
           <Button
             format={'white'}
             text={'Розрахувати власність'}
             size={'wide'}
             className={''}
+            onClick={() => scrollToId('calc')}
           />
-          <Button format={'outlined'} text={'Дізнатися більше'} size={'wide'} />
+          <Button
+            format={'outlined'}
+            text={'Дізнатися більше'}
+            size={'wide'}
+            onClick={() => scrollToId('useful')}
+          />
         </div>
       </Wrapper>
     </div>

@@ -22,7 +22,7 @@ const MobileMenu = () => {
           +38(099)777-88-10
         </a>
         <Button
-          type={'outlined'}
+          format={'outlined'}
           text={'Розрахувати вартість'}
           className={'text-xl mb-4'}
         />

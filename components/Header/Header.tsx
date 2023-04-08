@@ -6,6 +6,7 @@ import IconList from '@/components/Header/IconList';
 import Button from '@/components/Button/Button';
 import Hamburger from '@/components/Button/Hamburger';
 import MobileMenu from '@/components/Header/MobileMenu';
+import BookCall from '@/components/Header/BookCall';
 const nunito = Nunito_Sans({
   subsets: ['latin'],
   style: 'normal',
@@ -14,6 +15,7 @@ const nunito = Nunito_Sans({
 
 const Header = () => {
   const [mobileMenuIsActive, setMobileMenuIsActive] = useState<boolean>(false);
+  const [bookCallIsVisible, setBookCallIsVisible] = useState<boolean>(false);
 
   return (
     <nav
@@ -24,9 +26,13 @@ const Header = () => {
       }}
     >
       {mobileMenuIsActive && <MobileMenu />}
+      <BookCall
+        isVisible={bookCallIsVisible}
+        setIsVisible={setBookCallIsVisible}
+      />
       <Wrapper>
         <div className="flex flex-row items-center justify-between">
-          <span className="text-xl relative z-20">WisExpert</span>
+          <span className="text-xl relative z-20 font-bold">WisExpert</span>
           <LinkList className={'hidden'} />
           <div className={'flex flex-row gap-4 lg:gap-10 items-center'}>
             <IconList color={'black'} className={'hidden lg:flex'} />
@@ -35,6 +41,7 @@ const Header = () => {
               text={'Замовити дзвінок'}
               size={'normal'}
               className={'relative z-20'}
+              onClick={() => setBookCallIsVisible(true)}
             />
             <Hamburger
               className={'lg:hidden'}

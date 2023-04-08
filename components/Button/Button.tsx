@@ -17,11 +17,13 @@ const Button = ({
   className,
   type,
   disabled,
+  onClick,
 }: ButtonInterface) => {
   const renderButton = () => {
     if (format === 'white') {
       return (
         <button
+          onClick={onClick}
           disabled={disabled}
           type={type}
           // style={{ backgroundColor: type === "black" ? "#161616" : "" }}
@@ -36,6 +38,7 @@ const Button = ({
     if (format === 'outlined') {
       return (
         <button
+          onClick={onClick}
           disabled={disabled}
           type={type}
           // style={{ backgroundColor: type === "black" ? "#161616" : "" }}
@@ -49,6 +52,7 @@ const Button = ({
     }
     return (
       <button
+        onClick={onClick}
         disabled={disabled}
         type={type}
         // style={{ backgroundColor: type === "black" ? "#161616" : "" }}

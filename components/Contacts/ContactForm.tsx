@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@/components/Button/Button';
 import { IContactForm, IDropdown } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
 import { formatData } from '@/utils/formatData.utils';
 import InputMask from 'react-input-mask';
+import Confirmation from '@/components/Common/Confirmation';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
@@ -13,29 +14,46 @@ interface CalculatorData {
 interface ContactFormInterface {
   calculatorFormData?: CalculatorData;
   clearCalculatorForm?: () => void;
+  className?: string;
+  setIsVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ContactForm = ({
   calculatorFormData,
   clearCalculatorForm,
+  className,
+  setIsVisible,
 }: ContactFormInterface) => {
   const {
     handleSubmit,
     register,
     reset,
+
     formState: { errors },
   } = useForm<IContactForm>({ mode: 'onBlur' });
+
+  const [confirmationIsVisible, setConfirmationIsVisible] =
+    useState<boolean>(false);
+
+  const showConfirmation = () => {
+    setConfirmationIsVisible(true);
+    setTimeout(() => setConfirmationIsVisible(false), 3000);
+  };
+
   const handleForm = (data: IContactForm) => {
-    console.log({ ...data, ...calculatorFormData });
     reset();
     console.log(formatData({ ...data, ...calculatorFormData }));
     if (clearCalculatorForm) {
       clearCalculatorForm();
     }
+    if (setIsVisible) {
+      setIsVisible(false);
+    }
+    showConfirmation();
   };
 
   return (
-    <div className={'flex-1'}>
+    <div className={`${className}`}>
       <form
         className={'p-5 lg:p-10 bg-color-white rounded-3xl'}
         onSubmit={handleSubmit(handleForm)}
@@ -115,6 +133,7 @@ const ContactForm = ({
           size={'wide'}
         />
       </form>
+      {confirmationIsVisible && <Confirmation />}
     </div>
   );
 };

@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
         </div>
         <div className={'text-color-white pt-4 pb-4 text-base'}>
-          &copy; WisExpert All rights reserved
+          &copy; WisExpert. All rights reserved
         </div>
       </Wrapper>
     </footer>

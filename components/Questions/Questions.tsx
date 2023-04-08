@@ -21,7 +21,9 @@ const Questions = () => {
               Заповніть форму і ми зв’яжемось з Вами
             </p>
           </div>
-          <ContactForm />
+          <div className={'flex justify-center items-center w-full'}>
+            <ContactForm />
+          </div>
         </div>
       </Wrapper>
     </div>
