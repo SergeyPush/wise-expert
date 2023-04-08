@@ -15,6 +15,8 @@ import { IFAQ } from '@/interfaces/faq.interface';
 import Map from '@/components/Map/Map';
 import Questions from '@/components/Questions/Questions';
 import Footer from '@/components/Footer/Footer';
+import Confirmation from '@/components/Common/Confirmation';
+import React from 'react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -47,6 +49,7 @@ export default function Home({
         <Map />
         <Questions />
         <Footer />
+        <Confirmation />
       </main>
     </>
   );

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '@/components/Button/Button';
 import { IContactForm, IDropdown } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
 import { formatData } from '@/utils/formatData.utils';
 import InputMask from 'react-input-mask';
-import Confirmation from '@/components/Common/Confirmation';
+import { useGlobalContext } from '@/context/GlobalContext';
+import { sendData } from '@/utils/emailjs.api';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
@@ -32,24 +33,20 @@ const ContactForm = ({
     formState: { errors },
   } = useForm<IContactForm>({ mode: 'onBlur' });
 
-  const [confirmationIsVisible, setConfirmationIsVisible] =
-    useState<boolean>(false);
-
-  const showConfirmation = () => {
-    setConfirmationIsVisible(true);
-    setTimeout(() => setConfirmationIsVisible(false), 3000);
-  };
+  const { showConfirmation } = useGlobalContext();
 
   const handleForm = (data: IContactForm) => {
+    showConfirmation();
     reset();
-    console.log(formatData({ ...data, ...calculatorFormData }));
     if (clearCalculatorForm) {
       clearCalculatorForm();
     }
     if (setIsVisible) {
       setIsVisible(false);
     }
-    showConfirmation();
+    sendData(formatData({ ...data, ...calculatorFormData }))
+      .then(() => showConfirmation())
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -133,7 +130,6 @@ const ContactForm = ({
           size={'wide'}
         />
       </form>
-      {confirmationIsVisible && <Confirmation />}
     </div>
   );
 };
