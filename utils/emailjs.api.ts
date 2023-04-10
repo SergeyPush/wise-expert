@@ -1,10 +1,11 @@
 import emailjs from '@emailjs/browser';
+import process from 'process';
 
 export const sendData = async (data: any) => {
   return emailjs.send(
     'wegmail',
-    'template_sbRg0J0U',
+    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? '',
     data,
-    'user_5p0b4IT3bwkF3nOhn3S5L'
+    process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
   );
 };

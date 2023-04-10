@@ -1,0 +1,11 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    restart: unless-stopped
+    command: npm run start
+    container_name: frontend
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
