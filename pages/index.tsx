@@ -75,6 +75,7 @@ export async function getStaticProps() {
   );
 
   return {
+    revalidate: 10 * 60,
     props: {
       slides: data,
       tiles: tilesResponse,
