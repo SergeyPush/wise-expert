@@ -13,6 +13,8 @@ interface HeroSwiperInterface {
   slides: IHero[];
 }
 const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
+  const [first, second] = slides.sort((a, b) => (a.slide > b.slide ? 1 : -1));
+
   return (
     <Swiper
       modules={[Navigation, Pagination, Autoplay]}
@@ -32,10 +34,10 @@ const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
       }}
     >
       <SwiperSlide>
-        <SlideOne data={slides[0]} />
+        <SlideOne data={first} />
       </SwiperSlide>
       <SwiperSlide>
-        <SlideTwo data={slides[1]} />
+        <SlideTwo data={second} />
       </SwiperSlide>
     </Swiper>
   );

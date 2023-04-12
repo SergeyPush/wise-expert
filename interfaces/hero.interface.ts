@@ -66,4 +66,5 @@ export interface IHero {
   subtitle?: string;
   items?: string[];
   image: Image;
+  slide: 1 | 2;
 }
