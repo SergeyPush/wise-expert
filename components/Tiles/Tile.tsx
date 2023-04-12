@@ -12,7 +12,9 @@ const Tile = ({ tile, classname }: TileInterface) => {
       className={`border-2 py-5 pl-8 pr-3 border-color-light-blue font-light rounded-3xl h-full ${classname}`}
     >
       <p
-        className={'text-lg md:text-2xl text-color-blue uppercase mb-2 md:mb-4'}
+        className={
+          'text-lg md:text-2xl text-color-blue uppercase mb-2 md:mb-4 font-bold'
+        }
       >
         {fields.name}
       </p>

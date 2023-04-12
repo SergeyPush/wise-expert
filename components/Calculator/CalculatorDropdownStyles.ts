@@ -5,8 +5,9 @@ const colorStyles: StylesConfig = {
     ...styles,
     backgroundColor: '#0050CE',
     borderRadius: '1.5rem',
-    padding: '0.2rem 0.2rem',
+    padding: '0.1rem 0.1rem',
     border: '0.4px solid white',
+    fontSize: '14px',
   }),
   placeholder: (styles) => ({ ...styles, color: 'white' }),
   singleValue: (styles) => ({ ...styles, color: 'white', fontWeight: '300' }),
@@ -17,6 +18,7 @@ const colorStyles: StylesConfig = {
     borderRadius: '.5rem',
     paddingLeft: '5px',
     paddingRight: '2px',
+    fontSize: '14px',
   }),
   multiValueLabel: (styles) => ({ ...styles, padding: '2px' }),
   multiValueRemove: (style) => ({
@@ -27,6 +29,14 @@ const colorStyles: StylesConfig = {
     },
   }),
   indicatorSeparator: () => ({}),
+  menuPortal: (styles) => ({
+    ...styles,
+    fontSize: '14px',
+  }),
+  menuList: (styles) => ({
+    ...styles,
+    fontSize: '14px',
+  }),
   clearIndicator: (style) => ({
     ...style,
     color: 'white',

@@ -26,12 +26,13 @@ const CalculatorInput = ({
       <input
         placeholder={placeholder}
         className={
-          'font-normal rounded-3xl placeholder:text-color-white border-color-white bg-color-blue w-full text-color-white hover:border-color-light-gray'
+          'rounded-3xl placeholder:text-color-white border-color-white bg-color-blue w-full text-color-white hover:border-color-light-gray text-[14px] font-light placeholder:text-[14px]'
         }
-        style={{ borderWidth: '0.4px', padding: '11px 18px' }}
+        style={{ borderWidth: '0.4px', padding: '8px 14px' }}
         name={name}
         onChange={(e) => handleChange(e.target.value)}
         value={value as string}
+        type={'number'}
       />
     </div>
   );

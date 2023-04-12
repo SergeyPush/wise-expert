@@ -38,7 +38,7 @@ const CalculatorForm = () => {
           Ви можете приблизно розрахувати вартість робіт для Вашої компанії.
           Заповніть форму і ми зв’яжемось з Вами
         </p>
-        <div className={'flex flex-col gap-4'}>
+        <div className={'flex flex-col gap-5'}>
           <div className={'flex flex-col xl:flex-row gap-4 lg:gap-3'}>
             <CalculatorDropdown
               options={organisationalForm}
