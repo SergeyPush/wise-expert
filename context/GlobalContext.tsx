@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 interface GlobalContextInterface {
   confirmationIsVisible: boolean;
-  showConfirmation: () => void;
+  showConfirmation: (value?: boolean) => void;
 }
 
 export const GlobalContext = React.createContext<GlobalContextInterface>({
@@ -14,8 +14,8 @@ export const ContextProvider = ({ children }: any) => {
   const [confirmationIsVisible, setConfirmationIsVisible] =
     useState<boolean>(false);
 
-  const showConfirmation = () => {
-    setConfirmationIsVisible(true);
+  const showConfirmation = (value?: boolean) => {
+    setConfirmationIsVisible(value ?? true);
     setTimeout(() => setConfirmationIsVisible(false), 3000);
   };
 

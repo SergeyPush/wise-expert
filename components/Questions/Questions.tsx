@@ -11,7 +11,7 @@ const Questions = () => {
         >
           <div
             className={
-              'text-color-white flex flex-col justify-center lg:w-2/5 '
+              'text-color-white flex flex-col justify-center lg:w-full '
             }
           >
             <p className={'text-3xl lg:text-5xl mb-1 lg:mb-5'}>
@@ -22,7 +22,7 @@ const Questions = () => {
             </p>
           </div>
           <div className={'flex justify-center items-center w-full'}>
-            <ContactForm />
+            <ContactForm className={'flex-1'} />
           </div>
         </div>
       </Wrapper>

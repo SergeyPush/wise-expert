@@ -20,7 +20,6 @@ export const formatData = (data: FormDataInterface) => {
         formattedValue = str.value;
       }
     }
-    const splitItem = item.split(/(?=[A-Z])/).join(' ');
-    return { ...acc, [splitItem]: formattedValue };
+    return { ...acc, [item]: formattedValue };
   }, {});
 };

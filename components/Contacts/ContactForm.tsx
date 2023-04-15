@@ -36,17 +36,19 @@ const ContactForm = ({
   const { showConfirmation } = useGlobalContext();
 
   const handleForm = (data: IContactForm) => {
-    showConfirmation();
+    sendData(formatData({ ...data, ...calculatorFormData }))
+      .then(() => showConfirmation(true))
+      .catch((err) => console.log(err));
+
     reset();
+
     if (clearCalculatorForm) {
       clearCalculatorForm();
     }
+
     if (setIsVisible) {
       setIsVisible(false);
     }
-    sendData(formatData({ ...data, ...calculatorFormData }))
-      .then(() => showConfirmation())
-      .catch((err) => console.log(err));
   };
 
   return (
@@ -99,7 +101,7 @@ const ContactForm = ({
               placeholder="Введіть телефон*"
               {...register('phone', { required: 'Телефон is required' })}
             />
-            {errors?.email && (
+            {errors?.phone && (
               <span
                 className={
                   'text-color-red text-sm absolute bottom-[-22px] ml-2'
