@@ -29,7 +29,7 @@ const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
       }}
       scrollbar={{ draggable: true }}
       autoplay={{
-        delay: 8000,
+        delay: 12000,
         disableOnInteraction: false,
       }}
     >

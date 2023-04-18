@@ -2,7 +2,7 @@
 @import 'mixins';
 
 .title {
-  font-weight: 400;
+  font-weight: 350;
   font-size: 36px;
   line-height: 120%;
   letter-spacing: 1px;
@@ -16,7 +16,7 @@
 
   @include lg {
     margin-top: 200px;
-    font-size: 90px;
+    font-size: 70px;
   }
 }
 
@@ -42,6 +42,7 @@
   }
   @include lg {
     background-position: center;
+    background-position-y: 22%;
     background-size: cover;
     height: calc(100vh - 81px);
   }

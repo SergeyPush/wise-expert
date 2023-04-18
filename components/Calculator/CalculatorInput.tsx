@@ -32,7 +32,6 @@ const CalculatorInput = ({
         name={name}
         onChange={(e) => handleChange(e.target.value)}
         value={value as string}
-        type={'number'}
       />
     </div>
   );

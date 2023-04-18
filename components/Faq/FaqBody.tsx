@@ -15,14 +15,13 @@ const FaqBody = ({ response, active }: FaqBodyInterface) => {
     <>
       {active && (
         <motion.div
+          dangerouslySetInnerHTML={{ __html: response }}
           variants={variants}
           initial={'hidden'}
           animate={'show'}
           exit={{ opacity: 0 }}
           className={`font-light`}
-        >
-          {response}
-        </motion.div>
+        ></motion.div>
       )}
     </>
   );
