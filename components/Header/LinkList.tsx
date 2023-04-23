@@ -9,7 +9,7 @@ interface LinkListInterface {
 const LinkList = ({ alignment, className }: LinkListInterface) => {
   return (
     <ul
-      className={`lg:flex flex-row gap-5 font-bold ${
+      className={`lg:flex flex-row gap-2 font-bold items-center ${
         alignment === 'vertical' ? 'flex-col' : ''
       } ${className}`}
     >

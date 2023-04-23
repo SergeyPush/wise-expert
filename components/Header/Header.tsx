@@ -31,7 +31,7 @@ const Header = () => {
         setIsVisible={setBookCallIsVisible}
       />
       <Wrapper>
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between gap-3">
           <span className="text-xl relative z-20 font-bold">WisExpert</span>
           <LinkList className={'hidden'} />
           <div className={'flex flex-row gap-4 lg:gap-10 items-center'}>
