@@ -3,6 +3,7 @@ import styles from '@/styles/MobileMenu.module.scss';
 import LinkList from '@/components/Header/LinkList';
 import Button from '@/components/Button/Button';
 import IconList from '@/components/Header/IconList';
+import { CONTACTS } from '@/constants/contact.const';
 
 const MobileMenu = () => {
   return (
@@ -14,12 +15,12 @@ const MobileMenu = () => {
         className={'h-4/5 bg-color-blue flex flex-col justify-center p-5 gap-6'}
       >
         <a
-          href="tel:+380997778810"
+          href={CONTACTS.phone}
           target={'_blank'}
           rel="noreferrer"
           className={'text-2xl text-color-white font-bold text-center'}
         >
-          +38(099)777-88-10
+          {CONTACTS.phoneDisp}
         </a>
         <Button
           format={'outlined'}

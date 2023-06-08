@@ -3,6 +3,7 @@ import Wrapper from '@/components/Wrapper';
 import IconList from '@/components/Header/IconList';
 import { LINKS } from '@/constants/links.const';
 import { scrollToId } from '@/utils/scroll.utils';
+import { CONTACTS } from '@/constants/contact.const';
 
 const Footer = () => {
   // const filteredLinks = LINKS.splice(3, 1);
@@ -43,8 +44,12 @@ const Footer = () => {
               <span className={'block mb-1'}>
                 Адреса: вулиця Євгена Сверстюка, 11А
               </span>
-              <span className={'block mb-1'}>Телефон: +38(099)777-88-10</span>
-              <span className={'block mb-1'}>Email: info@wisexpert.com.ua</span>
+              <a href={CONTACTS.phone} className={'block mb-1'}>
+                Телефон: {CONTACTS.phoneDisp}
+              </a>
+              <a href={CONTACTS.email} className={'block mb-1'}>
+                Email: {CONTACTS.emailDisp}
+              </a>
             </div>
           </div>
         </div>

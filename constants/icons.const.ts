@@ -3,6 +3,7 @@ import { FaTelegramPlane, FaInstagram } from 'react-icons/fa';
 import { GrFacebookOption } from 'react-icons/gr';
 import { IoMdMail } from 'react-icons/io';
 import { IIcon } from '@/interfaces/icon.interface';
+import { CONTACTS } from '@/constants/contact.const';
 
 export const ICONS = {
   PHONE: MdPhoneEnabled,
@@ -15,7 +16,7 @@ export const ICONS = {
 export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.PHONE,
-    link: 'tel:+380997778810',
+    link: CONTACTS.phone,
   },
   {
     Icon: ICONS.TELEGRAM,
@@ -31,6 +32,6 @@ export const ListIcons: IIcon[] = [
   },
   {
     Icon: ICONS.MAIL,
-    link: 'mailto:info@wisexpert.com.ua',
+    link: CONTACTS.email,
   },
 ];
