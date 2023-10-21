@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import Wrapper from '@/components/Wrapper';
-import { Nunito_Sans } from '@next/font/google';
+import { Nunito, Inter } from 'next/font/google';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
 import Button from '@/components/Button/Button';
 import Hamburger from '@/components/Button/Hamburger';
 import MobileMenu from '@/components/Header/MobileMenu';
 import BookCall from '@/components/Header/BookCall';
-const nunito = Nunito_Sans({
+const nunito = Nunito({
   subsets: ['latin'],
   style: 'normal',
-  weight: '400',
+});
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
 });
 
 const Header = () => {
@@ -19,7 +22,7 @@ const Header = () => {
 
   return (
     <nav
-      className={`${nunito.className} py-4 relative z-10`}
+      className={`${inter.className} py-4 relative z-10`}
       style={{
         backdropFilter: 'blur(10px)',
         background: 'rgba(255, 255, 255, 0.6)',
@@ -32,7 +35,11 @@ const Header = () => {
       />
       <Wrapper>
         <div className="flex flex-row items-center justify-between gap-3">
-          <span className="text-xl relative z-20 font-bold">WisExpert</span>
+          <span
+            className={`${nunito.className} text-xl lg:text-2xl relative z-20 font-semibold mb-1`}
+          >
+            WisExpert
+          </span>
           <LinkList className={'hidden'} />
           <div className={'flex flex-row gap-4 lg:gap-10 items-center'}>
             <IconList color={'black'} className={'hidden lg:flex'} />

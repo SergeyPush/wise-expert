@@ -1,4 +1,4 @@
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import client from '@/utils/contentful.api';
 import { Entry } from 'contentful';
 import { IHero } from '@/interfaces/hero.interface';
@@ -17,6 +17,7 @@ import Questions from '@/components/Questions/Questions';
 import Footer from '@/components/Footer/Footer';
 import Confirmation from '@/components/Common/Confirmation';
 import React from 'react';
+import Contacts from '@/components/Contacts/Contacts';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -46,6 +47,7 @@ export default function Home({
         <Clients clients={clients} />
         <Calculator />
         <Faq faq={faq} />
+        <Contacts />
         <Map />
         <Questions />
         <Footer />

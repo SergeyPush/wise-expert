@@ -1,6 +1,7 @@
-import { IconType } from "react-icons";
+import { IconType } from 'react-icons';
 
 export interface IIcon {
   Icon: IconType;
   link: string;
+  text?: string;
 }
