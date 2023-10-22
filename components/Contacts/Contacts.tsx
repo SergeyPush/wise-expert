@@ -8,7 +8,7 @@ const Contacts = () => {
     <Wrapper className="pb-10">
       <div id="contacts">
         <Title text="Як <b>нас</b> знайти?" />
-        <ul className="md:flex gap-4 justify-around flex-wrap px-4 lg:text-xl">
+        <ul className="md:flex gap-2 justify-around px-4">
           {ListIcons.map((icon, idx) => (
             <ContactItem item={icon} key={idx} />
           ))}
