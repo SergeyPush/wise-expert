@@ -10,7 +10,7 @@ const ContactItem = ({ item: { Icon, text, link } }: ContactItemInterface) => {
     <Link
       href={link}
       target="_blank"
-      className="flex items-center hover:text-color-blue"
+      className="flex items-center hover:text-color-blue text-xl md:text-lg mb-1 md:mb-0"
     >
       <Icon className="mr-2" />
       <span>{text}</span>

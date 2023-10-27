@@ -13,7 +13,7 @@ const LinkItem = ({ item }: LinkItemInterface) => {
   return (
     <li
       className={
-        'uppercase hover:text-color-blue cursor-pointer md:text-xs lg:text-sm text-color-extra-black font-medium'
+        'uppercase hover:text-color-blue cursor-pointer md:text-xs lg:text-sm text-color-extra-black font-medium whitespace-nowrap'
       }
       onClick={handleClick}
     >

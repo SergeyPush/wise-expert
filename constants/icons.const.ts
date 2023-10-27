@@ -27,7 +27,7 @@ export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.FACEBOOK,
     link: 'https://facebook.com/wisexpert',
-    text: 'wisexpert',
+    text: 'Wisexpert',
   },
   {
     Icon: ICONS.INSTAGRAM,
@@ -37,6 +37,6 @@ export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.MAIL,
     link: CONTACTS.email,
-    text: 'info@wisexpert.com.ua',
+    text: 'wisexpert911@gmail.com',
   },
 ];
