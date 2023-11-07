@@ -32,7 +32,6 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
             format={'white'}
             text={'Розрахувати власність'}
             size={'wide'}
-            className={''}
             onClick={() => scrollToId('calc')}
           />
           <Button
