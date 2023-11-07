@@ -40,36 +40,6 @@ export default function Home({
   clients,
   faq,
 }: HomeInterface) {
-  const router = useRouter();
-  const path = router.asPath;
-  const value = path.split('=')[1];
-  if (value) {
-    notion.pages
-      .create({
-        parent: {
-          database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID as string,
-        },
-        properties: {
-          Date: {
-            date: {
-              start: new Date().toISOString(),
-            },
-          },
-          Source: {
-            title: [
-              {
-                type: 'text',
-                text: {
-                  content: value,
-                },
-              },
-            ],
-          },
-        },
-      })
-      .catch((err) => console.log(err));
-  }
-
   return (
     <>
       <main className={inter.className}>
@@ -118,7 +88,4 @@ export async function getStaticProps() {
       faq: faqResponse,
     },
   };
-}
-function getDb() {
-  throw new Error('Function not implemented.');
 }
