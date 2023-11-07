@@ -25,8 +25,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
           {`
           const path = window.location.search
           const value = path.split('=')[1];
+          const origin = window.location.origin
           if (value ) {
-              fetch('http://localhost:3000/api/notion', {
+              fetch(origin+'/api/notion', {
                 method: 'POST',
                 body: JSON.stringify({ source: value }),
               }).catch((err) => console.log(err));
