@@ -37,6 +37,6 @@ export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.MAIL,
     link: CONTACTS.email,
-    text: 'wisexpert911@gmail.com',
+    text: CONTACTS.emailDisp,
   },
 ];
