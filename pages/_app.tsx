@@ -23,14 +23,19 @@ export default function App({ Component, pageProps, router }: AppProps) {
         </Script>
         <Script id="notion">
           {`
-          const path = window.location.search
-          const value = path.split('=')[1];
-          const origin = window.location.origin
-          if (value ) {
-              fetch(origin+'/api/notion', {
-                method: 'POST',
-                body: JSON.stringify({ source: value }),
-              }).catch((err) => console.log(err));
+            try {
+              const path = window.location.href;
+              const url = new URL(path);
+              const value = url.searchParams.get("source");
+              const origin = window.location.origin;
+              if (value) {
+                fetch(origin + "/api/notion", {
+                  method: "POST",
+                  body: JSON.stringify({ source: value }),
+                }).catch((err) => console.log(err));
+              }
+            } catch (e) {
+              console.log(e);
             }
           `}
         </Script>

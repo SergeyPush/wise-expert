@@ -20,7 +20,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
       <Wrapper className="min-h-full flex flex-col justify-end md:justify-start">
         <h1
           className={styles.title}
-          dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisеExpert') }}
+          dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
         />
         <h2
           className={styles.subtitle}
