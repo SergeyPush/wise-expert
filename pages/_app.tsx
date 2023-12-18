@@ -11,14 +11,14 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <ContextProvider>
         <Script
           strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtag/js?id=G-N8DNF3Y98H"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-11421126867"
         />
         <Script id="google-analytics">
           {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-N8DNF3Y98H');
+          window.dataLayer = window.dataLayer || []; 
+          function gtag(){dataLayer.push(arguments);} 
+          gtag('js', new Date()); 
+          gtag('config', 'AW-11421126867'); 
         `}
         </Script>
         <Script id="notion">
