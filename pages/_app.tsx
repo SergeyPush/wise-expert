@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app';
 import Layout from '@/components/Layout';
 import { ContextProvider } from '@/context/GlobalContext';
 import Script from 'next/script';
-import { useEffect } from 'react';
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (

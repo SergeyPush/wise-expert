@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import Wrapper from '@/components/Wrapper';
-import { Nunito, Inter } from 'next/font/google';
+import { Nunito_Sans } from 'next/font/google';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
 import Button from '@/components/Button/Button';
 import Hamburger from '@/components/Button/Hamburger';
 import MobileMenu from '@/components/Header/MobileMenu';
 import BookCall from '@/components/Header/BookCall';
-const nunito = Nunito({
-  subsets: ['latin'],
-  style: 'normal',
-});
-const inter = Inter({
+
+const nunito = Nunito_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
+  preload: false,
+  variable: '--font-sans',
 });
+// const inter = Inter({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '600', '700', '800'],
+// });
 
 const Header = () => {
   const [mobileMenuIsActive, setMobileMenuIsActive] = useState<boolean>(false);
@@ -22,7 +25,7 @@ const Header = () => {
 
   return (
     <nav
-      className={`${inter.className} py-4 relative z-10`}
+      className={`${nunito.className} py-4 relative z-10`}
       style={{
         backdropFilter: 'blur(10px)',
         background: 'rgba(255, 255, 255, 0.6)',

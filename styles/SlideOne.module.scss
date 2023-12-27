@@ -2,7 +2,7 @@
 @import 'mixins';
 
 .title {
-  font-weight: 350;
+  font-weight: 400;
   font-size: 36px;
   line-height: 120%;
   letter-spacing: 1px;
@@ -11,38 +11,44 @@
 
   @include md {
     margin-top: 300px;
-    font-size: 44px;
+    font-size: 54px;
   }
 
   @include lg {
     margin-top: 200px;
-    font-size: 70px;
+    font-size: 96px;
   }
 }
 
 .subtitle {
-  font-weight: 400;
-  line-height: 160%;
+  font-weight: 300;
+  line-height: 140%;
   letter-spacing: 1px;
   color: $color-white;
-  margin-bottom: 30px;
+  font-size: 20px;
+  margin-bottom: 40px;
+
+  @include md {
+    font-size: 24px;
+  }
 }
 
 .background {
   background-color: #030304;
-  background-size: 600px, contain, contain;
+  background-size: contain, contain;
   background-position-x: center;
   height: 550px;
   background-repeat: no-repeat;
-  padding-bottom: 60px;
+  padding-bottom: 50px;
 
   @include md {
     height: 600px;
     background-size: cover;
+    padding-bottom: 20;
   }
   @include lg {
     background-position: center;
-    background-position-y: 22%;
+    background-position-y: 5%;
     background-size: cover;
     height: calc(100vh - 81px);
   }

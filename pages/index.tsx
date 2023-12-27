@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Nunito_Sans } from 'next/font/google';
 import client from '@/utils/contentful.api';
 import { Entry } from 'contentful';
 import { IHero } from '@/interfaces/hero.interface';
@@ -18,12 +18,19 @@ import Footer from '@/components/Footer/Footer';
 import Confirmation from '@/components/Common/Confirmation';
 import React from 'react';
 import Contacts from '@/components/Contacts/Contacts';
-import { useRouter } from 'next/router';
-import notion from '@/utils/notion.api';
 
-const inter = Inter({
+// const inter = Inter({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '600', '700', '800'],
+//   preload: false,
+//   variable: '--font-inter',
+// });
+
+const nunito = Nunito_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
+  preload: false,
+  variable: '--font-sans',
 });
 
 interface HomeInterface {
@@ -33,6 +40,7 @@ interface HomeInterface {
   clients: IClients;
   faq: IFAQ;
 }
+
 export default function Home({
   slides,
   tiles,
@@ -42,7 +50,7 @@ export default function Home({
 }: HomeInterface) {
   return (
     <>
-      <main className={inter.className}>
+      <main className={nunito.className}>
         <HeroSwiper slides={slides} />
         <Tiles tiles={tiles} />
         <Table table={table} />
