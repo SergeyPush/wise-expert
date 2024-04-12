@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
+    "@next/third-parties": "^14.2.0",
     "@notionhq/client": "^2.2.13",
     "@types/node": "18.14.0",
     "@types/react": "18.0.28",
