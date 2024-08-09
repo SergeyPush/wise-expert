@@ -11,17 +11,17 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <ContextProvider>
         {/* <Script
           strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtag/js?id=AW-11421126867"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16666601833"
         />
         <Script id="google-analytics">
           {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'AW-11421126867');        
+          gtag('config', 'AW-16666601833');        
         `}
         </Script> */}
-        <GoogleAnalytics gaId="AW-11421126867" />
+        <GoogleAnalytics gaId="AW-16666601833" />
         <Script id="notion">
           {`
             try {
