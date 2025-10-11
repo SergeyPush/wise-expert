@@ -1,7 +1,8 @@
 import React from 'react';
 import { ITiles } from '@/interfaces/tile.interface';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, SwiperOptions } from 'swiper';
+import { Pagination } from 'swiper/modules';
+import type { SwiperOptions } from 'swiper/types';
 import Tile from '@/components/Tiles/Tile';
 
 interface TilesSwiperInterface {

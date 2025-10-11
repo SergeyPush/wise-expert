@@ -1,10 +1,10 @@
 import React from 'react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/pagination';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import { IHero } from '@/interfaces/hero.interface';
 import SlideOne from '@/components/Hero/SlideOne';
 import SlideTwo from '@/components/Hero/SlideTwo';
