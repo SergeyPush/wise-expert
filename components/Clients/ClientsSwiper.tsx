@@ -1,7 +1,8 @@
 import React from 'react';
 import { IClients } from '@/interfaces/clients.interface';
-import { Pagination, SwiperOptions, Autoplay } from 'swiper';
+import { Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { SwiperOptions } from 'swiper/types';
 import ImageSlide from '@/components/Clients/ImageSlide';
 
 interface ClientSwiperInterface {
@@ -12,7 +13,6 @@ const ClientsSwiper = ({ clients }: ClientSwiperInterface) => {
     spaceBetween: 1,
     loop: true,
     speed: 1000,
-    loopedSlides: 0,
     slidesPerView: 2,
     breakpoints: {
       640: {

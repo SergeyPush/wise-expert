@@ -70,20 +70,21 @@ export default function Home({
 export async function getStaticProps() {
   const { items } = await client.getEntries({ content_type: 'hero' });
   const data = items.map((item: Entry<any>) => item.fields);
+
   const { fields: tilesResponse } = await client.getEntry(
-    '38OxzgLsaAVgHagRJb6L7R'
+    '38OxzgLsaAVgHagRJb6L7R',
   );
 
   const { fields: tableResponse } = await client.getEntry(
-    '7JkauMUL1mb0eiosMdVMLo'
+    '7JkauMUL1mb0eiosMdVMLo',
   );
 
   const { fields: clientResponse } = await client.getEntry(
-    '6edFDs7Q0MuqIhyxT3jVGX'
+    '6edFDs7Q0MuqIhyxT3jVGX',
   );
 
   const { fields: faqResponse } = await client.getEntry(
-    '4eCRCqmvlHL2fjo8FfxVNi'
+    '4eCRCqmvlHL2fjo8FfxVNi',
   );
 
   return {

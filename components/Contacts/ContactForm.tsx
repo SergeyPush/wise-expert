@@ -7,6 +7,7 @@ import { formatData } from '@/utils/formatData.utils';
 import InputMask from 'react-input-mask';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { sendData } from '@/utils/emailjs.api';
+import { sendTelegramMessage } from '@/utils/telegram.utils';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
@@ -29,18 +30,19 @@ const ContactForm = ({
     handleSubmit,
     register,
     reset,
-
     formState: { errors },
   } = useForm<IContactForm>({ mode: 'onBlur' });
 
   const { showConfirmation } = useGlobalContext();
 
   const handleForm = (data: IContactForm) => {
-    sendData(formatData({ ...data, ...calculatorFormData }))
+    console.log(data);
+
+    sendTelegramMessage(formatData({ ...data, ...calculatorFormData }))
       .then(() => showConfirmation(true))
       .catch((err) => console.log(err));
 
-    reset();
+    reset({ email: '', phone: '', question: '' });
 
     if (clearCalculatorForm) {
       clearCalculatorForm();

@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins' as *;
 .title {
   font-weight: 400;
   font-size: 24px;
