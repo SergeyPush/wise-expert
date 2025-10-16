@@ -29,8 +29,9 @@ import Contacts from '@/components/Contacts/Contacts';
 const nunito = Nunito_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
-  preload: false,
+  preload: true,
   variable: '--font-sans',
+  display: 'swap',
 });
 
 interface HomeInterface {
