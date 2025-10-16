@@ -9,15 +9,30 @@ import Table from '@/components/Table/Table';
 import { ITable } from '@/interfaces/table.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import Clients from '@/components/Clients/Clients';
-import Calculator from '@/components/Calculator/Calculator';
-import Faq from '@/components/Faq/Faq';
 import { IFAQ } from '@/interfaces/faq.interface';
-import Map from '@/components/Map/Map';
-import Questions from '@/components/Questions/Questions';
 import Footer from '@/components/Footer/Footer';
-import Confirmation from '@/components/Common/Confirmation';
 import React from 'react';
-import Contacts from '@/components/Contacts/Contacts';
+import dynamic from 'next/dynamic';
+
+// Lazy load below-the-fold components
+const Calculator = dynamic(() => import('@/components/Calculator/Calculator'), {
+  ssr: true,
+});
+const Faq = dynamic(() => import('@/components/Faq/Faq'), {
+  ssr: true,
+});
+const Contacts = dynamic(() => import('@/components/Contacts/Contacts'), {
+  ssr: true,
+});
+const Map = dynamic(() => import('@/components/Map/Map'), {
+  ssr: true,
+});
+const Questions = dynamic(() => import('@/components/Questions/Questions'), {
+  ssr: true,
+});
+const Confirmation = dynamic(() => import('@/components/Common/Confirmation'), {
+  ssr: false,
+});
 
 // const inter = Inter({
 //   subsets: ['latin'],

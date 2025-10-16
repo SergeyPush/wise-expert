@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -31,6 +32,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.5",
     "@types/react-input-mask": "^3.0.6",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
