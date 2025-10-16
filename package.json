@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "start": "next start"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -17,8 +16,6 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "contentful": "^11.8.5",
-    "eslint": "^9.37.0",
-    "eslint-config-next": "^15.5.4",
     "framer-motion": "^12.23.24",
     "hono": "^4.9.11",
     "next": "^15.5.4",
@@ -34,9 +31,6 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.4.0",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.37.0",
     "@types/react-input-mask": "^3.0.6",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",

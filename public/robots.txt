@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Block access to API routes
+Disallow: /api/
+
+# Block access to Next.js internals
+Disallow: /_next/
+
+# Sitemap location
+Sitemap: https://wisexpert.com.ua/sitemap.xml
