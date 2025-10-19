@@ -67,3 +67,14 @@ export const additional: IDropdown[] = [
     value: 'Касові апарати',
   },
 ];
+
+export const diyaCityOptions: IDropdown[] = [
+  {
+    label: 'Стартап',
+    value: 'startup',
+  },
+  {
+    label: 'Резидент на загальних підставах',
+    value: 'general_resident',
+  },
+];
