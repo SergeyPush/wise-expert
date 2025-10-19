@@ -4,6 +4,7 @@ import Title from '@/components/Title';
 import CalculatorDropdown from '@/components/Calculator/CalculatorDropdown';
 import {
   additional,
+  diyaCityOptions,
   organisationalForm,
   organizationalType,
   taxSystem,
@@ -23,6 +24,7 @@ const CalculatorForm = () => {
     AdditionalInfo: '',
     NumberOfEmployees: '',
     DocumentQuantity: '',
+    DiyaCity: '',
   };
 
   const [calculatorForm, setCalculatorForm] = useState(initialState);
@@ -38,7 +40,7 @@ const CalculatorForm = () => {
           Ви можете приблизно розрахувати вартість робіт для Вашої компанії.
           Заповніть форму і ми зв’яжемось з Вами
         </p>
-        <div className={'flex flex-col gap-4 lg:gap-5'}>
+        <div className={'flex flex-col gap-4 lg:gap-4'}>
           <div className={'flex flex-col xl:flex-row gap-4 lg:gap-3'}>
             <CalculatorDropdown
               options={organisationalForm}
@@ -91,6 +93,16 @@ const CalculatorForm = () => {
               name={'DocumentQuantity'}
               setState={setCalculatorForm}
               value={calculatorForm.DocumentQuantity}
+            />
+          </div>
+          <div>
+            <CalculatorDropdown
+              options={diyaCityOptions}
+              label={'Дія.City'}
+              className={'flex-1'}
+              name={'DiyaCity'}
+              setState={setCalculatorForm}
+              value={calculatorForm.DiyaCity}
             />
           </div>
         </div>
