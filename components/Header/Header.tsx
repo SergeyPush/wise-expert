@@ -32,10 +32,12 @@ const Header = () => {
     <>
       {mobileMenuIsActive && <MobileMenu onClose={() => setMobileMenuIsActive(false)} />}
       <nav
-        className={`${inter.className} fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || mobileMenuIsActive
-            ? 'py-3 bg-color-white/90 backdrop-blur-xl shadow-soft'
-            : 'py-5 bg-transparent'
+        className={`${inter.className} fixed top-0 left-0 right-0 transition-all duration-300 ${
+          mobileMenuIsActive
+            ? 'py-3 bg-transparent z-[70]'
+            : isScrolled
+            ? 'py-3 bg-color-white/90 backdrop-blur-xl shadow-soft z-50'
+            : 'py-5 bg-transparent z-50'
         }`}
       >
         <BookCall
@@ -47,7 +49,7 @@ const Header = () => {
             {/* Logo */}
             <span
               className={`${inter.className} text-xl lg:text-2xl relative z-20 font-bold tracking-tight ${
-                isScrolled || mobileMenuIsActive ? 'text-color-black' : 'text-color-white'
+                mobileMenuIsActive ? 'text-color-white' : isScrolled ? 'text-color-black' : 'text-color-white'
               } transition-colors duration-300`}
             >
               WisExpert
@@ -73,7 +75,7 @@ const Header = () => {
                 className={'lg:hidden relative z-50'}
                 isActive={mobileMenuIsActive}
                 setIsActive={setMobileMenuIsActive}
-                isScrolled={isScrolled || mobileMenuIsActive}
+                isScrolled={isScrolled && !mobileMenuIsActive}
               />
             </div>
           </div>

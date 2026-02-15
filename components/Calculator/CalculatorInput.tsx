@@ -26,7 +26,7 @@ const CalculatorInput = ({
       <input
         placeholder={placeholder}
         className={
-          'rounded-xl bg-color-white/[0.08] border border-color-white/[0.15] w-full text-color-white placeholder:text-color-white/50 text-[14px] px-4 py-3 transition-all duration-200 hover:border-color-white/25 hover:bg-color-white/10 focus:border-color-white/30 focus:bg-color-white/10 focus:outline-none'
+          'rounded-xl bg-color-white/[0.08] border border-color-white/[0.15] w-full text-color-white placeholder:text-color-white/50 text-[14px] px-4 py-3 transition-all duration-200 hover:border-color-white/[0.25] hover:bg-color-white/10 focus:border-color-blue-light focus:bg-color-white/10 focus:outline-none'
         }
         name={name}
         onChange={(e) => handleChange(e.target.value)}

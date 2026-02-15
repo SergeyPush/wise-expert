@@ -15,7 +15,7 @@ const SlideTwo = ({ data: { title, image, items } }: HeroInterface) => {
         backgroundImage: `url(${image?.fields?.file?.url})`,
       }}
     >
-      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-24 md:pb-28 lg:justify-center lg:pt-32 lg:pb-24">
+      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-24 md:pb-28 lg:justify-center lg:pb-0 lg:pt-20">
         <h1
           className={styles.title}
           dangerouslySetInnerHTML={{ __html: makeBolder(title, 'Чому') }}

@@ -6,7 +6,7 @@ const colorStyles: StylesConfig = {
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
     borderRadius: '0.75rem',
     padding: '0.25rem 0.25rem',
-    border: state.isFocused ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.15)',
+    border: state.isFocused ? '1px solid #3B82F6' : '1px solid rgba(255, 255, 255, 0.15)',
     fontSize: '14px',
     boxShadow: 'none',
     transition: 'all 0.2s ease',

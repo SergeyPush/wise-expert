@@ -15,7 +15,7 @@ const ContactItem = ({ item: { Icon, text, link } }: ContactItemInterface) => {
       <span className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-color-blue/10 text-color-blue group-hover:bg-color-blue group-hover:text-color-white transition-colors duration-200">
         <Icon className="w-5 h-5" />
       </span>
-      <span className="text-xs lg:text-sm font-medium text-color-black break-all">{text}</span>
+      <span className="text-sm lg:text-sm xl:text-base font-medium text-color-black whitespace-nowrap">{text}</span>
     </Link>
   );
 };

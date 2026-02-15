@@ -34,9 +34,4 @@ export const ListIcons: IIcon[] = [
     link: 'https://www.instagram.com/wisexpert_buh',
     text: 'wisexpert_buh',
   },
-  {
-    Icon: ICONS.MAIL,
-    link: CONTACTS.email,
-    text: CONTACTS.emailDisp,
-  },
 ];
