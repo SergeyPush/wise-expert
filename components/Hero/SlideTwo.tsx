@@ -12,17 +12,17 @@ const SlideTwo = ({ data: { title, image, items } }: HeroInterface) => {
     <div
       className={styles.background}
       style={{
-        backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url(${image?.fields?.file?.url})`,
+        backgroundImage: `url(${image?.fields?.file?.url})`,
       }}
     >
-      <Wrapper className="min-h-full flex flex-col justify-center">
+      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-24 md:pb-28 lg:justify-center lg:pt-32 lg:pb-24">
         <h1
           className={styles.title}
           dangerouslySetInnerHTML={{ __html: makeBolder(title, 'Чому') }}
         />
         <ul
           className={
-            'text-color-white flex flex-col gap-5 lg:flex-row lg:gap-16'
+            'text-color-white flex flex-col gap-6 lg:flex-row lg:gap-12 xl:gap-16'
           }
         >
           {items?.map((item, idx) => (

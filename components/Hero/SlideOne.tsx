@@ -14,11 +14,10 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
     <div
       className={styles.background}
       style={{
-        // backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 138.24%), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(${image?.fields?.file?.url})`,
         backgroundImage: `url(${image?.fields?.file?.url})`,
       }}
     >
-      <Wrapper className="h-full flex flex-col justify-end pb-10">
+      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-24 md:pb-28 lg:justify-center lg:pt-32 lg:pb-24">
         <h1
           className={styles.title}
           dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
@@ -28,17 +27,19 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
           dangerouslySetInnerHTML={{ __html: subtitle ? subtitle : '' }}
         />
 
-        <div className="flex flex-col md:flex-row gap-4 items-start">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Button
-            format={'white'}
+            format={'primary'}
             text={'Розрахувати вартість'}
             size={'wide'}
+            className="w-full sm:w-auto"
             onClick={() => scrollToId('calc')}
           />
           <Button
             format={'outlined'}
             text={'Дізнатися більше'}
             size={'wide'}
+            className="w-full sm:w-auto"
             onClick={() => scrollToId('useful')}
           />
         </div>

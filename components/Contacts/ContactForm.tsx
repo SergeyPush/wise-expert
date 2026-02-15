@@ -56,25 +56,25 @@ const ContactForm = ({
   return (
     <div className={`${className}`}>
       <form
-        className={'p-5 lg:p-10 bg-color-white rounded-3xl'}
+        className={'p-6 md:p-8 bg-color-white rounded-2xl shadow-elevated'}
         onSubmit={handleSubmit(handleForm)}
       >
-        <div
-          className={'mb-6 text-xl lg:text-2xl uppercase text-left font-bold'}
-        >
-          <p>Отримайте персональну</p>
-          <p>консультацію</p>
+        <div className={'mb-6'}>
+          <h3 className={'text-xl lg:text-2xl font-bold text-color-black mb-1'}>
+            Отримайте персональну
+          </h3>
+          <p className={'text-xl lg:text-2xl font-bold text-color-blue'}>
+            консультацію
+          </p>
         </div>
 
-        <div
-          className={'flex flex-col md:flex-row gap-2 lg:gap-4 mb-2 lg:mb-6'}
-        >
-          <div className={'flex font-normal flex-col relative flex-1'}>
+        <div className={'flex flex-col gap-4 mb-4'}>
+          <div className={'flex font-normal flex-col relative'}>
             <InputLabel text={'Email:'} htmlFor={'email'} />
             <input
               id="email"
               className={
-                'font-normal px-4 py-2 border border-color-light-blue rounded-3xl placeholder:text-color-black'
+                'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200'
               }
               type="email"
               placeholder="Введіть email*"
@@ -83,7 +83,7 @@ const ContactForm = ({
             {errors?.email && (
               <span
                 className={
-                  'text-color-red text-sm absolute bottom-[-22px] ml-2'
+                  'text-color-red text-sm absolute bottom-[-20px] ml-1'
                 }
               >
                 Email обов&apos;язковий
@@ -91,13 +91,13 @@ const ContactForm = ({
             )}
           </div>
 
-          <div className={'flex font-normal flex-col relative flex-1'}>
-            <InputLabel text={'Phone:'} htmlFor={'phone'} />
+          <div className={'flex font-normal flex-col relative'}>
+            <InputLabel text={'Телефон:'} htmlFor={'phone'} />
             <InputMask
               mask={'+38(099)999-99-99'}
               id="phone"
               className={
-                'font-normal px-4 py-2 border border-color-light-blue rounded-3xl placeholder:text-color-black'
+                'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200'
               }
               type="text"
               placeholder="Введіть телефон*"
@@ -106,7 +106,7 @@ const ContactForm = ({
             {errors?.phone && (
               <span
                 className={
-                  'text-color-red text-sm absolute bottom-[-22px] ml-2'
+                  'text-color-red text-sm absolute bottom-[-20px] ml-1'
                 }
               >
                 Телефон обов&apos;язковий
@@ -114,13 +114,13 @@ const ContactForm = ({
             )}
           </div>
         </div>
-        <div className={'flex font-normal flex-col relative mb-8'}>
+        <div className={'flex font-normal flex-col relative mb-6'}>
           <InputLabel text={'Уточнююче питання:'} htmlFor={'question'} />
           <textarea
             rows={3}
             id="question"
             className={
-              'font-normal px-4 py-3 border border-color-light-blue rounded-3xl placeholder:text-color-black resize-none'
+              'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200 resize-none'
             }
             placeholder="Ваше повідомлення"
             {...register('question')}
@@ -129,9 +129,10 @@ const ContactForm = ({
 
         <Button
           type={'submit'}
-          format={'black'}
+          format={'primary'}
           text={'Розрахувати вартість'}
           size={'wide'}
+          className="w-full"
         />
       </form>
     </div>

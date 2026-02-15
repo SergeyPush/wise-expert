@@ -10,10 +10,12 @@ const ContactItem = ({ item: { Icon, text, link } }: ContactItemInterface) => {
     <Link
       href={link}
       target="_blank"
-      className="flex items-center hover:text-color-blue text-xl md:text-lg mb-1 md:mb-0"
+      className="flex items-center gap-3 p-4 rounded-xl bg-color-light-gray hover:bg-color-light-blue transition-colors duration-200 group min-w-0"
     >
-      <Icon className="mr-2" />
-      <span>{text}</span>
+      <span className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-color-blue/10 text-color-blue group-hover:bg-color-blue group-hover:text-color-white transition-colors duration-200">
+        <Icon className="w-5 h-5" />
+      </span>
+      <span className="text-xs lg:text-sm font-medium text-color-black break-all">{text}</span>
     </Link>
   );
 };

@@ -22,13 +22,12 @@ const CalculatorInput = ({
 
   return (
     <div className={'flex-1'}>
-      <InputLabel text={label} className={'text-color-white'} />
+      <InputLabel text={label} className={'text-color-white/80'} />
       <input
         placeholder={placeholder}
         className={
-          'rounded-3xl placeholder:text-color-white border-color-white bg-color-blue w-full text-color-white hover:border-color-light-gray text-[14px] font-light placeholder:text-[14px]'
+          'rounded-xl bg-color-white/[0.08] border border-color-white/[0.15] w-full text-color-white placeholder:text-color-white/50 text-[14px] px-4 py-3 transition-all duration-200 hover:border-color-white/25 hover:bg-color-white/10 focus:border-color-white/30 focus:bg-color-white/10 focus:outline-none'
         }
-        style={{ borderWidth: '0.4px', padding: '8px 14px' }}
         name={name}
         onChange={(e) => handleChange(e.target.value)}
         value={value as string}

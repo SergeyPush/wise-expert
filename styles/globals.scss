@@ -13,14 +13,36 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   width: 100%;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 15px;
+  line-height: 1.6;
   scroll-behavior: smooth;
-  @include xl {
-    font-size: 18px;
-    line-height: 25px;
+  color: $color-black;
+  background-color: #FAFBFC;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include lg {
+    font-size: 16px;
   }
 }
+
+// Selection styling
+::selection {
+  background-color: rgba(37, 99, 235, 0.2);
+  color: $color-black;
+}
+
+// Focus visible for accessibility
+:focus-visible {
+  outline: 2px solid $color-blue;
+  outline-offset: 2px;
+}
+
 .swiper {
   overflow-x: hidden;
+}
+
+// Smooth transitions for interactive elements
+a, button {
+  transition: all 0.2s ease;
 }

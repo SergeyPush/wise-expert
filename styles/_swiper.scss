@@ -1,23 +1,35 @@
 .hero-swiper-pagination-bullets {
   position: absolute;
-  bottom: 5%;
+  bottom: 24px;
   display: flex;
   justify-content: center;
   left: 0;
   right: 0;
-  gap: 10px;
+  gap: 8px;
+  z-index: 20;
+
+  @media (min-width: 768px) {
+    bottom: 32px;
+  }
 }
 
 .hero-swiper-bullet {
-  width: 12px;
-  height: 12px;
-  border: 1px solid #ffffff;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.4);
   display: flex;
-  border-radius: 50%;
-  /* Inside auto layout */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
+.hero-swiper-bullet:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
 .hero-swiper-bullet-active {
-  background-color: #fff;
+  background-color: #ffffff;
+  width: 24px;
 }
 
 .tiles-swiper-pagination-bullets {
@@ -27,22 +39,32 @@
   justify-content: center;
   left: 0;
   right: 0;
-  gap: 10px;
+  gap: 8px;
 }
 
 .tiles-swiper-bullet {
-  width: 12px;
-  height: 12px;
-  border: 1px solid black;
+  width: 8px;
+  height: 8px;
+  background-color: #CBD5E1;
   display: flex;
-  border-radius: 50%;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
+.tiles-swiper-bullet:hover {
+  background-color: #94A3B8;
+}
+
 .tiles-swiper-bullet-active {
-  background-color: black;
+  background-color: #2563EB;
+  width: 24px;
 }
+
 .swiper {
   overflow: visible !important;
 }
+
 .swiper-slide {
   height: 100% !important;
 }

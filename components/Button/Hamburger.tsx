@@ -4,16 +4,18 @@ interface HamburgerInterface {
   className?: string;
   isActive: boolean;
   setIsActive: Dispatch<SetStateAction<boolean>>;
+  isScrolled?: boolean;
 }
 
 const Hamburger = ({
   isActive,
   setIsActive,
   className,
+  isScrolled,
 }: HamburgerInterface) => {
   return (
     <div
-      className={`menu-toggle${isActive ? ' active' : ''} ${className}`}
+      className={`menu-toggle${isActive ? ' active' : ''}${isScrolled ? ' scrolled' : ''} ${className}`}
       onClick={() => {
         setIsActive((prevState) => !prevState);
       }}

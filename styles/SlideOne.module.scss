@@ -2,77 +2,106 @@
 @use 'mixins' as *;
 
 .title {
-  font-weight: 500;
-  font-size: 36px;
+  font-weight: 700;
+  font-size: 28px;
   line-height: 120%;
-  letter-spacing: 1px;
-  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
   color: $color-white;
+  max-width: 100%;
+
+  @include sm {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
 
   @include md {
-    font-size: 50px;
+    font-size: 44px;
+    margin-bottom: 16px;
+    max-width: 600px;
   }
 
   @include lg {
-    font-size: 60px;
-    margin-bottom: 10px;
+    font-size: 52px;
+    margin-bottom: 20px;
+    max-width: 700px;
   }
 
   @include xl {
-    font-size: 64px;
-    margin-bottom: 10px;
+    font-size: 60px;
+    margin-bottom: 20px;
+    max-width: 800px;
   }
-  
+
   @include xl2 {
-    font-size: 84px;
-    margin-bottom: 4px;
+    font-size: 68px;
+    margin-bottom: 24px;
   }
 }
 
 .subtitle {
-  font-weight: 300;
-  line-height: 140%;
-  letter-spacing: 1px;
-  color: $color-white;
-  font-size: 20px;
-  margin-bottom: 40px;
+  font-weight: 400;
+  line-height: 155%;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  margin-bottom: 24px;
+  max-width: 100%;
+
+  @include sm {
+    font-size: 16px;
+    margin-bottom: 28px;
+    max-width: 400px;
+  }
 
   @include md {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 17px;
+    margin-bottom: 32px;
+    max-width: 480px;
   }
 
   @include lg {
-    font-size: 20px;
-    margin-bottom: 24px;
+    font-size: 18px;
+    margin-bottom: 36px;
+    max-width: 520px;
   }
 
   @include xl {
-    margin-bottom: 24px;
-    font-size: 20px;
+    margin-bottom: 40px;
+    font-size: 19px;
   }
-  @include xl2{
-    margin-bottom: 24px;
-    font-size: 24px;
+
+  @include xl2 {
+    margin-bottom: 44px;
+    font-size: 20px;
   }
 }
 
 .background {
-  background-color: #030304;
-  background-size: contain, contain;
-  height: 550px;
+  background-color: #0F172A;
+  background-size: cover;
+  min-height: 100vh;
   background-repeat: no-repeat;
-  padding-bottom: 50px;
+  background-position: center;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 23, 42, 0.4) 0%,
+      rgba(15, 23, 42, 0.6) 50%,
+      rgba(15, 23, 42, 0.85) 100%
+    );
+    z-index: 1;
+  }
 
   @include md {
-    height: 600px;
-    background-size: cover;
-    padding-bottom: 20;
+    min-height: 100vh;
   }
   @include lg {
-    background-position: center;
-    background-position-y: 18%;
-    background-size: cover;
-    height: calc(100vh - 81px);
+    min-height: 100vh;
   }
 }

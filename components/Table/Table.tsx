@@ -15,14 +15,16 @@ const Table = ({ table }: TableInterface) => {
   const [active, setActive] = useState<ServiceTypes>('fop');
 
   return (
-    <div className={'pt-12 pb-12'} id={'prices'}>
+    <section className={'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24'} id={'prices'}>
       <Wrapper>
         <Title text={`${table.title}`} />
-        <p className={'text-center mb-10'}>{table.subtitle}</p>
+        <p className={'text-center text-color-muted mb-8 md:mb-12 max-w-2xl mx-auto'}>
+          {table.subtitle}
+        </p>
         <TableHeader active={active} setActive={setActive} />
         <TableData data={table[active]} />
       </Wrapper>
-    </div>
+    </section>
   );
 };
 

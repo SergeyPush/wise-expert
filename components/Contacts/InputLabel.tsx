@@ -8,7 +8,7 @@ interface InputLabelInterface {
 const InputLabel = ({ text, className, htmlFor }: InputLabelInterface) => {
   return (
     <label
-      className={`mb-1 text-base font-bold ml-2 text-color-black block ${className}`}
+      className={`mb-2 text-sm font-medium text-color-black block ${className}`}
       htmlFor={htmlFor}
     >
       {text}

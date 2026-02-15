@@ -5,16 +5,18 @@ import ContactItem from './ContactItem';
 
 const Contacts = () => {
   return (
-    <Wrapper className="pb-10">
-      <div id="contacts">
+    <section className="pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20" id="contacts">
+      <Wrapper>
         <Title text="Як <b>нас</b> знайти?" />
-        <ul className="md:flex gap-2 justify-around px-4 items-center">
-          {ListIcons.map((icon, idx) => (
-            <ContactItem item={icon} key={idx} />
-          ))}
-        </ul>
-      </div>
-    </Wrapper>
+        <div className="bg-color-white rounded-2xl shadow-soft p-6 md:p-8">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+            {ListIcons.map((icon, idx) => (
+              <ContactItem item={icon} key={idx} />
+            ))}
+          </ul>
+        </div>
+      </Wrapper>
+    </section>
   );
 };
 
