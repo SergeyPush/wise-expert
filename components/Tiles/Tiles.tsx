@@ -4,6 +4,7 @@ import { ITiles } from '@/interfaces/tile.interface';
 import Title from '@/components/Title';
 import TilesList from '@/components/Tiles/TilesList';
 import TilesSwiper from '@/components/Tiles/TilesSwiper';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface TilesInterface {
   tiles: ITiles;
@@ -15,7 +16,9 @@ const Tiles = ({ tiles }: TilesInterface) => {
       className={'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24 bg-color-light-gray'}
     >
       <Wrapper>
-        <Title text={tiles.title} />
+        <ScrollReveal>
+          <Title text={tiles.title} />
+        </ScrollReveal>
         <TilesSwiper tiles={tiles} />
         <TilesList tiles={tiles} />
       </Wrapper>

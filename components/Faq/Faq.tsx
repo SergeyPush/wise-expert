@@ -3,6 +3,7 @@ import Wrapper from '@/components/Wrapper';
 import Title from '@/components/Title';
 import FaqItem from '@/components/Faq/FaqItem';
 import { IFAQ } from '@/interfaces/faq.interface';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface FaqInterface {
   faq: IFAQ;
@@ -18,17 +19,21 @@ const Faq = ({ faq }: FaqInterface) => {
       id={'faq'}
     >
       <Wrapper>
-        <Title text={title} />
-        <div className="bg-color-white rounded-2xl shadow-soft overflow-hidden">
-          {questionList.map((item, index) => (
-            <FaqItem
-              key={index}
-              question={item.question}
-              response={item.answer}
-              isLast={index === questionList.length - 1}
-            />
-          ))}
-        </div>
+        <ScrollReveal>
+          <Title text={title} />
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <div className="bg-color-white rounded-2xl shadow-soft overflow-hidden">
+            {questionList.map((item, index) => (
+              <FaqItem
+                key={index}
+                question={item.question}
+                response={item.answer}
+                isLast={index === questionList.length - 1}
+              />
+            ))}
+          </div>
+        </ScrollReveal>
       </Wrapper>
     </section>
   );

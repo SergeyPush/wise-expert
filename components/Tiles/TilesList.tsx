@@ -1,6 +1,7 @@
 import React from 'react';
 import { ITiles } from '@/interfaces/tile.interface';
 import Tile from '@/components/Tiles/Tile';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface TilesListInterface {
   tiles: ITiles;
@@ -13,7 +14,9 @@ const TilesList = ({ tiles }: TilesListInterface) => {
       }
     >
       {tiles.tile.map((tile, index) => (
-        <Tile tile={tile} key={index} />
+        <ScrollReveal key={index} delay={index * 0.1}>
+          <Tile tile={tile} />
+        </ScrollReveal>
       ))}
     </ul>
   );
