@@ -2,60 +2,94 @@
 @use 'mixins' as *;
 
 .title {
-  font-weight: 400;
-  font-size: 40px;
+  font-weight: 700;
+  font-size: 26px;
   line-height: 120%;
-  letter-spacing: 1px;
-  margin-bottom: 54px;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
   color: $color-white;
+
+  @include sm {
+    font-size: 30px;
+    margin-bottom: 32px;
+  }
+
   @include md {
-    font-size: 60px;
+    font-size: 40px;
+    margin-bottom: 40px;
   }
 
   @include lg {
-    font-size: 94px;
+    font-size: 52px;
+    margin-bottom: 48px;
+  }
+
+  @include xl {
+    font-size: 60px;
+    margin-bottom: 52px;
   }
 }
 
 .background {
   background-size: cover;
-  background-position-x: center;
-  height: 550px;
+  background-position: center;
+  min-height: 100vh;
   background-repeat: no-repeat;
-  padding-bottom: 60px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 23, 42, 0.4) 0%,
+      rgba(15, 23, 42, 0.6) 50%,
+      rgba(15, 23, 42, 0.85) 100%
+    );
+    z-index: 1;
+  }
 
   @include md {
-    height: 600px;
-    background-size: cover;
+    min-height: 100vh;
   }
   @include lg {
-    background-position: center;
-    background-size: cover;
-    height: calc(100vh - 81px);
+    min-height: 100vh;
   }
 }
 
 .item {
-  padding-left: 20px;
-  line-height: 150%;
+  padding-left: 24px;
+  line-height: 170%;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9);
+
+  @include md {
+    font-size: 16px;
+  }
+
   @include lg {
     padding-left: 0;
+    font-size: 17px;
   }
+
   position: relative;
+
   &:before {
     margin: auto;
     content: '';
     position: absolute;
-    background-color: #fff;
-    height: 70%;
-    left: 5px;
-    width: 2px;
+    background: linear-gradient(to bottom, $color-blue, $color-blue-light);
+    height: 60%;
+    left: 6px;
+    width: 3px;
     top: 0;
     bottom: 0;
+    border-radius: 2px;
 
     @include lg {
-      height: 80%;
-      left: -20px;
+      height: 70%;
+      left: -24px;
     }
   }
 }

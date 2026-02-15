@@ -21,12 +21,19 @@ const FaqTitle = ({ question, active, setActive }: FaqTitleInterface) => {
     <div
       onClick={handleClick}
       className={
-        'flex flex-row justify-between font-bold text-lg text-color-black mb-5 cursor-pointer items-center'
+        `flex flex-row justify-between font-semibold text-base md:text-lg cursor-pointer items-center gap-4 px-5 py-5 md:px-6 md:py-6 transition-colors duration-200 ${
+          active ? 'text-color-blue' : 'text-color-black hover:text-color-blue'
+        }`
       }
     >
       <span>{question}</span>
-      <motion.span variants={variants} animate={active ? 'open' : 'closed'}>
-        <IoChevronDownOutline />
+      <motion.span
+        variants={variants}
+        animate={active ? 'open' : 'closed'}
+        transition={{ duration: 0.2 }}
+        className="flex-shrink-0 text-color-muted"
+      >
+        <IoChevronDownOutline className="w-5 h-5" />
       </motion.span>
     </div>
   );

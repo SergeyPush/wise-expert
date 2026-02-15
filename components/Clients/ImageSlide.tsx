@@ -8,13 +8,13 @@ interface ImageSlideInterface {
 }
 const ImageSlide = ({ name, url }: ImageSlideInterface) => {
   return (
-    <div>
+    <div className="flex items-center justify-center px-4 py-2 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
       <Image
         src={getUrl(url)}
         alt={name}
         width={500}
         height={500}
-        className={'h-10 lg:h-14 object-contain'}
+        className={'h-10 lg:h-12 object-contain'}
       />
     </div>
   );

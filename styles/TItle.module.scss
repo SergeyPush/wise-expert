@@ -1,20 +1,40 @@
 @use 'mixins' as *;
+@use 'variables' as *;
+
 .title {
-  font-weight: 400;
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 26px;
   line-height: 120%;
   text-align: center;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  color: $color-black;
+
+  @include sm {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  @include md {
+    font-size: 34px;
+    margin-bottom: 24px;
+  }
 
   @include lg {
-    font-size: 42px;
+    font-size: 40px;
+    margin-bottom: 32px;
+  }
+
+  @include xl {
+    font-size: 44px;
     margin-bottom: 40px;
   }
 }
+
 .left {
   text-align: left;
 }
+
 .white {
   color: white;
 }

@@ -5,12 +5,13 @@ import FaqBody from '@/components/Faq/FaqBody';
 interface FaqItemInterface {
   question: string;
   response: string;
+  isLast?: boolean;
 }
-const FaqItem = ({ question, response }: FaqItemInterface) => {
+const FaqItem = ({ question, response, isLast }: FaqItemInterface) => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className={'border-b border-color-gray pb-4 mb-4'}>
+    <div className={`${!isLast ? 'border-b border-color-border' : ''}`}>
       <FaqTitle question={question} active={active} setActive={setActive} />
       <FaqBody response={response} active={active} />
     </div>

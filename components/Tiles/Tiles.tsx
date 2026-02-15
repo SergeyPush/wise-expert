@@ -4,28 +4,25 @@ import { ITiles } from '@/interfaces/tile.interface';
 import Title from '@/components/Title';
 import TilesList from '@/components/Tiles/TilesList';
 import TilesSwiper from '@/components/Tiles/TilesSwiper';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface TilesInterface {
   tiles: ITiles;
 }
 const Tiles = ({ tiles }: TilesInterface) => {
   return (
-    <div
+    <section
       id={'useful'}
-      className={'pt-12 pb-10 lg:pt-32 lg:pb-20'}
-      style={{
-        background:
-          'radial-gradient(46.56% 196.35% at 6.15% 5.86%, rgba(0, 70, 250, 0.12) 0%, rgba(0, 130, 250, 0.04) 17.49%, rgba(255, 255, 255, 0.4) 79.11%)',
-      }}
+      className={'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24 bg-color-light-gray'}
     >
       <Wrapper>
-        <div className={''}>
+        <ScrollReveal>
           <Title text={tiles.title} />
-          <TilesSwiper tiles={tiles} />
-          <TilesList tiles={tiles} />
-        </div>
+        </ScrollReveal>
+        <TilesSwiper tiles={tiles} />
+        <TilesList tiles={tiles} />
       </Wrapper>
-    </div>
+    </section>
   );
 };
 

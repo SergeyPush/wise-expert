@@ -3,6 +3,7 @@ import Wrapper from '@/components/Wrapper';
 import Title from '@/components/Title';
 import FaqItem from '@/components/Faq/FaqItem';
 import { IFAQ } from '@/interfaces/faq.interface';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface FaqInterface {
   faq: IFAQ;
@@ -13,25 +14,28 @@ const Faq = ({ faq }: FaqInterface) => {
   const questionList = faqs.map((item) => item.fields);
 
   return (
-    <div
-      className={'pt-20 pb-20'}
+    <section
+      className={'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24 bg-color-light-gray'}
       id={'faq'}
-      style={{
-        background:
-          'radial-gradient(46.56% 196.35% at 6.15% 5.86%, rgba(0, 70, 250, 0.12) 0%, rgba(0, 130, 250, 0.03) 17.49%, rgba(255, 255, 255, 0.3) 79.11%)',
-      }}
     >
       <Wrapper>
-        <Title text={title} />
-        {questionList.map((item, index) => (
-          <FaqItem
-            key={index}
-            question={item.question}
-            response={item.answer}
-          />
-        ))}
+        <ScrollReveal>
+          <Title text={title} />
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <div className="bg-color-white rounded-2xl shadow-soft overflow-hidden">
+            {questionList.map((item, index) => (
+              <FaqItem
+                key={index}
+                question={item.question}
+                response={item.answer}
+                isLast={index === questionList.length - 1}
+              />
+            ))}
+          </div>
+        </ScrollReveal>
       </Wrapper>
-    </div>
+    </section>
   );
 };
 

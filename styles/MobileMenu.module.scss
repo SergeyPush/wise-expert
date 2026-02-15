@@ -1,14 +1,27 @@
 .wrapper {
-  padding-top: 60px;
-  position: absolute;
-  height: calc(100vh);
-  z-index: 10;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 60;
+  background-color: #0F172A;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
