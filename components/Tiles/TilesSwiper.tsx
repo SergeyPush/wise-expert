@@ -40,11 +40,11 @@ const TilesSwiper = ({ tiles }: TilesSwiperInterface) => {
   };
 
   return (
-    <div className={'lg:hidden'}>
+    <div className={'lg:hidden pb-12'}>
       <Swiper {...swiperOptions}>
         {tiles.tile.map((item, index) => {
           return (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="!pb-4">
               <Tile tile={item} />
             </SwiperSlide>
           );
