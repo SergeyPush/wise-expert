@@ -25,7 +25,7 @@ const Tile = ({ tile, classname }: TileInterface) => {
           </li>
         ))}
       </ul>
-      <div className="pt-4 border-t border-color-border">
+      <div className="pt-5 mt-2 border-t border-color-border">
         <p className={'font-bold text-xl text-color-black'}>{fields.price}</p>
       </div>
     </li>

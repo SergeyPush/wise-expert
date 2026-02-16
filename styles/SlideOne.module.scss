@@ -77,10 +77,13 @@
   }
 }
 
-// Mobile: real <img> covering full hero area
+// Mobile: split layout - image top half, content bottom half
 .mobileImage {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50vh;
   z-index: 0;
   overflow: hidden;
 
@@ -94,7 +97,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 20%;
 }
 
 .mobileOverlay {
@@ -102,10 +105,9 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(15, 23, 42, 0.3) 0%,
-    rgba(15, 23, 42, 0.4) 30%,
-    rgba(15, 23, 42, 0.7) 60%,
-    rgba(15, 23, 42, 0.9) 80%,
+    transparent 0%,
+    transparent 60%,
+    rgba(15, 23, 42, 0.6) 80%,
     rgba(15, 23, 42, 1) 100%
   );
 }

@@ -46,7 +46,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
         </div>
       )}
 
-      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-[116px] md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
+      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pt-[52vh] pb-[116px] md:pt-0 md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
         <motion.h1
           className={styles.title}
           dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
