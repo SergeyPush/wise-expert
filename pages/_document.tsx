@@ -12,7 +12,7 @@ export default function Document() {
               '@type': 'AccountingService',
               name: 'WisExpert',
               url: 'https://wisexpert.com.ua',
-              logo: 'https://wisexpert.com.ua/favicon.png',
+              logo: 'https://wisexpert.com.ua/logo.png',
               image: 'https://wisexpert.com.ua/og-image.png',
               description:
                 'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва',
@@ -20,7 +20,9 @@ export default function Document() {
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'UA',
-                addressLocality: 'Україна',
+                addressLocality: 'Київ',
+                streetAddress: 'вул. Сверстюка, 11а',
+                postalCode: '02002',
               },
               contactPoint: {
                 '@type': 'ContactPoint',
@@ -28,6 +30,20 @@ export default function Document() {
                 contactType: 'customer service',
                 availableLanguage: ['Ukrainian', 'Russian'],
               },
+              openingHoursSpecification: [
+                {
+                  '@type': 'OpeningHoursSpecification',
+                  dayOfWeek: [
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                  ],
+                  opens: '09:00',
+                  closes: '18:00',
+                },
+              ],
               sameAs: [
                 'https://facebook.com/wisexpert',
                 'https://www.instagram.com/wisexpert_buh',

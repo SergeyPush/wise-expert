@@ -34,29 +34,32 @@ const Faq = ({ faq }: FaqInterface) => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </Head>
-    <section
-      className={'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24 bg-color-light-gray'}
-      id={'faq'}
-    >
-      <Wrapper>
-        <ScrollReveal>
-          <Title text={title} />
-        </ScrollReveal>
-        <ScrollReveal delay={0.1}>
-          <div className="bg-color-white rounded-2xl shadow-soft overflow-hidden">
-            {questionList.map((item, index) => (
-              <FaqItem
-                key={index}
-                question={item.question}
-                response={item.answer}
-                isLast={index === questionList.length - 1}
-              />
-            ))}
-          </div>
-        </ScrollReveal>
-      </Wrapper>
-    </section>
+      <section
+        className={
+          'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24 bg-color-light-gray'
+        }
+        id={'faq'}
+      >
+        <Wrapper>
+          <ScrollReveal>
+            <Title text={title} />
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <div className="bg-color-white rounded-2xl shadow-soft overflow-hidden">
+              {questionList.map((item, index) => (
+                <FaqItem
+                  key={index}
+                  question={item.question}
+                  response={item.answer}
+                  isLast={index === questionList.length - 1}
+                />
+              ))}
+            </div>
+          </ScrollReveal>
+        </Wrapper>
+      </section>
     </>
   );
 };
