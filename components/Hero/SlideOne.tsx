@@ -48,7 +48,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
             src={imageUrl}
             alt="WisExpert team"
             className={styles.mobileImg}
-            fetchPriority="high"
+            {...({ fetchpriority: 'high' } as object)}
           />
           <div className={styles.mobileOverlay} />
         </div>
