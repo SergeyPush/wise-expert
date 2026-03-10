@@ -9,22 +9,29 @@ export default function Document() {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'Organization',
+              '@type': 'AccountingService',
               name: 'WisExpert',
               url: 'https://wisexpert.com.ua',
               logo: 'https://wisexpert.com.ua/favicon.png',
+              image: 'https://wisexpert.com.ua/og-image.png',
               description:
                 'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва',
+              telephone: '+380993811118',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'UA',
-                addressLocality: 'Ukraine',
+                addressLocality: 'Україна',
               },
               contactPoint: {
                 '@type': 'ContactPoint',
+                telephone: '+380993811118',
                 contactType: 'customer service',
                 availableLanguage: ['Ukrainian', 'Russian'],
               },
+              sameAs: [
+                'https://facebook.com/wisexpert',
+                'https://www.instagram.com/wisexpert_buh',
+              ],
             }),
           }}
         />

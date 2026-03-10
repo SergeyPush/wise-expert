@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import Wrapper from '@/components/Wrapper';
 import Title from '@/components/Title';
 import FaqItem from '@/components/Faq/FaqItem';
@@ -13,7 +14,27 @@ const Faq = ({ faq }: FaqInterface) => {
   const { title, faqs } = faq;
   const questionList = faqs.map((item) => item.fields);
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: questionList.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      </Head>
     <section
       className={'pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-28 lg:pb-24 bg-color-light-gray'}
       id={'faq'}
@@ -36,6 +57,7 @@ const Faq = ({ faq }: FaqInterface) => {
         </ScrollReveal>
       </Wrapper>
     </section>
+    </>
   );
 };
 
