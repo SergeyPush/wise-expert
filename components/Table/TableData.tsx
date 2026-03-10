@@ -23,6 +23,12 @@ const TableData = ({ data }: TableDataInterface) => {
                 transition: { duration: 0.2 },
               })}
         >
+          <thead className="sr-only">
+            <tr>
+              <th scope="col">Послуга</th>
+              <th scope="col">Вартість</th>
+            </tr>
+          </thead>
           <tbody>
             {data.map((item, index) => {
               return (

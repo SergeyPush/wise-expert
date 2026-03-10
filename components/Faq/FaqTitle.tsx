@@ -18,10 +18,12 @@ const FaqTitle = ({ question, active, setActive }: FaqTitleInterface) => {
   };
 
   return (
-    <div
+    <button
+      type="button"
       onClick={handleClick}
+      aria-expanded={active}
       className={
-        `flex flex-row justify-between font-semibold text-base md:text-lg cursor-pointer items-center gap-4 px-5 py-5 md:px-6 md:py-6 transition-colors duration-200 ${
+        `w-full flex flex-row justify-between font-semibold text-base md:text-lg cursor-pointer items-center gap-4 px-5 py-5 md:px-6 md:py-6 transition-colors duration-200 ${
           active ? 'text-color-blue' : 'text-color-black hover:text-color-blue'
         }`
       }
@@ -32,10 +34,11 @@ const FaqTitle = ({ question, active, setActive }: FaqTitleInterface) => {
         animate={active ? 'open' : 'closed'}
         transition={{ duration: 0.2 }}
         className="flex-shrink-0 text-color-muted"
+        aria-hidden="true"
       >
         <IoChevronDownOutline className="w-5 h-5" />
       </motion.span>
-    </div>
+    </button>
   );
 };
 

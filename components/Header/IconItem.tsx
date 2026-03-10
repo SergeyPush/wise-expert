@@ -6,7 +6,7 @@ interface IconItemInterface {
   item: IIcon;
   color: 'black' | 'white';
 }
-const IconItem = ({ item: { link, Icon }, color }: IconItemInterface) => {
+const IconItem = ({ item: { link, Icon, text }, color }: IconItemInterface) => {
   const colorClasses =
     color === 'white'
       ? 'text-color-white/70 hover:text-color-white'
@@ -17,9 +17,10 @@ const IconItem = ({ item: { link, Icon }, color }: IconItemInterface) => {
       <Link
         href={link}
         target="_blank"
+        aria-label={text}
         className={`${colorClasses} transition-colors duration-200 block p-1`}
       >
-        <Icon className="w-5 h-5" />
+        <Icon className="w-5 h-5" aria-hidden="true" />
       </Link>
     </li>
   );

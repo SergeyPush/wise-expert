@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { IHero } from '@/interfaces/hero.interface';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
@@ -28,6 +29,12 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
         };
 
   return (
+    <>
+      {imageUrl && (
+        <Head>
+          <link rel="preload" as="image" href={imageUrl} fetchPriority="high" />
+        </Head>
+      )}
     <div
       className={styles.background}
       style={{
@@ -41,6 +48,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
             src={imageUrl}
             alt="WisExpert team"
             className={styles.mobileImg}
+            fetchPriority="high"
           />
           <div className={styles.mobileOverlay} />
         </div>
@@ -76,6 +84,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
         </motion.div>
       </Wrapper>
     </div>
+    </>
   );
 };
 
