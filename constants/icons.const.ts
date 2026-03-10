@@ -4,6 +4,7 @@ import { GrFacebookOption } from 'react-icons/gr';
 import { IoMdMail } from 'react-icons/io';
 import { IIcon } from '@/interfaces/icon.interface';
 import { CONTACTS } from '@/constants/contact.const';
+import { FaLinkedinIn } from 'react-icons/fa6';
 
 export const ICONS = {
   PHONE: MdPhoneEnabled,
@@ -11,6 +12,7 @@ export const ICONS = {
   FACEBOOK: GrFacebookOption,
   INSTAGRAM: FaInstagram,
   MAIL: IoMdMail,
+  LINKEDIN: FaLinkedinIn,
 };
 
 export const ListIcons: IIcon[] = [
@@ -33,5 +35,10 @@ export const ListIcons: IIcon[] = [
     Icon: ICONS.INSTAGRAM,
     link: 'https://www.instagram.com/wisexpert_buh',
     text: 'wisexpert_buh',
+  },
+  {
+    Icon: ICONS.LINKEDIN,
+    link: 'https://www.linkedin.com/company/бухгалтерська-компанія-wisexpert/',
+    text: 'wisexpert',
   },
 ];
