@@ -42,7 +42,9 @@ const Footer = () => {
               {filteredLinks.map(({ title, id }, index) => (
                 <li
                   key={index}
-                  className={'text-color-white/60 hover:text-color-white cursor-pointer transition-colors duration-200 text-sm'}
+                  className={
+                    'text-color-white/60 hover:text-color-white cursor-pointer transition-colors duration-200 text-sm'
+                  }
                   onClick={() => handleClick(id)}
                 >
                   {title}
@@ -62,13 +64,17 @@ const Footer = () => {
               </p>
               <a
                 href={CONTACTS.phone}
-                className={'block text-color-white/60 hover:text-color-white transition-colors duration-200'}
+                className={
+                  'block text-color-white/60 hover:text-color-white transition-colors duration-200'
+                }
               >
                 {CONTACTS.phoneDisp}
               </a>
               <a
                 href={CONTACTS.email}
-                className={'block text-color-white/60 hover:text-color-white transition-colors duration-200'}
+                className={
+                  'block text-color-white/60 hover:text-color-white transition-colors duration-200'
+                }
               >
                 {CONTACTS.emailDisp}
               </a>
@@ -81,14 +87,18 @@ const Footer = () => {
               Графік роботи
             </span>
             <div className="space-y-2 text-sm text-color-white/60">
-              <p>Пн - Пт: 9:00 - 18:00</p>
+              <p>Пн - Пт: 9:30 - 17:30</p>
               <p>Сб - Нд: Вихідний</p>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className={'border-t border-color-white/10 py-6 flex flex-col sm:flex-row justify-between items-center gap-4'}>
+        <div
+          className={
+            'border-t border-color-white/10 py-6 flex flex-col sm:flex-row justify-between items-center gap-4'
+          }
+        >
           <p className={'text-color-white/50 text-sm'}>
             &copy; {new Date().getFullYear()} WisExpert. Всі права захищені
           </p>
