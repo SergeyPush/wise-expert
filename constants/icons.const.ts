@@ -19,7 +19,7 @@ export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.PHONE,
     link: CONTACTS.phone,
-    text: '+38(099)381-11-18',
+    text: '+38(099)3811118',
   },
   {
     Icon: ICONS.TELEGRAM,
