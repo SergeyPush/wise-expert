@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="uk">
       <Head>
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -47,7 +48,10 @@ export default function Document() {
               sameAs: [
                 'https://facebook.com/wisexpert',
                 'https://www.instagram.com/wisexpert_buh',
+                'https://www.linkedin.com/company/бухгалтерська-компанія-wisexpert/',
+                'https://t.me/WisExpert',
               ],
+              dateModified: '2026-03-12',
             }),
           }}
         />

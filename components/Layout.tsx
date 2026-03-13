@@ -18,7 +18,8 @@ const Layout: FC<Children> = ({ children }) => {
         openGraph={{
           siteName: 'WisExpert',
           type: 'website',
-          title: 'Бухгалтерська компанія WisExpert',
+          title:
+            'Бухгалтерські послуги в Києві — WisExpert | Аутсорсинг бухгалтерії',
           url: 'https://wisexpert.com.ua/',
           locale: 'uk_UA',
           description:
@@ -29,16 +30,11 @@ const Layout: FC<Children> = ({ children }) => {
               width: 1200,
               height: 630,
               alt: 'WisExpert - Бухгалтерська компанія',
+              type: 'image/png',
             },
           ],
         }}
-        twitter={{
-          cardType: 'summary_large_image',
-          site: '@wisexpert',
-          handle: '@wisexpert',
-        }}
         additionalLinkTags={[
-          { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/png' },
           { rel: 'icon', href: '/favicon.ico' },
           {
             rel: 'alternate',
@@ -53,19 +49,8 @@ const Layout: FC<Children> = ({ children }) => {
         ]}
         additionalMetaTags={[
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-          {
-            name: 'keywords',
-            content:
-              'бухгалтер, налог, отчет, бухгалтерія, звіт, податок, учет, ФОП, ТОВ, ФЛП, ООО, консультація, РРО, ЕСВ, ЄСВ, Бухгалтерская компания, Бухгальтерська фірма, компанія, послуги бухгалтера, услуги бухгалтера',
-          },
-          {
-            name: 'author',
-            content: 'WisExpert',
-          },
-          {
-            name: 'robots',
-            content: 'index, follow',
-          },
+          { name: 'robots', content: 'index, follow' },
+          { name: 'author', content: 'WisExpert' },
         ]}
       />
       <Header />

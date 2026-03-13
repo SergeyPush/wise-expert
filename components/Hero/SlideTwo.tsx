@@ -28,7 +28,9 @@ const SlideTwo = ({ data: { title, image, items } }: HeroInterface) => {
     <div
       className={styles.background}
       style={{
-        backgroundImage: `url(${image?.fields?.file?.url})`,
+        backgroundImage: image?.fields?.file?.url
+        ? `url(${image.fields.file.url}?w=1920&q=80&fm=webp)`
+        : undefined,
       }}
     >
       <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-[116px] md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
