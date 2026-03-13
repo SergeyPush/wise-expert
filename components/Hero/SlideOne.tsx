@@ -12,7 +12,9 @@ interface HeroInterface {
   data: IHero;
 }
 const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
-  const imageUrl = image?.fields?.file?.url;
+  const imageUrl = image?.fields?.file?.url
+    ? `${image.fields.file.url}?w=1920&q=80&fm=webp`
+    : undefined;
   const shouldReduceMotion = useReducedMotion();
 
   const fadeUp = (delay: number) =>
@@ -46,7 +48,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
         <div className={styles.mobileImage}>
           <img
             src={imageUrl}
-            alt="WisExpert team"
+            alt={image?.fields?.title || 'WisExpert team'}
             className={styles.mobileImg}
             {...({ fetchpriority: 'high' } as object)}
           />

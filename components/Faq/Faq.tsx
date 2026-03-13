@@ -34,7 +34,6 @@ const Faq = ({ faq }: FaqInterface) => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
-        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </Head>
       <section
         className={

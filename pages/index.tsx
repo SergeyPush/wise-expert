@@ -83,7 +83,7 @@ export default function Home({
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { items } = await client.getEntries({ content_type: 'hero' });
   const data = items.map((item: Entry<any>) => item.fields);
 
@@ -111,5 +111,6 @@ export async function getServerSideProps() {
       clients: clientResponse,
       faq: faqResponse,
     },
+    revalidate: 3600,
   };
 }
