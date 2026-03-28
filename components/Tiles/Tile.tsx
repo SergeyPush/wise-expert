@@ -1,5 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 import { ITile } from '@/interfaces/tile.interface';
+import { TILE_SLUG_MAP } from '@/constants/services.const';
 
 interface TileInterface {
   tile: ITile;
@@ -7,15 +9,11 @@ interface TileInterface {
 }
 const Tile = ({ tile, classname }: TileInterface) => {
   const { fields } = tile;
-  return (
-    <li
-      className={`bg-color-white p-6 md:p-8 rounded-2xl h-full shadow-soft hover:shadow-elevated transition-shadow duration-300 flex flex-col ${classname}`}
-    >
-      <p
-        className={
-          'text-lg md:text-xl text-color-blue mb-3 md:mb-4 font-bold'
-        }
-      >
+  const slug = TILE_SLUG_MAP[fields.name];
+
+  const content = (
+    <>
+      <p className={'text-lg md:text-xl text-color-blue mb-3 md:mb-4 font-bold'}>
         {fields.name}
       </p>
       <ul className={'mb-6 flex-1 space-y-2'}>
@@ -28,6 +26,29 @@ const Tile = ({ tile, classname }: TileInterface) => {
       <div className="pt-5 mt-2 border-t border-color-border">
         <p className={'font-bold text-xl text-color-black'}>{fields.price}</p>
       </div>
+      {slug && (
+        <span className="mt-4 text-sm font-medium text-color-blue">
+          Дізнатися більше →
+        </span>
+      )}
+    </>
+  );
+
+  if (slug) {
+    return (
+      <li className={`bg-color-white p-6 md:p-8 rounded-2xl h-full shadow-soft hover:shadow-elevated transition-shadow duration-300 flex flex-col ${classname}`}>
+        <Link href={`/services/${slug}`} className="flex flex-col flex-1">
+          {content}
+        </Link>
+      </li>
+    );
+  }
+
+  return (
+    <li
+      className={`bg-color-white p-6 md:p-8 rounded-2xl h-full shadow-soft hover:shadow-elevated transition-shadow duration-300 flex flex-col ${classname}`}
+    >
+      {content}
     </li>
   );
 };

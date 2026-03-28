@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Wrapper from '@/components/Wrapper';
 import { Inter } from 'next/font/google';
+import Link from 'next/link';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
+import { NavIcons } from '@/constants/icons.const';
 import Button from '@/components/Button/Button';
 import Hamburger from '@/components/Button/Hamburger';
 import MobileMenu from '@/components/Header/MobileMenu';
@@ -47,13 +49,14 @@ const Header = () => {
         <Wrapper>
           <div className="flex flex-row items-center justify-between gap-4">
             {/* Logo */}
-            <span
+            <Link
+              href="/"
               className={`${inter.className} text-xl lg:text-2xl relative z-20 font-bold tracking-tight ${
                 mobileMenuIsActive ? 'text-color-white' : isScrolled ? 'text-color-black' : 'text-color-white'
               } transition-colors duration-300`}
             >
               WisExpert
-            </span>
+            </Link>
 
             {/* Navigation Links - Center */}
             <LinkList className={'hidden'} isScrolled={isScrolled} />
@@ -63,6 +66,7 @@ const Header = () => {
               <IconList
                 color={isScrolled ? 'black' : 'white'}
                 className={'hidden lg:flex'}
+                icons={NavIcons}
               />
               <Button
                 format={isScrolled ? 'primary' : 'white'}

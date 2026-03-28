@@ -7,4 +7,5 @@ export const LINKS: ILink[] = [
   { id: 'calc', title: 'Калькулятор', link: '' },
   { id: 'faq', title: 'FAQ', link: '' },
   { id: 'contacts', title: 'Контакти', link: '' },
+  { id: 'blog', title: 'Блог', link: '/blog' },
 ];
