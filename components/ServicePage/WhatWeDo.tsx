@@ -26,6 +26,7 @@ import {
 } from 'react-icons/lu';
 import Wrapper from '@/components/Wrapper';
 import { IServiceCard } from '@/interfaces/service-page.interface';
+import { useInView } from '@/hooks/useInView';
 
 export const ICON_MAP: Record<string, React.ElementType> = {
   Building2: LuBuilding2,
@@ -61,10 +62,18 @@ interface WhatWeDoProps {
 }
 
 const WhatWeDo = ({ prefix, title, subtitle, cards }: WhatWeDoProps) => {
+  const { ref: headingRef, inView: headingVisible } = useInView();
+  const { ref: listRef, inView: listVisible } = useInView(0.05);
+
   return (
     <section className="py-10 md:py-14 bg-white">
       <Wrapper>
-        <div className="mb-10 text-center">
+        <div
+          ref={headingRef as React.RefObject<HTMLDivElement>}
+          className={`mb-10 text-center transition-all duration-700 ${
+            headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
           <p className="text-xs font-semibold text-color-blue tracking-widest uppercase mb-3">
             {prefix}
           </p>
@@ -74,7 +83,10 @@ const WhatWeDo = ({ prefix, title, subtitle, cards }: WhatWeDoProps) => {
           <p className="text-color-muted text-base md:text-lg">{subtitle}</p>
         </div>
 
-        <ul className="flex flex-wrap justify-center gap-5">
+        <ul
+          ref={listRef as React.RefObject<HTMLUListElement>}
+          className="flex flex-wrap justify-center gap-5"
+        >
           {cards.map((card, idx) => {
             const Icon = ICON_MAP[card.icon];
             const lgWidth =
@@ -84,7 +96,12 @@ const WhatWeDo = ({ prefix, title, subtitle, cards }: WhatWeDoProps) => {
             return (
               <li
                 key={idx}
-                className={`border border-color-border rounded-2xl p-6 flex flex-col gap-3 w-full sm:w-[calc(50%-10px)] ${lgWidth} min-w-[180px]`}
+                style={{
+                  transitionDelay: listVisible ? `${idx * 60}ms` : '0ms',
+                }}
+                className={`border border-color-border rounded-2xl p-6 flex flex-col gap-3 w-full sm:w-[calc(50%-10px)] ${lgWidth} min-w-[180px] transition-all duration-500 ${
+                  listVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
               >
                 {Icon && (
                   <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
