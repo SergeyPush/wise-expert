@@ -51,6 +51,67 @@ export default function ServicePage({ data, howItWorks, whyChooseUs }: ServicePa
         title={data.seoTitle}
         description={data.seoDescription}
         canonical={`https://wisexpert.com.ua/services/${data.slug}`}
+        openGraph={{
+          title: data.seoTitle,
+          description: data.seoDescription,
+          url: `https://wisexpert.com.ua/services/${data.slug}`,
+          type: 'website',
+          locale: 'uk_UA',
+          siteName: 'WisExpert',
+          ...(heroImageUrl && {
+            images: [{ url: heroImageUrl, width: 1200, height: 630, alt: data.heroTitle }],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Service',
+              name: data.heroTitle,
+              description: data.seoDescription,
+              url: `https://wisexpert.com.ua/services/${data.slug}`,
+              provider: {
+                '@type': 'AccountingService',
+                name: 'WisExpert',
+                url: 'https://wisexpert.com.ua',
+              },
+              ...(data.price && {
+                offers: {
+                  '@type': 'Offer',
+                  priceCurrency: 'UAH',
+                  price: data.price,
+                  priceSpecification: {
+                    '@type': 'UnitPriceSpecification',
+                    price: data.price,
+                    priceCurrency: 'UAH',
+                    unitText: 'MONTH',
+                  },
+                },
+              }),
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Головна',
+                  item: 'https://wisexpert.com.ua',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: data.heroTitle,
+                  item: `https://wisexpert.com.ua/services/${data.slug}`,
+                },
+              ],
+            },
+          ]),
+        }}
       />
       <main className={nunito.className}>
         <Header />

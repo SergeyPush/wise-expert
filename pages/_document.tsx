@@ -5,6 +5,8 @@ export default function Document() {
     <Html lang="uk">
       <Head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        {/* Google Search Console verification — replace content value with your actual code */}
+        {/* <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -20,6 +20,15 @@ export default function BlogPage() {
         title="Блог — WisExpert | Бухгалтерські поради для бізнесу"
         description="Корисні статті та поради з бухгалтерського обліку, податків та фінансів для вашого бізнесу від WisExpert."
         canonical="https://wisexpert.com.ua/blog"
+        openGraph={{
+          title: 'Блог — WisExpert | Бухгалтерські поради для бізнесу',
+          description: 'Корисні статті та поради з бухгалтерського обліку, податків та фінансів для вашого бізнесу від WisExpert.',
+          url: 'https://wisexpert.com.ua/blog',
+          type: 'website',
+          locale: 'uk_UA',
+          siteName: 'WisExpert',
+          images: [{ url: 'https://wisexpert.com.ua/og-image.png', width: 1200, height: 630, alt: 'WisExpert блог' }],
+        }}
       />
       <main className={nunito.className}>
         <Header />
