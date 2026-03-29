@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useGlobalContext } from '@/context/GlobalContext';
 import Wrapper from '@/components/Wrapper';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
@@ -19,8 +20,8 @@ const inter = Inter({
 
 const Header = () => {
   const [mobileMenuIsActive, setMobileMenuIsActive] = useState<boolean>(false);
-  const [bookCallIsVisible, setBookCallIsVisible] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const { bookCallIsVisible, setBookCallIsVisible } = useGlobalContext();
 
   useEffect(() => {
     const handleScroll = () => {
