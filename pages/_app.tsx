@@ -7,8 +7,8 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
-    <Layout>
-      <ContextProvider>
+    <ContextProvider>
+      <Layout>
         <GoogleAnalytics gaId="AW-16666601833" />
         <Script id="notion">
           {`
@@ -29,7 +29,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
           `}
         </Script>
         <Component {...pageProps} key={router.pathname} />
-      </ContextProvider>
-    </Layout>
+      </Layout>
+    </ContextProvider>
   );
 }

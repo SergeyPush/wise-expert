@@ -16,7 +16,7 @@ const Backdrop = ({ setIsVisible }: BackdropInterface) => {
   return (
     <div
       className={
-        'absolute w-full h-screen z-40 top-0 bottom-0 left-0 right-0 bg-color-black flex justify-center items-center bg-opacity-20 p-4'
+        'fixed w-full h-screen z-40 top-0 bottom-0 left-0 right-0 bg-color-black flex justify-center items-center bg-opacity-20 p-4'
       }
       onClick={(e) => handleClick(e)}
     >
