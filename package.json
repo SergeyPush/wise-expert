@@ -9,6 +9,8 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^16.1.6",
+    "@contentful/rich-text-types": "^17.2.5",
     "@emailjs/browser": "^4.4.1",
     "@hono/node-server": "^1.19.5",
     "@next/third-parties": "^15.5.4",
