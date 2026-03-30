@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="uk">
       <Head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="CCN5Ef4V+irpRbTS0S90+g" async></script>
         {/* Google Search Console verification — replace content value with your actual code */}
         {/* <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> */}
         <script
