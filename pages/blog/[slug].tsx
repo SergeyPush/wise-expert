@@ -7,11 +7,13 @@ import { Nunito_Sans } from 'next/font/google';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES, MARKS, Document } from '@contentful/rich-text-types';
 import client from '@/utils/contentful.api';
+import { plainText, mapBlogPost } from '@/utils/contentful.utils';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
 import BlogCard from '@/components/Blog/BlogCard';
+import ConsultationCta from '@/components/Blog/ConsultationCta';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
 import { useGlobalContext } from '@/context/GlobalContext';
 
@@ -419,30 +421,7 @@ export default function ArticlePage({
           </section>
         )}
 
-        {/* CTA */}
-        <section className="bg-gradient-to-br from-color-black to-color-light-black py-20 md:py-24">
-          <Wrapper>
-            <div className="text-center max-w-2xl mx-auto">
-              <span className="block text-xs font-semibold text-color-blue uppercase tracking-wider mb-5">
-                Консультація зі спеціалістом
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-color-white mb-4 tracking-tight">
-                Потрібна допомога з бухгалтерією?
-              </h2>
-              <p className="text-color-white/60 text-base md:text-lg mb-8 leading-relaxed">
-                Наші спеціалісти допоможуть розібратись у будь-яких питаннях
-                обліку, податків та звітності. Залиште заявку — ми
-                зв&apos;яжемось з вами.
-              </p>
-              <Button
-                format="primary"
-                text="Отримати консультацію"
-                size="wide"
-                onClick={() => setBookCallIsVisible(true)}
-              />
-            </div>
-          </Wrapper>
-        </section>
+        <ConsultationCta onBook={() => setBookCallIsVisible(true)} />
 
         <Footer />
       </main>
@@ -469,23 +448,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
 
-  const plainText = (value: unknown): string => {
-    if (typeof value === 'string') return value;
-    if (Array.isArray(value)) return value.map(plainText).join('');
-    if (value && typeof value === 'object') {
-      const node = value as { value?: string; content?: unknown[] };
-      if (node.value) return node.value;
-      if (node.content) return plainText(node.content);
-    }
-    return '';
-  };
-
-  const response = await client.getEntries({
-    content_type: 'blog',
-    'fields.slug': slug,
-    include: 2,
-    limit: 1,
-  });
+  const [response, relatedResponse] = await Promise.all([
+    client.getEntries({
+      content_type: 'blog',
+      'fields.slug': slug,
+      include: 2,
+      limit: 1,
+    }),
+    client.getEntries({
+      content_type: 'blog',
+      limit: 3,
+      'fields.slug[ne]': slug,
+      order: '-sys.createdAt' as never,
+    }),
+  ]);
 
   if (!response.items.length) return { notFound: true };
 
@@ -496,11 +472,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     | { fields?: { file?: { url?: string }; title?: string } }
     | undefined;
   const coverImageUrl = imageAsset?.fields?.file?.url ?? null;
-  const publishedRaw = (f.publishedAt ??
-    f.date ??
-    item.sys.createdAt) as string;
 
-  // Author
   const authorEntry = f.author as
     | { fields?: Record<string, unknown> }
     | undefined;
@@ -523,7 +495,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     slug: plainText(f.slug),
     excerpt: plainText(f.excerpt ?? f.description ?? ''),
     category: plainText(f.tag ?? f.category ?? ''),
-    publishedAt: publishedRaw,
+    publishedAt: (f.publishedAt ?? f.date ?? item.sys.createdAt) as string,
     readTime: typeof f.readTime === 'number' ? f.readTime : 5,
     coverImage: coverImageUrl
       ? {
@@ -534,33 +506,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     body: f.text ?? null,
   };
 
-  // Related posts (exclude current)
-  const relatedResponse = await client.getEntries({
-    content_type: 'blog',
-    limit: 3,
-    'sys.id[ne]': item.sys.id,
-    order: '-sys.createdAt' as never,
-  });
-
-  const related: IBlogPost[] = relatedResponse.items.map((r) => {
-    const rf = r.fields as Record<string, unknown>;
-    const rImg = rf.image as
-      | { fields?: { file?: { url?: string }; title?: string } }
-      | undefined;
-    const rImgUrl = rImg?.fields?.file?.url ?? null;
-    return {
-      id: r.sys.id,
-      title: plainText(rf.title),
-      slug: plainText(rf.slug),
-      excerpt: plainText(rf.text ?? rf.excerpt ?? rf.description ?? ''),
-      category: plainText(rf.tag ?? rf.category ?? ''),
-      publishedAt: (rf.publishedAt ?? rf.date ?? r.sys.createdAt) as string,
-      readTime: typeof rf.readTime === 'number' ? rf.readTime : 5,
-      coverImage: rImgUrl
-        ? { url: rImgUrl, title: plainText(rImg?.fields?.title ?? '') || null }
-        : null,
-    };
-  });
+  const related: IBlogPost[] = relatedResponse.items.map(mapBlogPost);
 
   return { props: { post, author, related }, revalidate: 3600 };
 };

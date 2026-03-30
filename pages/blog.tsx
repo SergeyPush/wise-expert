@@ -3,12 +3,14 @@ import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { Nunito_Sans } from 'next/font/google';
 import client from '@/utils/contentful.api';
+import { mapBlogPost } from '@/utils/contentful.utils';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
 import BlogCard from '@/components/Blog/BlogCard';
 import Button from '@/components/Button/Button';
+import ConsultationCta from '@/components/Blog/ConsultationCta';
 import { useGlobalContext } from '@/context/GlobalContext';
 
 const nunito = Nunito_Sans({
@@ -107,30 +109,7 @@ export default function BlogPage({ posts }: BlogPageProps) {
           </Wrapper>
         </section>
 
-        {/* CTA */}
-        <section className="bg-gradient-to-br from-color-black to-color-light-black py-20 md:py-24">
-          <Wrapper>
-            <div className="text-center max-w-2xl mx-auto">
-              <span className="block text-xs font-semibold text-color-blue uppercase tracking-wider mb-5">
-                Консультація зі спеціалістом
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-color-white mb-4 tracking-tight">
-                Потрібна допомога з бухгалтерією?
-              </h2>
-              <p className="text-color-white/60 text-base md:text-lg mb-8 leading-relaxed">
-                Наші спеціалісти допоможуть розібратись у будь-яких питаннях
-                обліку, податків та звітності. Залиште заявку — ми
-                зв&apos;яжемось з вами.
-              </p>
-              <Button
-                format="primary"
-                text="Отримати консультацію"
-                size="wide"
-                onClick={() => setBookCallIsVisible(true)}
-              />
-            </div>
-          </Wrapper>
-        </section>
+        <ConsultationCta onBook={() => setBookCallIsVisible(true)} />
 
         <Footer />
       </main>
@@ -140,17 +119,6 @@ export default function BlogPage({ posts }: BlogPageProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const plainText = (value: unknown): string => {
-      if (typeof value === 'string') return value;
-      if (Array.isArray(value)) return value.map(plainText).join('');
-      if (value && typeof value === 'object') {
-        const node = value as { value?: string; content?: unknown[] };
-        if (node.value) return node.value;
-        if (node.content) return plainText(node.content);
-      }
-      return '';
-    };
-
     const response = await client.getEntries({
       content_type: 'blog',
       include: 1,
@@ -158,32 +126,7 @@ export const getStaticProps: GetStaticProps = async () => {
       limit: 100,
     });
 
-    const posts: IBlogPost[] = response.items.map((item) => {
-      const f = item.fields as Record<string, unknown>;
-      const imageAsset = f.image as
-        | { fields?: { file?: { url?: string }; title?: string } }
-        | undefined;
-      const coverImageUrl = imageAsset?.fields?.file?.url;
-      const publishedRaw = (f.publishedAt ??
-        f.date ??
-        (item.sys.createdAt as string)) as string;
-
-      return {
-        id: item.sys.id,
-        title: plainText(f.title),
-        slug: plainText(f.slug),
-        excerpt: plainText(f.text ?? f.excerpt ?? f.description ?? ''),
-        category: plainText(f.tag ?? f.category ?? ''),
-        publishedAt: publishedRaw,
-        readTime: typeof f.readTime === 'number' ? f.readTime : 5,
-        coverImage: coverImageUrl
-          ? {
-              url: coverImageUrl,
-              title: plainText(imageAsset?.fields?.title ?? '') || null,
-            }
-          : null,
-      };
-    });
+    const posts: IBlogPost[] = response.items.map(mapBlogPost);
 
     return { props: { posts }, revalidate: 3600 };
   } catch (e) {
