@@ -1,4 +1,3 @@
-import { Entry } from 'contentful';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
 
 export const plainText = (value: unknown): string => {
@@ -12,7 +11,7 @@ export const plainText = (value: unknown): string => {
   return '';
 };
 
-export const mapBlogPost = (item: Entry<Record<string, unknown>>): IBlogPost => {
+export const mapBlogPost = (item: { sys: { id: string; createdAt: string }; fields: Record<string, unknown> }): IBlogPost => {
   const f = item.fields as Record<string, unknown>;
   const imageAsset = f.image as
     | { fields?: { file?: { url?: string }; title?: string } }
