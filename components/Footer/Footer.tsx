@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Wrapper from '@/components/Wrapper';
 import IconList from '@/components/Header/IconList';
 import { LINKS } from '@/constants/links.const';
@@ -10,8 +13,14 @@ const Footer = () => {
   const filteredLinks = [...LINKS];
   filteredLinks.splice(4, 1);
 
+  const pathname = usePathname();
+
   const handleClick = (id: string) => {
-    scrollToId(id);
+    if (pathname === '/') {
+      scrollToId(id);
+    } else {
+      window.location.href = `/#${id}`;
+    }
   };
 
   return (
