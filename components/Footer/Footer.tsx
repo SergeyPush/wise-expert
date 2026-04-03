@@ -1,4 +1,8 @@
+'use client';
+
 import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Wrapper from '@/components/Wrapper';
 import IconList from '@/components/Header/IconList';
 import { LINKS } from '@/constants/links.const';
@@ -9,8 +13,14 @@ const Footer = () => {
   const filteredLinks = [...LINKS];
   filteredLinks.splice(4, 1);
 
+  const pathname = usePathname();
+
   const handleClick = (id: string) => {
-    scrollToId(id);
+    if (pathname === '/') {
+      scrollToId(id);
+    } else {
+      window.location.href = `/#${id}`;
+    }
   };
 
   return (
@@ -39,17 +49,28 @@ const Footer = () => {
               Навігація
             </span>
             <ul className="space-y-3">
-              {filteredLinks.map(({ title, id }, index) => (
-                <li
-                  key={index}
-                  className={
-                    'text-color-white/60 hover:text-color-white cursor-pointer transition-colors duration-200 text-sm'
-                  }
-                  onClick={() => handleClick(id)}
-                >
-                  {title}
-                </li>
-              ))}
+              {filteredLinks.map(({ title, id, link }, index) =>
+                link ? (
+                  <li key={index}>
+                    <Link
+                      href={link}
+                      className="text-color-white/60 hover:text-color-white transition-colors duration-200 text-sm"
+                    >
+                      {title}
+                    </Link>
+                  </li>
+                ) : (
+                  <li
+                    key={index}
+                    className={
+                      'text-color-white/60 hover:text-color-white cursor-pointer transition-colors duration-200 text-sm'
+                    }
+                    onClick={() => handleClick(id)}
+                  >
+                    {title}
+                  </li>
+                )
+              )}
             </ul>
           </div>
 

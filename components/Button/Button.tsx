@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonInterface {
-  format: 'black' | 'white' | 'outlined' | 'primary' | 'outline-dark';
+  format: 'black' | 'white' | 'outlined' | 'primary' | 'outline-dark' | 'ghost';
   text: string;
   size?: 'normal' | 'wide';
   onClick?: () => void;
@@ -27,13 +27,15 @@ const Button = ({
     primary:
       'text-color-white bg-color-blue hover:bg-color-blue-dark active:scale-[0.98] shadow-soft hover:shadow-elevated',
     white:
-      'text-color-black bg-color-white hover:bg-color-light-gray active:scale-[0.98] shadow-soft',
+      'text-color-black bg-color-white hover:bg-color-light-gray hover:shadow-elevated active:scale-[0.98] shadow-soft',
     outlined:
       'text-color-white border-2 border-color-white/80 bg-transparent hover:bg-color-white/10 backdrop-blur-sm',
     'outline-dark':
       'text-color-black border-2 border-color-border bg-transparent hover:border-color-blue hover:text-color-blue',
     black:
       'text-color-white bg-color-black hover:bg-color-light-black active:scale-[0.98]',
+    ghost:
+      'text-color-blue bg-transparent hover:bg-color-blue/10 active:scale-[0.98]',
   };
 
   return (

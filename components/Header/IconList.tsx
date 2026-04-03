@@ -1,17 +1,19 @@
 import React from 'react';
 import { ListIcons } from '@/constants/icons.const';
 import IconItem from '@/components/Header/IconItem';
+import { IIcon } from '@/interfaces/icon.interface';
 
 interface IconListInterface {
   color: 'black' | 'white';
   className?: string;
+  icons?: IIcon[];
 }
-const IconList = ({ color, className }: IconListInterface) => {
+const IconList = ({ color, className, icons = ListIcons }: IconListInterface) => {
   return (
     <ul
       className={`flex flex-row gap-5 text justify-between items-center ${className}`}
     >
-      {ListIcons.map((item, index) => (
+      {icons.map((item, index) => (
         <IconItem item={item} key={index} color={color} />
       ))}
     </ul>

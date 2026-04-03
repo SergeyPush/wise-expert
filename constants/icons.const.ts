@@ -42,3 +42,8 @@ export const ListIcons: IIcon[] = [
     text: 'wisexpert',
   },
 ];
+
+/** Same as ListIcons but without the phone — used in the header nav */
+export const NavIcons: IIcon[] = ListIcons.filter(
+  (item) => item.Icon !== ICONS.PHONE,
+);

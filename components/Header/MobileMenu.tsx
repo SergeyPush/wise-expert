@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '@/styles/MobileMenu.module.scss';
 import Button from '@/components/Button/Button';
 import IconList from '@/components/Header/IconList';
@@ -11,6 +13,9 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
+  const { pathname } = useRouter();
+  const isHome = pathname === '/';
+
   // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -19,12 +24,14 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
     };
   }, []);
 
-  const handleLinkClick = (id: string) => {
+  const handleScrollClick = (id: string) => {
     onClose();
     setTimeout(() => {
       scrollToId(id);
     }, 100);
   };
+
+  const btnClass = "w-full text-left text-2xl font-semibold text-color-white py-3 px-4 rounded-xl hover:bg-color-white/10 transition-colors duration-200";
 
   return (
     <div className={styles.wrapper}>
@@ -37,12 +44,19 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
           <ul className="space-y-2">
             {LINKS.map((item) => (
               <li key={item.id}>
-                <button
-                  onClick={() => handleLinkClick(item.id)}
-                  className="w-full text-left text-2xl font-semibold text-color-white py-3 px-4 rounded-xl hover:bg-color-white/10 transition-colors duration-200"
-                >
-                  {item.title}
-                </button>
+                {item.link ? (
+                  <Link href={item.link} onClick={onClose} className={btnClass}>
+                    {item.title}
+                  </Link>
+                ) : isHome ? (
+                  <button onClick={() => handleScrollClick(item.id)} className={btnClass}>
+                    {item.title}
+                  </button>
+                ) : (
+                  <Link href={`/#${item.id}`} onClick={onClose} className={btnClass}>
+                    {item.title}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -64,7 +78,7 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
           text="Розрахувати вартість"
           size="wide"
           className="w-full"
-          onClick={() => handleLinkClick('calc')}
+          onClick={() => handleScrollClick('calc')}
         />
         <IconList
           color="white"
