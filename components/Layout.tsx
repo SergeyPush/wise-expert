@@ -12,7 +12,7 @@ const Layout: FC<Children> = ({ children }) => {
       <DefaultSeo
         title={'WisExpert — Бухгалтерські послуги для бізнесу | Україна'}
         description={
-          'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва та ін. Дізнайтесь ціни та умови на сайті'
+          'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва та ін. Дізнайтесь ціни та умови на сайті WisExpert'
         }
         canonical="https://wisexpert.com.ua/"
         openGraph={{
@@ -23,7 +23,7 @@ const Layout: FC<Children> = ({ children }) => {
           url: 'https://wisexpert.com.ua/',
           locale: 'uk_UA',
           description:
-            'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва та ін. Дізнайтесь ціни та умови на сайті',
+            'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва та ін. Дізнайтесь ціни та умови на сайті WisExpert',
           images: [
             {
               url: 'https://wisexpert.com.ua/og-image.png',
@@ -33,6 +33,11 @@ const Layout: FC<Children> = ({ children }) => {
               type: 'image/png',
             },
           ],
+        }}
+        twitter={{
+          handle: '@wisexpert',
+          site: '@wisexpert',
+          cardType: 'summary_large_image',
         }}
         additionalLinkTags={[
           { rel: 'icon', href: '/favicon.ico' },
