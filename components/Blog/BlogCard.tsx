@@ -5,6 +5,7 @@ import { IBlogPost } from '@/interfaces/blog-post.interface';
 
 interface BlogCardProps {
   post: IBlogPost;
+  priority?: boolean;
 }
 
 const formatDate = (dateStr: string): string => {
@@ -12,7 +13,7 @@ const formatDate = (dateStr: string): string => {
   return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
-const BlogCard = ({ post }: BlogCardProps) => {
+const BlogCard = ({ post, priority = false }: BlogCardProps) => {
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -25,6 +26,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
             src={`https:${post.coverImage.url}`}
             alt={post.coverImage.title || post.title}
             fill
+            priority={priority}
             className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
