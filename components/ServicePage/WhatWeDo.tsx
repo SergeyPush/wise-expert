@@ -71,7 +71,9 @@ const WhatWeDo = ({ prefix, title, subtitle, cards }: WhatWeDoProps) => {
         <div
           ref={headingRef as React.RefObject<HTMLDivElement>}
           className={`mb-10 text-center transition-all duration-700 ${
-            headingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            headingVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-6'
           }`}
         >
           <p className="text-xs font-semibold text-color-blue tracking-widest uppercase mb-3">
@@ -100,7 +102,9 @@ const WhatWeDo = ({ prefix, title, subtitle, cards }: WhatWeDoProps) => {
                   transitionDelay: listVisible ? `${idx * 60}ms` : '0ms',
                 }}
                 className={`border border-color-border rounded-2xl p-6 flex flex-col gap-3 w-full sm:w-[calc(50%-10px)] ${lgWidth} min-w-[180px] transition-all duration-500 ${
-                  listVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  listVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-6'
                 }`}
               >
                 {Icon && (
@@ -108,10 +112,10 @@ const WhatWeDo = ({ prefix, title, subtitle, cards }: WhatWeDoProps) => {
                     <Icon size={22} className="text-color-blue" />
                   </div>
                 )}
-                <p className="text-sm font-semibold text-color-black">
+                <p className="text-lg font-semibold text-color-black">
                   {card.title}
                 </p>
-                <p className="text-xs text-color-muted leading-relaxed">
+                <p className="text-sm text-color-muted leading-relaxed">
                   {card.description}
                 </p>
               </li>
