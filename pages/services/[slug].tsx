@@ -62,6 +62,15 @@ export default function ServicePage({ data, howItWorks, whyChooseUs }: ServicePa
             images: [{ url: heroImageUrl, width: 1200, height: 630, alt: data.heroTitle }],
           }),
         }}
+        twitter={{
+          handle: '@wisexpert',
+          site: '@wisexpert',
+          cardType: 'summary_large_image',
+        }}
+        additionalLinkTags={[
+          { rel: 'alternate', hrefLang: 'uk', href: `https://wisexpert.com.ua/services/${data.slug}` },
+          { rel: 'alternate', hrefLang: 'x-default', href: `https://wisexpert.com.ua/services/${data.slug}` },
+        ]}
       />
       <script
         type="application/ld+json"

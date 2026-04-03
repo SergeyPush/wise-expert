@@ -38,12 +38,12 @@ export default function BlogPage({ posts }: BlogPageProps) {
     <>
       <NextSeo
         title="Блог — WisExpert | Бухгалтерські поради для бізнесу"
-        description="Корисні статті та поради з бухгалтерського обліку, податків та фінансів для вашого бізнесу від WisExpert."
+        description="Корисні статті та поради з бухгалтерського обліку, податків та фінансів для вашого бізнесу від WisExpert. Актуальна інформація про зміни в законодавстві."
         canonical="https://wisexpert.com.ua/blog"
         openGraph={{
           title: 'Блог — WisExpert | Бухгалтерські поради для бізнесу',
           description:
-            'Корисні статті та поради з бухгалтерського обліку, податків та фінансів для вашого бізнесу від WisExpert.',
+            'Корисні статті та поради з бухгалтерського обліку, податків та фінансів для вашого бізнесу від WisExpert. Актуальна інформація про зміни в законодавстві.',
           url: 'https://wisexpert.com.ua/blog',
           type: 'website',
           locale: 'uk_UA',
@@ -57,6 +57,15 @@ export default function BlogPage({ posts }: BlogPageProps) {
             },
           ],
         }}
+        twitter={{
+          handle: '@wisexpert',
+          site: '@wisexpert',
+          cardType: 'summary_large_image',
+        }}
+        additionalLinkTags={[
+          { rel: 'alternate', hrefLang: 'uk', href: 'https://wisexpert.com.ua/blog' },
+          { rel: 'alternate', hrefLang: 'x-default', href: 'https://wisexpert.com.ua/blog' },
+        ]}
       />
       <main className={nunito.className}>
         <Header />

@@ -14,13 +14,18 @@ export default function Document() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'AccountingService',
+              '@id': 'https://wisexpert.com.ua/#organization',
               name: 'WisExpert',
               url: 'https://wisexpert.com.ua',
-              logo: 'https://wisexpert.com.ua/logo.png',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://wisexpert.com.ua/logo.png',
+              },
               image: 'https://wisexpert.com.ua/og-image.png',
               description:
                 'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва',
               telephone: '+380993811118',
+              priceRange: '$$',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'UA',
@@ -28,11 +33,17 @@ export default function Document() {
                 streetAddress: 'вул. Сверстюка, 11а',
                 postalCode: '02002',
               },
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 50.4501,
+                longitude: 30.5234,
+              },
               contactPoint: {
                 '@type': 'ContactPoint',
                 telephone: '+380993811118',
                 contactType: 'customer service',
-                availableLanguage: ['Ukrainian', 'Russian'],
+                areaServed: 'UA',
+                availableLanguage: ['Ukrainian'],
               },
               openingHoursSpecification: [
                 {
@@ -54,7 +65,6 @@ export default function Document() {
                 'https://www.linkedin.com/company/бухгалтерська-компанія-wisexpert/',
                 'https://t.me/WisExpert',
               ],
-              dateModified: '2026-03-12',
             }),
           }}
         />
