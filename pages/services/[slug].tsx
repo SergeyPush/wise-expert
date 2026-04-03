@@ -39,7 +39,11 @@ interface ServicePageProps {
   whyChooseUs: IWhyChooseUs;
 }
 
-export default function ServicePage({ data, howItWorks, whyChooseUs }: ServicePageProps) {
+export default function ServicePage({
+  data,
+  howItWorks,
+  whyChooseUs,
+}: ServicePageProps) {
   const { setBookCallIsVisible } = useGlobalContext();
   const heroImageUrl = data.heroImage?.fields?.file?.url
     ? `https:${data.heroImage.fields.file.url}`
@@ -59,7 +63,14 @@ export default function ServicePage({ data, howItWorks, whyChooseUs }: ServicePa
           locale: 'uk_UA',
           siteName: 'WisExpert',
           ...(heroImageUrl && {
-            images: [{ url: heroImageUrl, width: 1200, height: 630, alt: data.heroTitle }],
+            images: [
+              {
+                url: heroImageUrl,
+                width: 1200,
+                height: 630,
+                alt: data.heroTitle,
+              },
+            ],
           }),
         }}
         twitter={{
@@ -82,6 +93,13 @@ export default function ServicePage({ data, howItWorks, whyChooseUs }: ServicePa
                 '@type': 'AccountingService',
                 name: 'WisExpert',
                 url: 'https://wisexpert.com.ua',
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: 'вул. Сверстюка, 11а',
+                  addressLocality: 'Київ',
+                  postalCode: '02002',
+                  addressCountry: 'UA',
+                },
               },
               ...(data.price && {
                 offers: {
@@ -239,7 +257,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const rawFields = raw as Record<string, unknown>;
   // Cards come as linked Contentful entries — extract their fields
-  const rawCards = rawFields.cards as { fields?: Record<string, unknown> }[] ?? [];
+  const rawCards =
+    (rawFields.cards as { fields?: Record<string, unknown> }[]) ?? [];
   const cards = rawCards.map((c) => c.fields ?? c);
 
   const data = {
