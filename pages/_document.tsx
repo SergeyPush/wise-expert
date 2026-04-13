@@ -4,6 +4,9 @@ export default function Document() {
   return (
     <Html lang="uk">
       <Head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="CCN5Ef4V+irpRbTS0S90+g" async></script>
         {/* Google Search Console verification — replace content value with your actual code */}
