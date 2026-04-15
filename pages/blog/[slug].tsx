@@ -84,7 +84,9 @@ const richTextOptions = {
       </h4>
     ),
     [BLOCKS.UL_LIST]: (_node: unknown, children: React.ReactNode) => (
-      <ul className="space-y-2 mb-5 pl-1">{children}</ul>
+      <ul className="pl-1" style={{ marginTop: '-14px', marginBottom: '28px' }}>
+        {children}
+      </ul>
     ),
     [BLOCKS.OL_LIST]: (_node: unknown, children: React.ReactNode) => (
       <ol className="space-y-2 mb-5 pl-1 list-decimal list-inside">
@@ -92,9 +94,9 @@ const richTextOptions = {
       </ol>
     ),
     [BLOCKS.LIST_ITEM]: (_node: unknown, children: React.ReactNode) => (
-      <li className="flex gap-3 items-start text-color-muted text-base leading-relaxed">
+      <li className="flex gap-2 items-start text-color-muted text-base leading-relaxed">
         <span className="mt-2 w-2 h-2 rounded-full bg-color-blue flex-shrink-0" />
-        <span>{children}</span>
+        <span className="[&>p]:mb-0">{children}</span>
       </li>
     ),
     [BLOCKS.QUOTE]: (_node: unknown, children: React.ReactNode) => (
