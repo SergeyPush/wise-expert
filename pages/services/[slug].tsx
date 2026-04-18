@@ -1,6 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 import Image from 'next/image';
 import { Nunito_Sans } from 'next/font/google';
 import client from '@/utils/contentful.api';
@@ -79,6 +80,7 @@ export default function ServicePage({
           cardType: 'summary_large_image',
         }}
       />
+      <Head>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -136,6 +138,7 @@ export default function ServicePage({
           ]),
         }}
       />
+      </Head>
       <main className={nunito.className}>
         <Header />
 
