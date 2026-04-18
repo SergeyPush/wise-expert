@@ -1,6 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Nunito_Sans } from 'next/font/google';
@@ -185,6 +186,48 @@ export default function ArticlePage({
           cardType: 'summary_large_image',
         }}
       />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Article',
+                headline: post.title,
+                description: post.excerpt,
+                datePublished: post.publishedAt,
+                dateModified: post.publishedAt,
+                author: author
+                  ? { '@type': 'Person', name: author.name, jobTitle: author.role }
+                  : { '@type': 'Organization', name: 'WisExpert' },
+                publisher: {
+                  '@type': 'Organization',
+                  name: 'WisExpert',
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: 'https://wisexpert.com.ua/logo.png',
+                  },
+                },
+                ...(coverUrl && { image: coverUrl }),
+                mainEntityOfPage: {
+                  '@type': 'WebPage',
+                  '@id': `https://wisexpert.com.ua/blog/${post.slug}`,
+                },
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                  { '@type': 'ListItem', position: 1, name: 'Головна', item: 'https://wisexpert.com.ua' },
+                  { '@type': 'ListItem', position: 2, name: 'Блог', item: 'https://wisexpert.com.ua/blog' },
+                  { '@type': 'ListItem', position: 3, name: post.title, item: `https://wisexpert.com.ua/blog/${post.slug}` },
+                ],
+              },
+            ]),
+          }}
+        />
+      </Head>
       <main className={nunito.className}>
         <Header />
 

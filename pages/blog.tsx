@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 import { Nunito_Sans } from 'next/font/google';
 import client from '@/utils/contentful.api';
 import { mapBlogPost } from '@/utils/contentful.utils';
@@ -63,6 +64,21 @@ export default function BlogPage({ posts }: BlogPageProps) {
           cardType: 'summary_large_image',
         }}
       />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Головна', item: 'https://wisexpert.com.ua' },
+                { '@type': 'ListItem', position: 2, name: 'Блог', item: 'https://wisexpert.com.ua/blog' },
+              ],
+            }),
+          }}
+        />
+      </Head>
       <main className={nunito.className}>
         <Header />
 

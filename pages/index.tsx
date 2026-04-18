@@ -42,7 +42,7 @@ const Confirmation = dynamic(() => import('@/components/Common/Confirmation'), {
 // });
 
 const nunito = Nunito_Sans({
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic'],
   weight: ['300', '400', '500', '600', '700', '800'],
   preload: true,
   variable: '--font-sans',
