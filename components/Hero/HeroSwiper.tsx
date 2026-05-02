@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 import { IHero } from '@/interfaces/hero.interface';
 import SlideOne from '@/components/Hero/SlideOne';
 import SlideTwo from '@/components/Hero/SlideTwo';
+import styles from '@/styles/HeroSwiper.module.scss';
 
 interface HeroSwiperInterface {
   slides: IHero[];
@@ -17,6 +18,7 @@ const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
 
   return (
     <Swiper
+      className={styles.swiper}
       modules={[Navigation, Pagination, Autoplay]}
       slidesPerView={1}
       speed={800}

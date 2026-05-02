@@ -77,15 +77,27 @@
   }
 }
 
-// Mobile: split layout - image top half, content bottom half
-.mobileImage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50vh;
-  z-index: 0;
+/* Outer container — fills Swiper height on mobile, auto on desktop */
+.background {
+  background-color: #0F172A;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Mobile: in-flow image takes top portion, no absolute positioning */
+.mobileImageBlock {
+  position: relative;
+  width: 100%;
+  /* Fixed pixel height — immune to vh/svh browser bugs */
+  height: 260px;
   overflow: hidden;
+  flex-shrink: 0;
+
+  @include sm {
+    height: 320px;
+  }
 
   @include md {
     display: none;
@@ -106,24 +118,26 @@
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    transparent 60%,
-    rgba(15, 23, 42, 0.6) 80%,
+    transparent 55%,
+    rgba(15, 23, 42, 0.7) 80%,
     rgba(15, 23, 42, 1) 100%
   );
 }
 
-.background {
-  background-color: #0F172A;
-  background-size: 0 0;
-  min-height: 100vh;
-  position: relative;
+/* Desktop: absolute full-cover background image */
+.desktopBg {
+  display: none;
 
   @include md {
+    display: block;
+    position: absolute;
+    inset: 0;
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
 
-    &::before {
+    &::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -133,7 +147,6 @@
         rgba(15, 23, 42, 0.6) 50%,
         rgba(15, 23, 42, 0.85) 100%
       );
-      z-index: 1;
     }
   }
 }
