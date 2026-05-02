@@ -1,0 +1,15 @@
+@use 'mixins' as *;
+
+.swiper {
+  /* Fixed height on mobile — both slides always identical */
+  height: 680px;
+
+  @media (min-width: 480px) {
+    height: 740px;
+  }
+
+  @include md {
+    /* Desktop: let slides define their own height (min-h-screen) */
+    height: auto;
+  }
+}

@@ -33,7 +33,7 @@ const SlideTwo = ({ data: { title, image, items } }: HeroInterface) => {
         : undefined,
       }}
     >
-      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pb-[116px] md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
+      <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pt-6 pb-24 md:min-h-screen md:pt-0 md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
         <motion.h2
           className={styles.title}
           dangerouslySetInnerHTML={{ __html: makeBolder(title, 'Чому') }}

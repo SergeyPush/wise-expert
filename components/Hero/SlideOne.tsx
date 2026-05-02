@@ -37,55 +37,55 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
           <link rel="preload" as="image" href={imageUrl} fetchPriority="high" />
         </Head>
       )}
-    <div
-      className={styles.background}
-      style={{
-        backgroundImage: imageUrl ? `url(${imageUrl})` : undefined,
-      }}
-    >
-      {/* Mobile image - visible only on small screens */}
-      {imageUrl && (
-        <div className={styles.mobileImage}>
-          <img
-            src={imageUrl}
-            alt={image?.fields?.title || 'WisExpert team'}
-            className={styles.mobileImg}
-            {...({ fetchpriority: 'high' } as object)}
-          />
-          <div className={styles.mobileOverlay} />
-        </div>
-      )}
+      <div className={styles.background}>
+        {/* Mobile: in-flow image block */}
+        {imageUrl && (
+          <div className={styles.mobileImageBlock}>
+            <img
+              src={imageUrl}
+              alt={image?.fields?.title || 'WisExpert team'}
+              className={styles.mobileImg}
+              {...({ fetchpriority: 'high' } as object)}
+            />
+            <div className={styles.mobileOverlay} />
+          </div>
+        )}
 
-      <Wrapper className="relative z-10 min-h-screen flex flex-col justify-end pt-[52vh] pb-[116px] md:pt-0 md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
-        <motion.h1
-          className={styles.title}
-          dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
-          {...fadeUp(0.1)}
-        />
-        <motion.h2
-          className={styles.subtitle}
-          dangerouslySetInnerHTML={{ __html: subtitle ? subtitle : '' }}
-          {...fadeUp(0.25)}
+        {/* Desktop: background image via inline style */}
+        <div
+          className={styles.desktopBg}
+          style={{ backgroundImage: imageUrl ? `url(${imageUrl})` : undefined }}
         />
 
-        <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.4)}>
-          <Button
-            format={'primary'}
-            text={'Розрахувати вартість'}
-            size={'wide'}
-            className="w-full sm:w-auto"
-            onClick={() => scrollToId('calc')}
+        <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pb-24 md:min-h-screen md:justify-end md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
+          <motion.h1
+            className={styles.title}
+            dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
+            {...fadeUp(0.1)}
           />
-          <Button
-            format={'outlined'}
-            text={'Дізнатися більше'}
-            size={'wide'}
-            className="w-full sm:w-auto"
-            onClick={() => scrollToId('useful')}
+          <motion.h2
+            className={styles.subtitle}
+            dangerouslySetInnerHTML={{ __html: subtitle ? subtitle : '' }}
+            {...fadeUp(0.25)}
           />
-        </motion.div>
-      </Wrapper>
-    </div>
+          <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.4)}>
+            <Button
+              format={'primary'}
+              text={'Розрахувати вартість'}
+              size={'wide'}
+              className="w-full sm:w-auto"
+              onClick={() => scrollToId('calc')}
+            />
+            <Button
+              format={'outlined'}
+              text={'Дізнатися більше'}
+              size={'wide'}
+              className="w-full sm:w-auto"
+              onClick={() => scrollToId('useful')}
+            />
+          </motion.div>
+        </Wrapper>
+      </div>
     </>
   );
 };
