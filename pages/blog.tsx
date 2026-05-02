@@ -63,10 +63,6 @@ export default function BlogPage({ posts }: BlogPageProps) {
           site: '@wisexpert',
           cardType: 'summary_large_image',
         }}
-        additionalLinkTags={[
-          { rel: 'alternate', hrefLang: 'uk', href: 'https://wisexpert.com.ua/blog' },
-          { rel: 'alternate', hrefLang: 'x-default', href: 'https://wisexpert.com.ua/blog' },
-        ]}
       />
       <Head>
         <script

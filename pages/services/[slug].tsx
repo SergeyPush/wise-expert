@@ -79,10 +79,6 @@ export default function ServicePage({
           site: '@wisexpert',
           cardType: 'summary_large_image',
         }}
-        additionalLinkTags={[
-          { rel: 'alternate', hrefLang: 'uk', href: `https://wisexpert.com.ua/services/${data.slug}` },
-          { rel: 'alternate', hrefLang: 'x-default', href: `https://wisexpert.com.ua/services/${data.slug}` },
-        ]}
       />
       <Head>
       <script
