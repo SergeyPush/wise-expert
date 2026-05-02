@@ -185,6 +185,10 @@ export default function ArticlePage({
           site: '@wisexpert',
           cardType: 'summary_large_image',
         }}
+        additionalLinkTags={[
+          { rel: 'alternate', hrefLang: 'uk', href: `https://wisexpert.com.ua/blog/${post.slug}` },
+          { rel: 'alternate', hrefLang: 'x-default', href: `https://wisexpert.com.ua/blog/${post.slug}` },
+        ]}
       />
       <Head>
         <script
