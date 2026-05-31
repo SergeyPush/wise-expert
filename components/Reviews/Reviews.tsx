@@ -4,6 +4,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import styles from './Reviews.module.scss';
 import type { IReviews, IReviewItem } from '@/interfaces/reviews.interface';
 
+// oklch palette — equal lightness/chroma, varied hue per reviewer
 const TINTS: Record<string, { bg: string; fg: string }> = {
   blue:   { bg: 'oklch(0.95 0.03 255)', fg: 'oklch(0.52 0.16 255)' },
   indigo: { bg: 'oklch(0.95 0.03 285)', fg: 'oklch(0.52 0.16 285)' },
@@ -90,6 +91,7 @@ interface ReviewsProps {
 
 export default function Reviews({ reviews }: ReviewsProps) {
   const [idx, setIdx] = useState(0);
+  // bump key forces card re-mount so the CSS fade animation replays on each change
   const [bump, setBump] = useState(0);
   const items = reviews.items;
   const r = items[idx];
@@ -98,6 +100,7 @@ export default function Reviews({ reviews }: ReviewsProps) {
     setIdx((p) => (p + d + items.length) % items.length);
     setBump((b) => b + 1);
   };
+  // jump directly to a reviewer via thumbnail click
   const jump = (n: number) => {
     setIdx(n);
     setBump((b) => b + 1);
