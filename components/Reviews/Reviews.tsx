@@ -1,9 +1,8 @@
-'use client';
-
 import React, { useState } from 'react';
 import Wrapper from '@/components/Wrapper';
 import ScrollReveal from '@/components/ScrollReveal';
 import styles from './Reviews.module.scss';
+import type { IReviews, IReviewItem } from '@/interfaces/reviews.interface';
 
 const TINTS: Record<string, { bg: string; fg: string }> = {
   blue:   { bg: 'oklch(0.95 0.03 255)', fg: 'oklch(0.52 0.16 255)' },
@@ -13,39 +12,6 @@ const TINTS: Record<string, { bg: string; fg: string }> = {
   amber:  { bg: 'oklch(0.95 0.035 70)', fg: 'oklch(0.55 0.13 70)'  },
   rose:   { bg: 'oklch(0.95 0.03 20)',  fg: 'oklch(0.55 0.15 20)'  },
 };
-
-const REVIEWS = [
-  {
-    name: 'Олена Кравченко', role: 'Засновниця', company: 'IT-студія Nordwave',
-    sphere: 'IT + ДІЯ.City', tint: 'blue', rating: 5,
-    quote: 'Перевели команду на ДІЯ.City разом з WisExpert — оформили резидентство швидко й без зайвого стресу. Податки оптимізували легально, звітність завжди вчасно, питань від ДПС не виникало жодного разу.',
-  },
-  {
-    name: 'Андрій Мельник', role: 'ФОП 3 групи', company: 'Магазин «Сезон»',
-    sphere: 'Роздрібна торгівля', tint: 'green', rating: 5,
-    quote: 'Раніше плутався з ПРРО і дедлайнами по єдиному податку. Тепер усе автоматизовано: мені просто приходить нагадування, скільки і коли сплатити. Економлю купу часу й нервів.',
-  },
-  {
-    name: 'Ірина Бондаренко', role: 'Фінансовий директор', company: 'ТОВ «Стандарт-Пак»',
-    sphere: 'Виробництво', tint: 'indigo', rating: 5,
-    quote: 'Налаштували управлінський облік по нашій продукції й порахували реальну собівартість. Завдяки цьому ми побачили, де втрачали маржу, і за квартал вирівняли показники.',
-  },
-  {
-    name: 'Сергій Ткаченко', role: 'Власник мережі', company: 'Кав\'ярні «Друкарня»',
-    sphere: 'HORECA', tint: 'amber', rating: 5,
-    quote: 'Відкривали другу точку — допомогли з усіма дозволами та обліком «під ключ». Реагують на запити того ж дня, інколи навіть у вихідні. Відчуття, що бухгалтерія завжди поруч.',
-  },
-  {
-    name: 'Наталія Шевченко', role: 'Директорка', company: 'ТОВ «Опт-Лідер»',
-    sphere: 'Оптова торгівля', tint: 'teal', rating: 5,
-    quote: 'Працюємо у власній системі — інтеграцію зробили без проблем, документообіг із контрагентами став прозорим. ПДВ і акти тепер закриваються вчасно, без нічних авралів.',
-  },
-  {
-    name: 'Дмитро Коваль', role: 'Засновник', company: 'Сервіс «Майстер Поруч»',
-    sphere: 'Послуги', tint: 'rose', rating: 5,
-    quote: 'Починали як зовсім маленький бізнес — тариф від 500 грн був рятівним. Виросли в команду з 12 людей, і WisExpert зростав разом з нами. Жодного разу не пошкодував про вибір.',
-  },
-];
 
 function initials(name: string) {
   return name.split(' ').slice(0, 2).map((w) => w[0]).join('');
@@ -96,7 +62,7 @@ function ArrowIcon({ dir = 'right' }: { dir?: 'left' | 'right' }) {
   );
 }
 
-function Avatar({ r, size = 60 }: { r: typeof REVIEWS[0]; size?: number }) {
+function Avatar({ r, size = 60 }: { r: IReviewItem; size?: number }) {
   const t = TINTS[r.tint] || TINTS.blue;
   return (
     <div
@@ -108,7 +74,7 @@ function Avatar({ r, size = 60 }: { r: typeof REVIEWS[0]; size?: number }) {
   );
 }
 
-function SphereTag({ r }: { r: typeof REVIEWS[0] }) {
+function SphereTag({ r }: { r: IReviewItem }) {
   const t = TINTS[r.tint] || TINTS.blue;
   return (
     <span className={styles.tag}>
@@ -118,13 +84,18 @@ function SphereTag({ r }: { r: typeof REVIEWS[0] }) {
   );
 }
 
-export default function Reviews() {
+interface ReviewsProps {
+  reviews: IReviews;
+}
+
+export default function Reviews({ reviews }: ReviewsProps) {
   const [idx, setIdx] = useState(0);
   const [bump, setBump] = useState(0);
-  const r = REVIEWS[idx];
+  const items = reviews.items;
+  const r = items[idx];
 
   const go = (d: number) => {
-    setIdx((p) => (p + d + REVIEWS.length) % REVIEWS.length);
+    setIdx((p) => (p + d + items.length) % items.length);
     setBump((b) => b + 1);
   };
   const jump = (n: number) => {
@@ -137,47 +108,35 @@ export default function Reviews() {
       <Wrapper>
         <ScrollReveal>
           <div className={styles.body}>
-            {/* Left column — heading + controls */}
             <div className={styles.left}>
-              <h2 className={styles.title}>
-                Реальні історії наших клієнтів
-              </h2>
-              <p className={styles.lead}>
-                Ми поруч на кожному етапі — від реєстрації до масштабування. Ось що про це кажуть власники бізнесу.
-              </p>
+              <h2 className={styles.title}>{reviews.title}</h2>
+              <p className={styles.lead}>{reviews.lead}</p>
 
               <div className={styles.rateRow}>
-                <span className={styles.rateNum}>4.9</span>
+                <span className={styles.rateNum}>{reviews.averageRating}</span>
                 <div className={styles.rateMeta}>
                   <Stars rating={5} />
-                  <span className={styles.rateLabel}>середня оцінка · 200+ компаній</span>
+                  <span className={styles.rateLabel}>
+                    середня оцінка · {reviews.totalCompanies} компаній
+                  </span>
                 </div>
               </div>
 
               <div className={styles.nav}>
-                <button
-                  className={styles.arrow}
-                  onClick={() => go(-1)}
-                  aria-label="Попередній"
-                >
+                <button className={styles.arrow} onClick={() => go(-1)} aria-label="Попередній">
                   <ArrowIcon dir="left" />
                 </button>
-                <button
-                  className={styles.arrow}
-                  onClick={() => go(1)}
-                  aria-label="Наступний"
-                >
+                <button className={styles.arrow} onClick={() => go(1)} aria-label="Наступний">
                   <ArrowIcon dir="right" />
                 </button>
                 <span className={styles.count}>
                   <b>{String(idx + 1).padStart(2, '0')}</b>
                   {' / '}
-                  {String(REVIEWS.length).padStart(2, '0')}
+                  {String(items.length).padStart(2, '0')}
                 </span>
               </div>
             </div>
 
-            {/* Right column — featured card + thumbnails */}
             <div className={styles.right}>
               <article className={styles.card} key={bump}>
                 <span className={styles.cardMark}>
@@ -198,7 +157,7 @@ export default function Reviews() {
               </article>
 
               <div className={styles.thumbs}>
-                {REVIEWS.map((rr, n) => {
+                {items.map((rr: IReviewItem, n: number) => {
                   const tt = TINTS[rr.tint] || TINTS.blue;
                   return (
                     <button
