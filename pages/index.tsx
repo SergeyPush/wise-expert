@@ -7,6 +7,7 @@ import Tiles from '@/components/Tiles/Tiles';
 import { ITiles } from '@/interfaces/tile.interface';
 import Table from '@/components/Table/Table';
 import { ITable } from '@/interfaces/table.interface';
+import Reviews from '@/components/Reviews/Reviews';
 import { IClients } from '@/interfaces/clients.interface';
 import Clients from '@/components/Clients/Clients';
 import { IFAQ } from '@/interfaces/faq.interface';
@@ -70,6 +71,7 @@ export default function Home({
         <HeroSwiper slides={slides} />
         <Tiles tiles={tiles} />
         <Table table={table} />
+        <Reviews />
         <Clients clients={clients} />
         <Calculator />
         <Faq faq={faq} />
