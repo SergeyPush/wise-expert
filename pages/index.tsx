@@ -7,6 +7,8 @@ import Tiles from '@/components/Tiles/Tiles';
 import { ITiles } from '@/interfaces/tile.interface';
 import Table from '@/components/Table/Table';
 import { ITable } from '@/interfaces/table.interface';
+import Reviews from '@/components/Reviews/Reviews';
+import type { IReviews } from '@/interfaces/reviews.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import Clients from '@/components/Clients/Clients';
 import { IFAQ } from '@/interfaces/faq.interface';
@@ -53,6 +55,7 @@ interface HomeInterface {
   slides: IHero[];
   tiles: ITiles;
   table: ITable;
+  reviews: IReviews;
   clients: IClients;
   faq: IFAQ;
 }
@@ -61,6 +64,7 @@ export default function Home({
   slides,
   tiles,
   table,
+  reviews,
   clients,
   faq,
 }: HomeInterface) {
@@ -70,6 +74,7 @@ export default function Home({
         <HeroSwiper slides={slides} />
         <Tiles tiles={tiles} />
         <Table table={table} />
+        <Reviews reviews={reviews} />
         <Clients clients={clients} />
         <Calculator />
         <Faq faq={faq} />
@@ -103,11 +108,16 @@ export async function getStaticProps() {
     '4eCRCqmvlHL2fjo8FfxVNi',
   );
 
+  const { fields: reviewsResponse } = await client.getEntry(
+    '3xWTayfXkmbwu66K0Z87DK',
+  );
+
   return {
     props: {
       slides: data,
       tiles: tilesResponse,
       table: tableResponse,
+      reviews: reviewsResponse,
       clients: clientResponse,
       faq: faqResponse,
     },
