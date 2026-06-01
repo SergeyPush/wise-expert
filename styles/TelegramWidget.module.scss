@@ -1,0 +1,209 @@
+@use 'variables' as *;
+
+$acc: #2F6BF0;
+$acc-deep: #1E50C8;
+$shadow-lg: 0 30px 70px rgba(20, 40, 90, 0.18), 0 8px 24px rgba(14, 27, 51, 0.10);
+
+// Fixed dock in bottom-right corner
+.dock {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+
+  @media (max-width: 768px) {
+    bottom: 20px;
+    right: 16px;
+  }
+}
+
+// Telegram icon used throughout widget
+.tgIc {
+  display: block;
+  flex: 0 0 auto;
+}
+
+// Floating action button
+.fab {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: $acc;
+  color: #fff;
+  text-decoration: none;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  box-shadow: 0 12px 28px rgba(47, 107, 240, 0.40), 0 3px 8px rgba(14, 27, 51, 0.14);
+  transition: transform 0.16s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.16s, background 0.16s;
+  cursor: pointer;
+
+  .tgIc {
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    transform: translateY(-3px) scale(1.04);
+    background: $acc-deep;
+  }
+
+  @media (max-width: 768px) {
+    width: 56px;
+    height: 56px;
+
+    .tgIc {
+      width: 26px;
+      height: 26px;
+    }
+  }
+}
+
+// Pulse animation for FAB when card is closed
+.pulse {
+  animation: fabPulse 2.4s ease-out infinite;
+}
+
+@keyframes fabPulse {
+  0%   { box-shadow: 0 12px 28px rgba(47, 107, 240, 0.40), 0 3px 8px rgba(14, 27, 51, 0.14), 0 0 0 0 rgba(47, 107, 240, 0.45); }
+  60%  { box-shadow: 0 12px 28px rgba(47, 107, 240, 0.40), 0 3px 8px rgba(14, 27, 51, 0.14), 0 0 0 14px rgba(47, 107, 240, 0); }
+  100% { box-shadow: 0 12px 28px rgba(47, 107, 240, 0.40), 0 3px 8px rgba(14, 27, 51, 0.14), 0 0 0 0 rgba(47, 107, 240, 0); }
+}
+
+// Popup card
+.card {
+  width: 268px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: $shadow-lg;
+  padding: 16px;
+  position: relative;
+  animation: cardRise 0.3s ease both;
+
+  @media (max-width: 768px) {
+    width: 248px;
+  }
+}
+
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: #8A96AB;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+
+  &:hover {
+    background: #F3F6FC;
+    color: #0E1B33;
+  }
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: linear-gradient(150deg, $acc, $acc-deep);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  position: relative;
+
+  .tgIc {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.onlineDot {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2BB86B;
+  border: 2.5px solid #fff;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #0E1B33;
+  line-height: 1.2;
+}
+
+.status {
+  font-family: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12.5px;
+  color: #2BB86B;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.message {
+  font-family: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #28344B;
+  background: #F3F6FC;
+  border-radius: 12px;
+  padding: 11px 13px;
+  margin-top: 12px;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 12px;
+  height: 44px;
+  border-radius: 12px;
+  background: $acc;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.15s;
+
+  .tgIc {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: $acc-deep;
+  }
+}
