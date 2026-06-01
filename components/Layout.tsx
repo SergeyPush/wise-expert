@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Header from '@/components/Header/Header';
+import TelegramWidget from '@/components/Common/TelegramWidget';
 import { DefaultSeo } from 'next-seo';
 
 interface Children {
@@ -60,6 +61,7 @@ const Layout: FC<Children> = ({ children }) => {
       />
       <Header />
       {children}
+      <TelegramWidget />
     </>
   );
 };
