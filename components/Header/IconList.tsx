@@ -11,7 +11,7 @@ interface IconListInterface {
 const IconList = ({ color, className, icons = ListIcons }: IconListInterface) => {
   return (
     <ul
-      className={`flex flex-row gap-5 text justify-between items-center ${className}`}
+      className={`flex flex-row gap-4 items-center ${className}`}
     >
       {icons.map((item, index) => (
         <IconItem item={item} key={index} color={color} />

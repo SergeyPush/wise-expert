@@ -29,7 +29,7 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div
           className={
-            'py-12 md:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8'
+            'py-12 md:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8'
           }
         >
           {/* Brand Section */}
@@ -103,7 +103,7 @@ const Footer = () => {
           </div>
 
           {/* Working Hours */}
-          <div>
+          {/* <div>
             <span className="block text-sm font-semibold text-color-white mb-4 uppercase tracking-wider">
               Графік роботи
             </span>
@@ -111,7 +111,7 @@ const Footer = () => {
               <p>Пн - Пт: 9:30 - 17:30</p>
               <p>Сб - Нд: Вихідний</p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom Bar */}
