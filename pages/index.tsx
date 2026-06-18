@@ -74,7 +74,7 @@ export default function Home({
         <HeroSwiper slides={slides} />
         <Tiles tiles={tiles} />
         <Table table={table} />
-        <Reviews reviews={reviews} />
+        {/* <Reviews reviews={reviews} /> */}
         <Clients clients={clients} />
         <Calculator />
         <Faq faq={faq} />
