@@ -1,11 +1,12 @@
 export interface IReviewItem {
   name: string;
-  role: string;
-  company: string;
-  sphere: string;
+  role?: string;
+  company?: string;
+  sphere?: string;
   tint: string;
   rating: number;
   quote: string;
+  link?: string;
 }
 
 export interface IReviews {
