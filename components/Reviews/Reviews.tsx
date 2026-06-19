@@ -76,6 +76,7 @@ function Avatar({ r, size = 60 }: { r: IReviewItem; size?: number }) {
 }
 
 function SphereTag({ r }: { r: IReviewItem }) {
+  if (!r.sphere) return null;
   const t = TINTS[r.tint] || TINTS.blue;
   return (
     <span className={styles.tag}>
@@ -141,7 +142,18 @@ export default function Reviews({ reviews }: ReviewsProps) {
             </div>
 
             <div className={styles.right}>
-              <article className={styles.card} key={bump}>
+              <article
+                className={styles.card + (r.link ? ' ' + styles.cardLinked : '')}
+                key={bump}
+                {...(r.link ? {
+                  role: 'link',
+                  onClick: () => window.open(r.link, '_blank', 'noopener,noreferrer'),
+                  tabIndex: 0,
+                  onKeyDown: (e: React.KeyboardEvent) => {
+                    if (e.key === 'Enter' || e.key === ' ') window.open(r.link, '_blank', 'noopener,noreferrer');
+                  },
+                } : {})}
+              >
                 <span className={styles.cardMark}>
                   <QuoteIcon />
                 </span>
@@ -154,7 +166,11 @@ export default function Reviews({ reviews }: ReviewsProps) {
                   <Avatar r={r} />
                   <div>
                     <div className={styles.cardName}>{r.name}</div>
-                    <div className={styles.cardRole}>{r.role} · {r.company}</div>
+                    {(r.role || r.company) && (
+                      <div className={styles.cardRole}>
+                        {[r.role, r.company].filter(Boolean).join(' · ')}
+                      </div>
+                    )}
                   </div>
                 </div>
               </article>
