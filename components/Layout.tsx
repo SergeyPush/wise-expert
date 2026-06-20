@@ -40,19 +40,7 @@ const Layout: FC<Children> = ({ children }) => {
           site: '@wisexpert',
           cardType: 'summary_large_image',
         }}
-        additionalLinkTags={[
-          { rel: 'icon', href: '/favicon.ico' },
-          {
-            rel: 'alternate',
-            hrefLang: 'uk',
-            href: 'https://wisexpert.com.ua/',
-          },
-          {
-            rel: 'alternate',
-            hrefLang: 'x-default',
-            href: 'https://wisexpert.com.ua/',
-          },
-        ]}
+        additionalLinkTags={[{ rel: 'icon', href: '/favicon.ico' }]}
         additionalMetaTags={[
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'robots', content: 'index, follow' },
