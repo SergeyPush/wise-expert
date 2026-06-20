@@ -6,7 +6,6 @@ import { Nunito_Sans } from 'next/font/google';
 import client from '@/utils/contentful.api';
 import { mapBlogPost } from '@/utils/contentful.utils';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
-import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
 import BlogCard from '@/components/Blog/BlogCard';
@@ -80,7 +79,6 @@ export default function BlogPage({ posts }: BlogPageProps) {
         />
       </Head>
       <main className={nunito.className}>
-        <Header />
 
         {/* Hero */}
         <section className="bg-gradient-to-br from-color-black to-color-light-black pt-36 pb-16 md:pt-44 md:pb-20">
