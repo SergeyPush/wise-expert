@@ -11,7 +11,7 @@ export const plainText = (value: unknown): string => {
   return '';
 };
 
-export const mapBlogPost = (item: { sys: { id: string; createdAt: string }; fields: Record<string, unknown> }): IBlogPost => {
+export const mapBlogPost = (item: { sys: { id: string; createdAt: string; updatedAt: string }; fields: Record<string, unknown> }): IBlogPost => {
   const f = item.fields as Record<string, unknown>;
   const imageAsset = f.image as
     | { fields?: { file?: { url?: string }; title?: string } }
@@ -25,6 +25,7 @@ export const mapBlogPost = (item: { sys: { id: string; createdAt: string }; fiel
     excerpt: plainText(f.text ?? f.excerpt ?? f.description ?? ''),
     category: plainText(f.tag ?? f.category ?? ''),
     publishedAt: (f.publishedAt ?? f.date ?? item.sys.createdAt) as string,
+    updatedAt: item.sys.updatedAt,
     readTime: typeof f.readTime === 'number' ? f.readTime : 5,
     coverImage: coverImageUrl
       ? {
