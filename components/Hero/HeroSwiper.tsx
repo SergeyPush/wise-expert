@@ -6,14 +6,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { IHero } from '@/interfaces/hero.interface';
+import { IAdvantages } from '@/interfaces/advantages.interface';
 import SlideOne from '@/components/Hero/SlideOne';
 import SlideTwo from '@/components/Hero/SlideTwo';
 import styles from '@/styles/HeroSwiper.module.scss';
 
 interface HeroSwiperInterface {
   slides: IHero[];
+  advantages: IAdvantages;
 }
-const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
+const HeroSwiper = ({ slides, advantages }: HeroSwiperInterface) => {
   const [first, second] = slides.sort((a, b) => (a.slide > b.slide ? 1 : -1));
 
   return (
@@ -36,7 +38,7 @@ const HeroSwiper = ({ slides }: HeroSwiperInterface) => {
       }}
     >
       <SwiperSlide>
-        <SlideOne data={first} />
+        <SlideOne data={first} advantages={advantages} />
       </SwiperSlide>
       <SwiperSlide>
         <SlideTwo data={second} />

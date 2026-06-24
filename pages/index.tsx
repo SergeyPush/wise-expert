@@ -2,6 +2,7 @@ import { Nunito_Sans } from 'next/font/google';
 import client from '@/utils/contentful.api';
 import { Entry } from 'contentful';
 import { IHero } from '@/interfaces/hero.interface';
+import { IAdvantages } from '@/interfaces/advantages.interface';
 import HeroSwiper from '@/components/Hero/HeroSwiper';
 import Tiles from '@/components/Tiles/Tiles';
 import { ITiles } from '@/interfaces/tile.interface';
@@ -54,6 +55,7 @@ const nunito = Nunito_Sans({
 
 interface HomeInterface {
   slides: IHero[];
+  advantages: IAdvantages;
   tiles: ITiles;
   table: ITable;
   reviews: IReviews;
@@ -63,6 +65,7 @@ interface HomeInterface {
 
 export default function Home({
   slides,
+  advantages,
   tiles,
   table,
   reviews,
@@ -91,7 +94,7 @@ export default function Home({
         />
       </Head>
       <main className={nunito.className}>
-        <HeroSwiper slides={slides} />
+        <HeroSwiper slides={slides} advantages={advantages} />
         <Tiles tiles={tiles} />
         <Table table={table} />
         <Reviews reviews={reviews} />
@@ -111,6 +114,10 @@ export default function Home({
 export async function getStaticProps() {
   const { items } = await client.getEntries({ content_type: 'hero' });
   const data = items.map((item: Entry<any>) => item.fields);
+
+  const { fields: advantagesResponse } = await client.getEntry(
+    '4dDKOTMF5WeR5zIsKOTJyD',
+  );
 
   const { fields: tilesResponse } = await client.getEntry(
     '38OxzgLsaAVgHagRJb6L7R',
@@ -135,6 +142,7 @@ export async function getStaticProps() {
   return {
     props: {
       slides: data,
+      advantages: advantagesResponse,
       tiles: tilesResponse,
       table: tableResponse,
       reviews: reviewsResponse,

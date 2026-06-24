@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { IHero } from '@/interfaces/hero.interface';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
+import Advantages from '@/components/Hero/Advantages';
+import { IAdvantages } from '@/interfaces/advantages.interface';
 import styles from '@/styles/SlideOne.module.scss';
 import { makeBolder } from '@/utils/bolder.utils';
 import { scrollToId } from '@/utils/scroll.utils';
@@ -10,8 +12,12 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 interface HeroInterface {
   data: IHero;
+  advantages: IAdvantages;
 }
-const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
+const SlideOne = ({
+  data: { image, title, subtitle },
+  advantages,
+}: HeroInterface) => {
   const imageUrl = image?.fields?.file?.url
     ? `${image.fields.file.url}?w=1920&q=80&fm=webp`
     : undefined;
@@ -57,18 +63,25 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
           style={{ backgroundImage: imageUrl ? `url(${imageUrl})` : undefined }}
         />
 
-        <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pb-24 md:min-h-screen md:justify-end md:pb-[132px] lg:justify-center lg:pb-0 lg:pt-20">
+        <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pb-24 md:min-h-screen md:justify-end md:pb-[132px] lg:justify-end lg:pb-[84px] lg:pt-20 xl:pb-[100px]">
           <motion.h1
             className={styles.title}
             dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
             {...fadeUp(0.1)}
           />
-          <motion.h2
-            className={styles.subtitle}
-            dangerouslySetInnerHTML={{ __html: subtitle ? subtitle : '' }}
-            {...fadeUp(0.25)}
-          />
-          <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.4)}>
+          {/* Render subtitle only when present — empty <h2> still holds margin */}
+          {subtitle && (
+            <motion.h2
+              className={styles.subtitle}
+              dangerouslySetInnerHTML={{ __html: subtitle }}
+              {...fadeUp(0.25)}
+            />
+          )}
+          {/* Variant 6 advantages block: stats + checkmark benefits */}
+          <motion.div {...fadeUp(0.35)}>
+            <Advantages data={advantages} />
+          </motion.div>
+          <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.5)}>
             <Button
               format={'primary'}
               text={'Розрахувати вартість'}
