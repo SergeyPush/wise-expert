@@ -6,36 +6,36 @@
   font-size: 28px;
   line-height: 120%;
   letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   color: $color-white;
   max-width: 100%;
 
   @include sm {
     font-size: 32px;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
   }
 
   @include md {
     font-size: 44px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     max-width: 600px;
   }
 
   @include lg {
     font-size: 52px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     max-width: 700px;
   }
 
   @include xl {
     font-size: 60px;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     max-width: 800px;
   }
 
   @include xl2 {
     font-size: 68px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 }
 
@@ -45,41 +45,41 @@
   letter-spacing: 0;
   color: rgba(255, 255, 255, 0.8);
   font-size: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   max-width: 100%;
 
   @include sm {
     font-size: 16px;
-    margin-bottom: 28px;
+    margin-bottom: 18px;
     max-width: 400px;
   }
 
   @include md {
     font-size: 17px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     max-width: 480px;
   }
 
   @include lg {
     font-size: 18px;
-    margin-bottom: 36px;
+    margin-bottom: 24px;
     max-width: 520px;
   }
 
   @include xl {
-    margin-bottom: 40px;
+    margin-bottom: 26px;
     font-size: 19px;
   }
 
   @include xl2 {
-    margin-bottom: 44px;
+    margin-bottom: 28px;
     font-size: 20px;
   }
 }
 
 /* Outer container — fills Swiper height on mobile, auto on desktop */
 .background {
-  background-color: #0F172A;
+  background-color: #0f172a;
   position: relative;
   display: flex;
   flex-direction: column;
