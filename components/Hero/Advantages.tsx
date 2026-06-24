@@ -1,36 +1,19 @@
 import React from 'react';
 import styles from '@/styles/Advantages.module.scss';
+import { IAdvantages } from '@/interfaces/advantages.interface';
 
-// Numeric metrics shown as large figures with thin dividers.
-const STATS: { num: string; label: React.ReactNode }[] = [
-  { num: '10+', label: 'років досвіду' },
-  {
-    num: '100+',
-    label: (
-      <>
-        компаній
-        <br />
-        на супроводі
-      </>
-    ),
-  },
-  {
-    num: '100%',
-    label: (
-      <>
-        звітів подано
-        <br />
-        вчасно
-      </>
-    ),
-  },
-];
+interface AdvantagesProps {
+  data: IAdvantages;
+}
 
-// Qualitative advantages rendered with checkmarks.
-const QUALS: string[] = [
-  'За Вами закріплюється персональний бухгалтер',
-  'Працюємо по всій Україні',
-];
+// Render a label that may contain "\n" line breaks as separate lines.
+const renderLabel = (label: string) =>
+  label.split('\n').map((line, i, arr) => (
+    <React.Fragment key={i}>
+      {line}
+      {i < arr.length - 1 && <br />}
+    </React.Fragment>
+  ));
 
 // Inline check icon (matches design's stroked checkmark).
 const CheckIcon = () => (
@@ -46,22 +29,24 @@ const CheckIcon = () => (
   </svg>
 );
 
-const Advantages = () => {
+const Advantages = ({ data }: AdvantagesProps) => {
+  const { stats = [], quals = [] } = data ?? {};
+
   return (
     <div className={styles.root}>
       {/* Large numeric stats in a row with dividers */}
       <div className={styles.stats}>
-        {STATS.map(({ num, label }) => (
+        {stats.map(({ num, label }) => (
           <div key={num} className={styles.stat}>
             <div className={styles.num}>{num}</div>
-            <div className={styles.label}>{label}</div>
+            <div className={styles.label}>{renderLabel(label)}</div>
           </div>
         ))}
       </div>
 
       {/* Checkmark advantages */}
       <div className={styles.quals}>
-        {QUALS.map((text) => (
+        {quals.map((text) => (
           <div key={text} className={styles.qual}>
             <span className={styles.icon}>
               <CheckIcon />

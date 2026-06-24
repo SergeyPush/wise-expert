@@ -4,6 +4,7 @@ import { IHero } from '@/interfaces/hero.interface';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
 import Advantages from '@/components/Hero/Advantages';
+import { IAdvantages } from '@/interfaces/advantages.interface';
 import styles from '@/styles/SlideOne.module.scss';
 import { makeBolder } from '@/utils/bolder.utils';
 import { scrollToId } from '@/utils/scroll.utils';
@@ -11,8 +12,12 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 interface HeroInterface {
   data: IHero;
+  advantages: IAdvantages;
 }
-const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
+const SlideOne = ({
+  data: { image, title, subtitle },
+  advantages,
+}: HeroInterface) => {
   const imageUrl = image?.fields?.file?.url
     ? `${image.fields.file.url}?w=1920&q=80&fm=webp`
     : undefined;
@@ -74,7 +79,7 @@ const SlideOne = ({ data: { image, title, subtitle } }: HeroInterface) => {
           )}
           {/* Variant 6 advantages block: stats + checkmark benefits */}
           <motion.div {...fadeUp(0.35)}>
-            <Advantages />
+            <Advantages data={advantages} />
           </motion.div>
           <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.5)}>
             <Button
