@@ -8,6 +8,8 @@ interface ButtonInterface {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  // если передан href — рендерится <a> (например, tel:/mailto: ссылки)
+  href?: string;
 }
 
 const Button = ({
@@ -18,6 +20,7 @@ const Button = ({
   type,
   disabled,
   onClick,
+  href,
 }: ButtonInterface) => {
   const baseStyles =
     'cursor-pointer font-semibold transition-all duration-200 text-sm lg:text-base rounded-xl text-center';
@@ -38,12 +41,22 @@ const Button = ({
       'text-color-blue bg-transparent hover:bg-color-blue/10 active:scale-[0.98]',
   };
 
+  const classes = `${baseStyles} ${sizeStyles} ${formatStyles[format]} disabled:opacity-50 disabled:cursor-not-allowed ${className}`;
+
+  if (href) {
+    return (
+      <a href={href} onClick={onClick} className={`${classes} inline-block`}>
+        {text}
+      </a>
+    );
+  }
+
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={`${baseStyles} ${sizeStyles} ${formatStyles[format]} disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={classes}
     >
       {text}
     </button>

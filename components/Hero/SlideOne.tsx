@@ -8,6 +8,7 @@ import { IAdvantages } from '@/interfaces/advantages.interface';
 import styles from '@/styles/SlideOne.module.scss';
 import { makeBolder } from '@/utils/bolder.utils';
 import { scrollToId } from '@/utils/scroll.utils';
+import { CONTACTS } from '@/constants/contact.const';
 import { motion, useReducedMotion } from 'framer-motion';
 
 interface HeroInterface {
@@ -89,12 +90,13 @@ const SlideOne = ({
               className="w-full sm:w-auto"
               onClick={() => scrollToId('calc')}
             />
+            {/* Телефон вместо "Дізнатися більше" (CRO-правки): tel-ссылка для прямого звонка */}
             <Button
               format={'outlined'}
-              text={'Дізнатися більше'}
+              text={CONTACTS.phoneDisp}
               size={'wide'}
               className="w-full sm:w-auto"
-              onClick={() => scrollToId('useful')}
+              href={CONTACTS.phone}
             />
           </motion.div>
         </Wrapper>
