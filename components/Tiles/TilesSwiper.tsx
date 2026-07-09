@@ -11,11 +11,12 @@ interface TilesSwiperInterface {
 
 const TilesSwiper = ({ tiles }: TilesSwiperInterface) => {
   const swiperOptions: SwiperOptions = {
-    slidesPerView: 1,
-    spaceBetween: 20,
+    // 1.15: краешек следующей карточки виден — подсказка, что можно свайпать
+    slidesPerView: 1.15,
+    spaceBetween: 16,
     breakpoints: {
       640: {
-        slidesPerView: 1,
+        slidesPerView: 1.15,
         spaceBetween: 20,
       },
       768: {
@@ -29,7 +30,6 @@ const TilesSwiper = ({ tiles }: TilesSwiperInterface) => {
     },
     centeredSlides: true,
     centeredSlidesBounds: true,
-    autoHeight: true,
     modules: [Pagination],
     pagination: {
       clickable: true,
