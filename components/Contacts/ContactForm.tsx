@@ -35,21 +35,28 @@ const ContactForm = ({
 
   const { showConfirmation } = useGlobalContext();
 
-  const handleForm = (data: IContactForm) => {
-    console.log(data);
+  const handleForm = async (data: IContactForm) => {
+    try {
+      await sendTelegramMessage(formatData({ ...data, ...calculatorFormData }));
 
-    sendTelegramMessage(formatData({ ...data, ...calculatorFormData }))
-      .then(() => showConfirmation(true))
-      .catch((err) => console.log(err));
+      // GTM: событие успешной отправки формы, не зависит от UI (попапа)
+      window.dataLayer?.push({ event: 'form_success' });
 
-    reset({ email: '', phone: '', question: '' });
+      showConfirmation(true);
 
-    if (clearCalculatorForm) {
-      clearCalculatorForm();
-    }
+      // очищаем и закрываем форму только после успешной отправки
+      reset({ email: '', phone: '', question: '' });
 
-    if (setIsVisible) {
-      setIsVisible(false);
+      if (clearCalculatorForm) {
+        clearCalculatorForm();
+      }
+
+      if (setIsVisible) {
+        setIsVisible(false);
+      }
+    } catch (err) {
+      // при ошибке данные формы сохраняются, пользователь может повторить
+      console.error(err);
     }
   };
 
