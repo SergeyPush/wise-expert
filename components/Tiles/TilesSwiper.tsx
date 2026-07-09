@@ -11,8 +11,8 @@ interface TilesSwiperInterface {
 
 const TilesSwiper = ({ tiles }: TilesSwiperInterface) => {
   const swiperOptions: SwiperOptions = {
-    // 1.15: краешек следующей карточки виден — подсказка, что можно свайпать
-    slidesPerView: 1.15,
+    // 1.1: краешек следующей карточки виден — подсказка, что можно свайпать
+    slidesPerView: 1.1,
     spaceBetween: 16,
     breakpoints: {
       640: {
@@ -44,7 +44,8 @@ const TilesSwiper = ({ tiles }: TilesSwiperInterface) => {
       <Swiper {...swiperOptions}>
         {tiles.tile.map((item, index) => {
           return (
-            <SwiperSlide key={index} className="!pb-4">
+            // !h-auto: слайды растягиваются flex-ом до самой высокой карточки
+            <SwiperSlide key={index} className="!pb-4 !h-auto">
               <Tile tile={item} />
             </SwiperSlide>
           );
