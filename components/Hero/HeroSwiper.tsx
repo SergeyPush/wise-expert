@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -21,7 +21,7 @@ const HeroSwiper = ({ slides, advantages }: HeroSwiperInterface) => {
   return (
     <Swiper
       className={styles.swiper}
-      modules={[Navigation, Pagination, Autoplay]}
+      modules={[Navigation, Pagination]}
       slidesPerView={1}
       speed={800}
       loop={true}
@@ -32,10 +32,6 @@ const HeroSwiper = ({ slides, advantages }: HeroSwiperInterface) => {
         modifierClass: 'hero-swiper-pagination-',
       }}
       scrollbar={{ draggable: true }}
-      autoplay={{
-        delay: 12000,
-        disableOnInteraction: false,
-      }}
     >
       <SwiperSlide>
         <SlideOne data={first} advantages={advantages} />
