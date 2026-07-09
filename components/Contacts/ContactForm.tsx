@@ -30,12 +30,16 @@ const ContactForm = ({
     handleSubmit,
     register,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IContactForm>({ mode: 'onBlur' });
 
   const { showConfirmation } = useGlobalContext();
+  // ошибка отправки на сервер (не валидации) — показывается под кнопкой
+  const [submitError, setSubmitError] = React.useState(false);
 
   const handleForm = async (data: IContactForm) => {
+    setSubmitError(false);
+
     try {
       await sendTelegramMessage(formatData({ ...data, ...calculatorFormData }));
 
@@ -57,6 +61,7 @@ const ContactForm = ({
     } catch (err) {
       // при ошибке данные формы сохраняются, пользователь может повторить
       console.error(err);
+      setSubmitError(true);
     }
   };
 
@@ -137,10 +142,17 @@ const ContactForm = ({
         <Button
           type={'submit'}
           format={'primary'}
-          text={'Розрахувати вартість'}
+          text={isSubmitting ? 'Відправляємо...' : 'Розрахувати вартість'}
           size={'wide'}
           className="w-full"
+          disabled={isSubmitting}
         />
+        {submitError && (
+          <p className={'text-color-red text-sm text-center mt-3'} role="alert">
+            Не вдалося відправити повідомлення. Спробуйте ще раз або
+            зателефонуйте нам.
+          </p>
+        )}
       </form>
     </div>
   );
