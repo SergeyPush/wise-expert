@@ -1,4 +1,8 @@
 import '@/styles/globals.scss';
+// Базовые стили Swiper — глобально для всех слайдеров (Clients, Tiles)
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import type { AppProps } from 'next/app';
 import Layout from '@/components/Layout';
 import { ContextProvider } from '@/context/GlobalContext';

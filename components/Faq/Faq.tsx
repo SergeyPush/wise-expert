@@ -27,7 +27,7 @@ const renderTitle = (title: string) => {
 };
 
 const Faq = ({ faq }: FaqInterface) => {
-  const { title, faqs } = faq;
+  const { title, faqs, subtitle, ctaTitle, ctaText } = faq;
   const questionList = faqs.map((item) => item.fields);
   // Открывает ту же модалку с формой, что и кнопка в хедере
   const { setBookCallIsVisible } = useGlobalContext();
@@ -61,10 +61,8 @@ const Faq = ({ faq }: FaqInterface) => {
           <ScrollReveal>
             <header className={styles.head}>
               <h2 className={styles.title}>{renderTitle(title)}</h2>
-              <p className={styles.lead}>
-                Зібрали відповіді на те, що найчастіше запитують перед початком
-                співпраці.
-              </p>
+              {/* лид из Contentful (subtitle) */}
+              {subtitle && <p className={styles.lead}>{subtitle}</p>}
             </header>
           </ScrollReveal>
 
@@ -83,10 +81,9 @@ const Faq = ({ faq }: FaqInterface) => {
           <ScrollReveal delay={0.15}>
             <div className={styles.cta}>
               <div className={styles.ctaTxt}>
-                <span className={styles.ctaT}>Не знайшли відповідь?</span>
-                <span className={styles.ctaS}>
-                  Напишіть нам — відповімо протягом дня
-                </span>
+                {/* тексты CTA из Contentful */}
+                <span className={styles.ctaT}>{ctaTitle}</span>
+                <span className={styles.ctaS}>{ctaText}</span>
               </div>
               {/* Переиспользуем общий Button; открывает модалку с формой */}
               <Button
