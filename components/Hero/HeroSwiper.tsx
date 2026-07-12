@@ -9,7 +9,8 @@ interface HeroSwiperInterface {
 }
 const HeroSwiper = ({ slides, advantages }: HeroSwiperInterface) => {
   // Слайдер убран: показываем только первый слайд с фото девушек
-  const [first] = slides.sort((a, b) => (a.slide > b.slide ? 1 : -1));
+  // копия перед сортировкой — не мутируем проп slides
+  const [first] = [...slides].sort((a, b) => (a.slide > b.slide ? 1 : -1));
 
   return <SlideOne data={first} advantages={advantages} />;
 };

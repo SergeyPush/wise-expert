@@ -81,9 +81,9 @@ const Faq = ({ faq }: FaqInterface) => {
           <ScrollReveal delay={0.15}>
             <div className={styles.cta}>
               <div className={styles.ctaTxt}>
-                {/* тексты CTA из Contentful */}
-                <span className={styles.ctaT}>{ctaTitle}</span>
-                <span className={styles.ctaS}>{ctaText}</span>
+                {/* тексты CTA из Contentful — рендерим только заполненные */}
+                {ctaTitle && <span className={styles.ctaT}>{ctaTitle}</span>}
+                {ctaText && <span className={styles.ctaS}>{ctaText}</span>}
               </div>
               {/* Переиспользуем общий Button; открывает модалку с формой */}
               <Button
