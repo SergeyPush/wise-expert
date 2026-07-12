@@ -19,26 +19,31 @@ export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.PHONE,
     link: CONTACTS.phone,
+    label: 'Телефон',
     text: '+38(099)3811118',
   },
   {
     Icon: ICONS.TELEGRAM,
     link: 'tg://resolve?domain=@WisExpert',
+    label: 'Telegram',
     text: '@WisExpert',
   },
   {
     Icon: ICONS.FACEBOOK,
     link: 'https://facebook.com/wisexpert',
+    label: 'Facebook',
     text: 'Wisexpert',
   },
   {
     Icon: ICONS.INSTAGRAM,
     link: 'https://www.instagram.com/wisexpert_buh',
+    label: 'Instagram',
     text: 'wisexpert_buh',
   },
   {
     Icon: ICONS.LINKEDIN,
     link: 'https://www.linkedin.com/company/бухгалтерська-компанія-wisexpert/',
+    label: 'LinkedIn',
     text: 'wisexpert',
   },
 ];

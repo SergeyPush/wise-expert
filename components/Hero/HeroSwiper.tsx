@@ -1,46 +1,18 @@
 import React from 'react';
-import { Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import { IHero } from '@/interfaces/hero.interface';
 import { IAdvantages } from '@/interfaces/advantages.interface';
 import SlideOne from '@/components/Hero/SlideOne';
-import SlideTwo from '@/components/Hero/SlideTwo';
-import styles from '@/styles/HeroSwiper.module.scss';
 
 interface HeroSwiperInterface {
   slides: IHero[];
   advantages: IAdvantages;
 }
 const HeroSwiper = ({ slides, advantages }: HeroSwiperInterface) => {
-  const [first, second] = slides.sort((a, b) => (a.slide > b.slide ? 1 : -1));
+  // Слайдер убран: показываем только первый слайд с фото девушек
+  // копия перед сортировкой — не мутируем проп slides
+  const [first] = [...slides].sort((a, b) => (a.slide > b.slide ? 1 : -1));
 
-  return (
-    <Swiper
-      className={styles.swiper}
-      modules={[Navigation, Pagination]}
-      slidesPerView={1}
-      speed={800}
-      loop={true}
-      pagination={{
-        clickable: true,
-        bulletClass: 'hero-swiper-bullet',
-        bulletActiveClass: 'hero-swiper-bullet-active',
-        modifierClass: 'hero-swiper-pagination-',
-      }}
-      scrollbar={{ draggable: true }}
-    >
-      <SwiperSlide>
-        <SlideOne data={first} advantages={advantages} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <SlideTwo data={second} />
-      </SwiperSlide>
-    </Swiper>
-  );
+  return <SlideOne data={first} advantages={advantages} />;
 };
 
 export default HeroSwiper;
