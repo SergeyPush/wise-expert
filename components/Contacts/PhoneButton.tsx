@@ -1,4 +1,5 @@
 import { IconType } from 'react-icons';
+import styles from '@/styles/PhoneButton.module.scss';
 
 interface PhoneButtonInterface {
   href: string; // tel: ссылка
@@ -13,7 +14,7 @@ const PhoneButton = ({ href, label, phone, Icon, className }: PhoneButtonInterfa
   return (
     <a
       href={href}
-      className={`flex w-full lg:inline-flex lg:w-auto items-center gap-3.5 rounded-2xl bg-color-blue py-4 pl-4 pr-6 text-color-white shadow-elevated transition-transform duration-200 hover:-translate-y-1 active:scale-[0.98] ${className || ''}`}
+      className={`${styles.pulse} flex w-full lg:inline-flex lg:w-auto items-center gap-3.5 rounded-2xl bg-color-blue py-4 pl-4 pr-6 text-color-white shadow-elevated transition-transform duration-200 active:scale-[0.98] ${className || ''}`}
     >
       {/* плитка с иконкой телефона */}
       <span className="grid h-[46px] w-[46px] flex-shrink-0 place-items-center rounded-xl bg-color-white/20">
