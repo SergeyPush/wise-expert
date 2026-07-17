@@ -5,7 +5,8 @@ import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
-import { NavIcons } from '@/constants/icons.const';
+import { ICONS, ListIcons } from '@/constants/icons.const';
+import { CONTACTS } from '@/constants/contact.const';
 import Button from '@/components/Button/Button';
 import Hamburger from '@/components/Button/Hamburger';
 import MobileMenu from '@/components/Header/MobileMenu';
@@ -67,8 +68,23 @@ const Header = () => {
               <IconList
                 color={isScrolled ? 'black' : 'white'}
                 className={'hidden lg:flex'}
-                icons={NavIcons}
+                icons={ListIcons}
               />
+              {/* Телефон для мобайла — слева от гамбургера. Скрыт при открытом
+                  меню: там свой блок с номером */}
+              {!mobileMenuIsActive && (
+                <a
+                  href={CONTACTS.phone}
+                  aria-label={CONTACTS.phoneDisp}
+                  className={`lg:hidden relative z-20 block p-1 transition-colors duration-200 ${
+                    isScrolled
+                      ? 'text-color-muted hover:text-color-blue'
+                      : 'text-color-white/70 hover:text-color-white'
+                  }`}
+                >
+                  <ICONS.PHONE className="w-6 h-6" aria-hidden="true" />
+                </a>
+              )}
               <Button
                 format={isScrolled ? 'primary' : 'white'}
                 text={'Замовити дзвінок'}

@@ -48,7 +48,8 @@ export const ListIcons: IIcon[] = [
   },
 ];
 
-/** Same as ListIcons but without the phone — used in the header nav */
+/** Same as ListIcons but without the phone — used in the contacts social cards,
+ *  where the phone has its own CTA (PhoneButton) */
 export const NavIcons: IIcon[] = ListIcons.filter(
   (item) => item.Icon !== ICONS.PHONE,
 );
