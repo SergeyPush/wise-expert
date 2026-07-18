@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '@/context/GlobalContext';
-import Wrapper from '@/components/Wrapper';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
-import { ICONS, ListIcons } from '@/constants/icons.const';
+import { ICONS, ListIcons, CompactIcons } from '@/constants/icons.const';
 import { CONTACTS } from '@/constants/contact.const';
 import Button from '@/components/Button/Button';
 import Hamburger from '@/components/Button/Hamburger';
@@ -28,7 +27,9 @@ const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    // passive: обработчик не вызывает preventDefault, флаг снимает с браузера
+    // необходимость ждать его выполнения перед прокруткой
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -48,8 +49,12 @@ const Header = () => {
           isVisible={bookCallIsVisible}
           setIsVisible={setBookCallIsVisible}
         />
-        <Wrapper>
-          <div className="flex flex-row items-center justify-between gap-4">
+        {/* Не Wrapper: у него на lg ширина сужается до w-5/6 — контентной
+            колонки, — и строке меню на 1024px не хватало места. Здесь
+            w-11/12 до xl (+85px на 1024px), а с xl возвращаемся к w-4/5,
+            чтобы логотип снова совпал по левому краю с контентом секций */}
+        <div className="w-11/12 xl:w-4/5 mx-auto">
+          <div className="flex flex-row items-center justify-between gap-2 xl:gap-4">
             {/* Logo */}
             <Link
               href="/"
@@ -64,14 +69,24 @@ const Header = () => {
             <LinkList className={'hidden'} isScrolled={isScrolled} />
 
             {/* Right Section */}
-            <div className={'flex flex-row gap-3 lg:gap-6 items-center'}>
+            <div className={'flex flex-row gap-3 xl:gap-6 items-center'}>
+              {/* На 1024–1279px показываем три канала связи вместо пяти:
+                  полный набор (~204px) не помещался в строку меню, из-за чего
+                  кнопка «Замовити дзвінок» уезжала за край экрана и
+                  обрезалась (overflow-x: hidden на body). С xl — все пять */}
               <IconList
                 color={isScrolled ? 'black' : 'white'}
-                className={'hidden lg:flex'}
+                className={'hidden lg:flex xl:hidden'}
+                gap={'gap-2'}
+                icons={CompactIcons}
+              />
+              <IconList
+                color={isScrolled ? 'black' : 'white'}
+                className={'hidden xl:flex'}
                 icons={ListIcons}
               />
-              {/* Телефон для мобайла — слева от гамбургера. Скрыт при открытом
-                  меню: там свой блок с номером */}
+              {/* Телефон — слева от гамбургера. Скрыт при открытом меню:
+                  там свой блок с номером. С lg телефон уже есть в IconList */}
               {!mobileMenuIsActive && (
                 <a
                   href={CONTACTS.phone}
@@ -89,7 +104,7 @@ const Header = () => {
                 format={isScrolled ? 'primary' : 'white'}
                 text={'Замовити дзвінок'}
                 size={'normal'}
-                className={'relative z-20 hidden sm:block'}
+                className={'relative z-20 hidden sm:block whitespace-nowrap'}
                 onClick={() => setBookCallIsVisible(true)}
               />
               <Hamburger
@@ -100,7 +115,7 @@ const Header = () => {
               />
             </div>
           </div>
-        </Wrapper>
+        </div>
       </nav>
     </>
   );
