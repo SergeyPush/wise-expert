@@ -64,7 +64,8 @@ const SlideOne = ({
           style={{ backgroundImage: imageUrl ? `url(${imageUrl})` : undefined }}
         />
 
-        <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pb-24 md:min-h-screen md:justify-end md:pb-[132px] lg:justify-end lg:pb-[84px] lg:pt-20 xl:pb-[100px]">
+        {/* pb уменьшен на десктопе — блок текста ниже, title не накрывает лица */}
+        <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pb-24 md:min-h-screen md:justify-end md:pb-[100px] lg:justify-end lg:pb-[60px] lg:pt-20 xl:pb-[64px]">
           <motion.h1
             className={styles.title}
             dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
