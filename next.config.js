@@ -13,6 +13,10 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  // Для Docker: собирает в .next/standalone самодостаточный сервер вместе с
+  // теми node_modules, которые реально нужны в рантайме, — финальный образ
+  // обходится без devDependencies и исходников
+  output: 'standalone',
   reactStrictMode: true,
   trailingSlash: false,
   async headers() {
