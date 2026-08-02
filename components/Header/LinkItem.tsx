@@ -10,7 +10,9 @@ interface LinkItemInterface {
 }
 
 const linkClass = (isScrolled?: boolean) =>
-  `px-3 py-2 rounded-lg hover:bg-color-black/5 cursor-pointer text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+  // px-2 вместо px-3: 7 ссылок × 8px = 56px, которых не хватало, чтобы в
+  // строку поместились и все пять иконок соцсетей, и CTA в одну строку
+  `px-2 py-2 rounded-lg hover:bg-color-black/5 cursor-pointer text-sm font-medium whitespace-nowrap transition-all duration-200 ${
     isScrolled
       ? 'text-color-muted hover:text-color-black'
       : 'text-color-white/80 hover:text-color-white hover:bg-color-white/10'
