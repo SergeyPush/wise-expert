@@ -12,7 +12,6 @@
     "@contentful/rich-text-react-renderer": "^16.1.6",
     "@contentful/rich-text-types": "^17.2.5",
     "@emailjs/browser": "^4.4.1",
-    "@hono/node-server": "^1.19.5",
     "@next/third-parties": "^15.5.4",
     "@notionhq/client": "^2.3.0",
     "@types/node": "^24.7.1",
@@ -21,7 +20,7 @@
     "contentful": "^11.8.5",
     "framer-motion": "^12.23.24",
     "hono": "^4.10.2",
-    "next": "^15.5.7",
+    "next": "^15.5.22",
     "next-seo": "^6.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -38,8 +37,12 @@
     "@next/bundle-analyzer": "^15.5.5",
     "@types/react-input-mask": "^3.0.6",
     "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.19",
     "prettier": "^3.6.2",
     "tailwindcss": "^3.4.18"
+  },
+  "overrides": {
+    "postcss": "$postcss",
+    "sharp": "^0.35.3"
   }
 }
