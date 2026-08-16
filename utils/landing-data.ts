@@ -24,6 +24,35 @@ const ENTRY_IDS = {
   reviews: '3xWTayfXkmbwu66K0Z87DK',
 } as const;
 
+/**
+ * Кэш записей на процесс. Три страницы тянут одни и те же шесть записей —
+ * без кэша на билде это 21 запрос в Contentful вместо 7.
+ *
+ * TTL нужен, потому что тот же модуль живёт в проде и обслуживает ISR:
+ * вечный кэш заморозил бы контент до перезапуска сервера. Минуты хватает,
+ * чтобы билд успел собрать все страницы, и она не мешает revalidate: 3600.
+ * В dev кэш выключен — правки в Contentful должны быть видны сразу.
+ */
+const CACHE_TTL_MS = process.env.NODE_ENV === 'production' ? 60_000 : 0;
+
+const cache = new Map<string, { at: number; fields: Promise<unknown> }>();
+
+async function getFields<T>(id: string): Promise<T> {
+  const hit = cache.get(id);
+
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) {
+    return hit.fields as Promise<T>;
+  }
+
+  const fields = client.getEntry(id).then((entry) => entry.fields as unknown);
+  // ошибку не кэшируем: следующий вызов должен повторить запрос.
+  // catch здесь же гасит unhandled rejection — сама ошибка уходит вызвавшему
+  fields.catch(() => cache.delete(id));
+  cache.set(id, { at: Date.now(), fields });
+
+  return fields as Promise<T>;
+}
+
 export interface LandingData {
   slide: IHero;
   advantages: IAdvantages;
@@ -48,23 +77,23 @@ export async function getLandingData(
 ): Promise<LandingData> {
   const [hero, advantages, tiles, table, clients, faq, reviews] =
     await Promise.all([
-      client.getEntry(ENTRY_IDS.hero),
-      client.getEntry(ENTRY_IDS.advantages),
-      client.getEntry(ENTRY_IDS.tiles),
-      client.getEntry(ENTRY_IDS.table),
-      client.getEntry(ENTRY_IDS.clients),
-      client.getEntry(ENTRY_IDS.faq),
-      client.getEntry(ENTRY_IDS.reviews),
+      getFields<IHero>(ENTRY_IDS.hero),
+      getFields<IAdvantages>(ENTRY_IDS.advantages),
+      getFields<ITiles>(ENTRY_IDS.tiles),
+      getFields<ITable>(ENTRY_IDS.table),
+      getFields<IClients>(ENTRY_IDS.clients),
+      getFields<IFAQ>(ENTRY_IDS.faq),
+      getFields<IReviews>(ENTRY_IDS.reviews),
     ]);
 
   return {
     // фото и разметка hero общие, меняются только тексты страницы
-    slide: { ...(hero.fields as unknown as IHero), ...heroTexts },
-    advantages: advantages.fields as unknown as IAdvantages,
-    tiles: tiles.fields as unknown as ITiles,
-    table: table.fields as unknown as ITable,
-    clients: clients.fields as unknown as IClients,
-    faq: faq.fields as unknown as IFAQ,
-    reviews: reviews.fields as unknown as IReviews,
+    slide: { ...hero, ...heroTexts },
+    advantages,
+    tiles,
+    table,
+    clients,
+    faq,
+    reviews,
   };
 }
