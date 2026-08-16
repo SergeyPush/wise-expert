@@ -1,7 +1,12 @@
 import React from 'react';
 import { NextSeo } from 'next-seo';
-import LandingPage from '@/components/Landing/LandingPage';
+import LandingShell from '@/components/Landing/LandingShell';
+import { Calculator, Contacts, Faq, Map } from '@/components/Landing/sections';
+import HeroSwiper from '@/components/Hero/HeroSwiper';
+import Tiles from '@/components/Tiles/Tiles';
 import Table from '@/components/Table/Table';
+import Reviews from '@/components/Reviews/Reviews';
+import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { FOP_HERO } from '@/constants/hero.const';
 
@@ -12,7 +17,15 @@ const SEO = {
   canonical: 'https://wisexpert.com.ua/fop',
 };
 
-export default function FopPage({ table, ...data }: LandingData) {
+export default function FopPage({
+  slide,
+  advantages,
+  tiles,
+  table,
+  reviews,
+  clients,
+  faq,
+}: LandingData) {
   return (
     <>
       <NextSeo
@@ -27,8 +40,19 @@ export default function FopPage({ table, ...data }: LandingData) {
           locale: 'uk_UA',
         }}
       />
-      {/* TODO: заменить на <PricingCards> — карточки тарифов ФОП (R4.1) */}
-      <LandingPage {...data} pricing={<Table table={table} />} />
+      <LandingShell>
+        <HeroSwiper slide={slide} advantages={advantages} />
+        {/* TODO: <Support data={FOP_SUPPORT} /> — раскладка grid, синий акцент (R2.1) */}
+        <Tiles tiles={tiles} />
+        {/* TODO: заменить на <PricingCards data={FOP_PRICING} /> — три группы ФОП (R4.1) */}
+        <Table table={table} />
+        <Reviews reviews={reviews} />
+        <Clients clients={clients} />
+        <Calculator />
+        <Faq faq={faq} />
+        <Contacts />
+        <Map />
+      </LandingShell>
     </>
   );
 }
