@@ -5,12 +5,13 @@ import { Calculator, Contacts, Faq, Map } from '@/components/Landing/sections';
 import HeroSwiper from '@/components/Hero/HeroSwiper';
 import Support from '@/components/Support/Support';
 import Tiles from '@/components/Tiles/Tiles';
-import Table from '@/components/Table/Table';
+import PricingCards from '@/components/Pricing/PricingCards';
 import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { FOP_HERO } from '@/constants/hero.const';
 import { FOP_SUPPORT } from '@/constants/support.const';
+import { FOP_PRICING } from '@/constants/pricing.const';
 
 const SEO = {
   title: 'Бухгалтер для ФОП — ведення та супровід ФОП | WisExpert',
@@ -23,7 +24,6 @@ export default function FopPage({
   slide,
   advantages,
   tiles,
-  table,
   reviews,
   clients,
   faq,
@@ -46,8 +46,7 @@ export default function FopPage({
         <HeroSwiper slide={slide} advantages={advantages} />
         <Support data={FOP_SUPPORT} />
         <Tiles tiles={tiles} />
-        {/* TODO: заменить на <PricingCards data={FOP_PRICING} /> — три группы ФОП (R4.1) */}
-        <Table table={table} />
+        <PricingCards data={FOP_PRICING} />
         <Reviews reviews={reviews} />
         <Clients clients={clients} />
         <Calculator />

@@ -5,12 +5,13 @@ import { Calculator, Contacts, Faq, Map } from '@/components/Landing/sections';
 import HeroSwiper from '@/components/Hero/HeroSwiper';
 import Support from '@/components/Support/Support';
 import Tiles from '@/components/Tiles/Tiles';
-import Table from '@/components/Table/Table';
+import PricingCards from '@/components/Pricing/PricingCards';
 import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { TOV_HERO } from '@/constants/hero.const';
 import { TOV_SUPPORT } from '@/constants/support.const';
+import { TOV_PRICING } from '@/constants/pricing.const';
 
 const SEO = {
   title: 'Бухгалтер для ТОВ — ведення та супровід компаній | WisExpert',
@@ -23,7 +24,6 @@ export default function TovPage({
   slide,
   advantages,
   tiles,
-  table,
   reviews,
   clients,
   faq,
@@ -46,8 +46,7 @@ export default function TovPage({
         <HeroSwiper slide={slide} advantages={advantages} />
         <Support data={TOV_SUPPORT} />
         <Tiles tiles={tiles} />
-        {/* TODO: заменить на <PricingCards data={TOV_PRICING} /> — три тарифа ТОВ (R4.2) */}
-        <Table table={table} />
+        <PricingCards data={TOV_PRICING} />
         <Reviews reviews={reviews} />
         <Clients clients={clients} />
         <Calculator />

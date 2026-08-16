@@ -12,7 +12,12 @@ import Tiles from '@/components/Tiles/Tiles';
 import Table from '@/components/Table/Table';
 import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
-import { getLandingData, LandingData } from '@/utils/landing-data';
+import {
+  getLandingData,
+  getPricingTable,
+  LandingData,
+} from '@/utils/landing-data';
+import { ITable } from '@/interfaces/table.interface';
 
 // Главная: цены таблицей с вкладками и блок «Залишились питання» —
 // на /fop и /tov этих двух секций нет
@@ -24,7 +29,7 @@ export default function Home({
   reviews,
   clients,
   faq,
-}: LandingData) {
+}: LandingData & { table: ITable }) {
   return (
     <LandingShell>
       <HeroSwiper slide={slide} advantages={advantages} />
@@ -42,8 +47,13 @@ export default function Home({
 }
 
 export async function getStaticProps() {
+  const [data, table] = await Promise.all([
+    getLandingData(),
+    getPricingTable(),
+  ]);
+
   return {
-    props: await getLandingData(),
+    props: { ...data, table },
     revalidate: 3600,
   };
 }

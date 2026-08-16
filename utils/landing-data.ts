@@ -57,10 +57,18 @@ export interface LandingData {
   slide: IHero;
   advantages: IAdvantages;
   tiles: ITiles;
-  table: ITable;
   reviews: IReviews;
   clients: IClients;
   faq: IFAQ;
+}
+
+/**
+ * Таблица цен с вкладками — только для главной. У /fop и /tov свои карточки
+ * тарифов, и тянуть сюда таблицу нельзя: она уехала бы в __NEXT_DATA__
+ * страницы вместе с вкладкой «Неприбуткові організації».
+ */
+export function getPricingTable(): Promise<ITable> {
+  return getFields<ITable>(ENTRY_IDS.table);
 }
 
 /**
@@ -75,23 +83,20 @@ export interface LandingData {
 export async function getLandingData(
   heroTexts?: HeroTexts,
 ): Promise<LandingData> {
-  const [hero, advantages, tiles, table, clients, faq, reviews] =
-    await Promise.all([
-      getFields<IHero>(ENTRY_IDS.hero),
-      getFields<IAdvantages>(ENTRY_IDS.advantages),
-      getFields<ITiles>(ENTRY_IDS.tiles),
-      getFields<ITable>(ENTRY_IDS.table),
-      getFields<IClients>(ENTRY_IDS.clients),
-      getFields<IFAQ>(ENTRY_IDS.faq),
-      getFields<IReviews>(ENTRY_IDS.reviews),
-    ]);
+  const [hero, advantages, tiles, clients, faq, reviews] = await Promise.all([
+    getFields<IHero>(ENTRY_IDS.hero),
+    getFields<IAdvantages>(ENTRY_IDS.advantages),
+    getFields<ITiles>(ENTRY_IDS.tiles),
+    getFields<IClients>(ENTRY_IDS.clients),
+    getFields<IFAQ>(ENTRY_IDS.faq),
+    getFields<IReviews>(ENTRY_IDS.reviews),
+  ]);
 
   return {
     // фото и разметка hero общие, меняются только тексты страницы
     slide: { ...hero, ...heroTexts },
     advantages,
     tiles,
-    table,
     clients,
     faq,
     reviews,
