@@ -16,7 +16,6 @@ import { IFAQ } from '@/interfaces/faq.interface';
 import Footer from '@/components/Footer/Footer';
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 
 // Lazy load below-the-fold components
 const Calculator = dynamic(() => import('@/components/Calculator/Calculator'), {
@@ -74,25 +73,7 @@ export default function Home({
 }: HomeInterface) {
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              mainEntity: faq.faqs.map(({ fields }) => ({
-                '@type': 'Question',
-                name: fields.question,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: fields.answer,
-                },
-              })),
-            }),
-          }}
-        />
-      </Head>
+      {/* JSON-LD FAQPage отдаёт сам компонент Faq — здесь дубль разметки не нужен */}
       <main className={nunito.className}>
         <HeroSwiper slides={slides} advantages={advantages} />
         <Tiles tiles={tiles} />

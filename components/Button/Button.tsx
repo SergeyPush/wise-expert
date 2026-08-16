@@ -1,7 +1,14 @@
 import React from 'react';
 
 interface ButtonInterface {
-  format: 'black' | 'white' | 'outlined' | 'primary' | 'outline-dark' | 'ghost';
+  format:
+    | 'black'
+    | 'white'
+    | 'outlined'
+    | 'primary'
+    | 'primary-violet'
+    | 'outline-dark'
+    | 'ghost';
   text: string;
   size?: 'normal' | 'wide';
   onClick?: () => void;
@@ -29,6 +36,9 @@ const Button = ({
   const formatStyles: Record<string, string> = {
     primary:
       'text-color-white bg-color-blue hover:bg-color-blue-dark active:scale-[0.98] shadow-soft hover:shadow-elevated',
+    // Фиолетовый CTA — только секция «Супровід» на /tov
+    'primary-violet':
+      'text-color-white bg-color-violet hover:bg-color-violet-dark active:scale-[0.98] shadow-soft hover:shadow-elevated',
     white:
       'text-color-black bg-color-white hover:bg-color-light-gray hover:shadow-elevated active:scale-[0.98] shadow-soft',
     outlined:
