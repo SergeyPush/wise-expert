@@ -7,6 +7,8 @@ import IconList from '@/components/Header/IconList';
 import { CONTACTS } from '@/constants/contact.const';
 import { LINKS } from '@/constants/links.const';
 import { scrollToId } from '@/utils/scroll.utils';
+import { isLandingPath } from '@/utils/nav.utils';
+import MobileMenuGroup from '@/components/Header/MobileMenuGroup';
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -14,7 +16,8 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
   const { pathname } = useRouter();
-  const isHome = pathname === '/';
+  // на /fop и /tov те же секции, что и на главной — скроллим локально
+  const isLanding = isLandingPath(pathname);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -44,11 +47,17 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
           <ul className="space-y-2">
             {LINKS.map((item) => (
               <li key={item.id}>
-                {item.link ? (
+                {item.children ? (
+                  <MobileMenuGroup
+                    item={item}
+                    itemClass={btnClass}
+                    onClose={onClose}
+                  />
+                ) : item.link ? (
                   <Link href={item.link} onClick={onClose} className={btnClass}>
                     {item.title}
                   </Link>
-                ) : isHome ? (
+                ) : isLanding ? (
                   <button onClick={() => handleScrollClick(item.id)} className={btnClass}>
                     {item.title}
                   </button>
