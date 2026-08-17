@@ -17,6 +17,8 @@ interface ButtonInterface {
   disabled?: boolean;
   // если передан href — рендерится <a> (например, tel:/mailto: ссылки)
   href?: string;
+  // иконка справа от текста (напр. стрелка в CTA блока цен)
+  icon?: React.ReactNode;
 }
 
 const Button = ({
@@ -28,6 +30,7 @@ const Button = ({
   disabled,
   onClick,
   href,
+  icon,
 }: ButtonInterface) => {
   const baseStyles =
     'cursor-pointer font-semibold transition-all duration-200 text-sm lg:text-base rounded-xl text-center';
@@ -51,12 +54,15 @@ const Button = ({
       'text-color-blue bg-transparent hover:bg-color-blue/10 active:scale-[0.98]',
   };
 
-  const classes = `${baseStyles} ${sizeStyles} ${formatStyles[format]} disabled:opacity-50 disabled:cursor-not-allowed ${className}`;
+  // с иконкой кнопка становится flex-рядом, без иконки — прежнее поведение
+  const iconStyles = icon ? 'inline-flex items-center justify-center gap-2' : '';
+  const classes = `${baseStyles} ${sizeStyles} ${formatStyles[format]} ${iconStyles} disabled:opacity-50 disabled:cursor-not-allowed ${className}`;
 
   if (href) {
     return (
       <a href={href} onClick={onClick} className={`${classes} inline-block`}>
         {text}
+        {icon}
       </a>
     );
   }
@@ -69,6 +75,7 @@ const Button = ({
       className={classes}
     >
       {text}
+      {icon}
     </button>
   );
 };

@@ -29,13 +29,13 @@ export const FOP_SUPPORT: ISupport = {
     },
     {
       icon: 'question',
-      accent: 'violet',
+      accent: 'blue',
       title: 'Відповіді на бухгалтерські питання',
       text: 'Ви отримуєте спеціаліста, до якого можна звернутися, коли виникає питання.',
     },
     {
       icon: 'shield',
-      accent: 'violet',
+      accent: 'blue',
       title: 'Менше ризиків для бізнесу',
       text: 'Слідкуємо за змінами законодавства та допомагаємо уникати типових помилок.',
     },
@@ -48,7 +48,7 @@ export const FOP_SUPPORT: ISupport = {
 
 export const TOV_SUPPORT: ISupport = {
   layout: 'split',
-  accent: 'violet',
+  accent: 'blue',
   kicker: 'Супровід ТОВ',
   title: 'Бухгалтерія ТОВ ',
   titleAccent: 'без постійного контролю',
@@ -59,13 +59,13 @@ export const TOV_SUPPORT: ISupport = {
   items: [
     {
       icon: 'tax',
-      accent: 'violet',
+      accent: 'blue',
       title: 'Податки та звітність',
       text: 'Розрахунок, контроль та своєчасне подання.',
     },
     {
       icon: 'vat',
-      accent: 'violet',
+      accent: 'blue',
       title: 'ПДВ',
       text: 'Податкові накладні, декларації, контроль розрахунків.',
     },

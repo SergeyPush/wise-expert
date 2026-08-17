@@ -2,6 +2,7 @@ import React from 'react';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
 import PricingCard from '@/components/Pricing/PricingCard';
+import PricingIcon from '@/components/Pricing/icons';
 import { useInView } from '@/hooks/useInView';
 import { scrollToId } from '@/utils/scroll.utils';
 import { IPricing, PricingAccent } from '@/interfaces/pricing.interface';
@@ -36,6 +37,10 @@ const GRID: Record<2 | 3, string> = {
   3: 'sm:grid-cols-2 lg:grid-cols-3',
 };
 
+// Аватар іконки примітки чергується синій/фіолетовий незалежно від акценту
+// сторінки — так само, як у макеті (2 примітки, 2 різних кольори)
+const NOTE_ICON_BG = ['bg-color-light-blue text-color-blue', 'bg-color-light-violet text-color-violet'];
+
 /**
  * Цены карточками для /fop и /tov (R4). Вместо таблицы с вкладками, которая
  * осталась на главной: у ФОП три группы в ряд, у ТОВ два тарифа плюс широкая
@@ -60,6 +65,7 @@ const PricingCards = ({ data }: PricingCardsProps) => {
               CHIP[data.accent]
             }`}
           >
+            <PricingIcon name="shield-check" className="h-4 w-4" />
             {data.kicker}
           </span>
 
@@ -84,13 +90,14 @@ const PricingCards = ({ data }: PricingCardsProps) => {
           <ul className="flex flex-wrap gap-2 md:justify-center">
             {data.badges.map((badge, idx) => (
               <li
-                key={badge}
+                key={badge.text}
                 // третий и дальше не влезают в строку на мобильной
-                className={`rounded-full border border-color-border bg-color-light-gray px-3 py-1.5 text-xs font-medium text-color-muted md:text-sm ${
-                  idx > 1 ? 'hidden md:block' : ''
+                className={`inline-flex items-center gap-2 rounded-full border border-color-border bg-color-white px-3 py-1.5 text-xs font-medium text-color-black shadow-soft md:text-sm ${
+                  idx > 1 ? 'hidden md:flex' : ''
                 }`}
               >
-                {badge}
+                <PricingIcon name={badge.icon} className={`h-3.5 w-3.5 shrink-0 ${TITLE_ACCENT[data.accent]}`} />
+                {badge.text}
               </li>
             ))}
           </ul>
@@ -109,22 +116,31 @@ const PricingCards = ({ data }: PricingCardsProps) => {
         </div>
 
         {data.notes && (
-          <dl className="mt-4 flex flex-col gap-3 lg:mt-5">
-            {data.notes.map((note) => (
+          <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-5">
+            {data.notes.map((note, idx) => (
               <div
                 key={note.title}
-                className="flex flex-col gap-1 rounded-2xl border border-color-border bg-color-light-gray p-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                className="flex items-center gap-4 rounded-2xl border border-color-border bg-color-white p-5 shadow-soft"
               >
-                <dt className="text-sm font-semibold text-color-black md:text-base">
-                  {note.title}
-                </dt>
-                <dd
-                  className={`text-sm font-semibold md:text-base ${
-                    NOTE_VALUE[data.accent]
+                <span
+                  className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${
+                    NOTE_ICON_BG[idx % NOTE_ICON_BG.length]
                   }`}
                 >
-                  {note.value}
-                </dd>
+                  <PricingIcon name={note.icon} className="h-5 w-5" />
+                </span>
+                <div>
+                  <dt className="text-sm font-semibold text-color-black md:text-base">
+                    {note.title}
+                  </dt>
+                  <dd
+                    className={`mt-1 text-sm font-semibold md:text-base ${
+                      NOTE_VALUE[data.accent]
+                    }`}
+                  >
+                    {note.value}
+                  </dd>
+                </div>
               </div>
             ))}
           </dl>
@@ -147,6 +163,7 @@ const PricingCards = ({ data }: PricingCardsProps) => {
             text={data.ctaText}
             className="shrink-0 whitespace-nowrap"
             onClick={() => scrollToId('calc')}
+            icon={<PricingIcon name="arrow-right" className="h-4 w-4" />}
           />
         </div>
       </Wrapper>
