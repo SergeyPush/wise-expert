@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '@/context/GlobalContext';
-import { Inter } from 'next/font/google';
+import { Nunito_Sans } from 'next/font/google';
 import Link from 'next/link';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
@@ -11,9 +11,12 @@ import Hamburger from '@/components/Button/Hamburger';
 import MobileMenu from '@/components/Header/MobileMenu';
 import BookCall from '@/components/Header/BookCall';
 
-const inter = Inter({
+// Тот же шрифт, что и в LandingShell/остальных сторінках — раньше тут був
+// Inter, тому хедер і модалка «Замовити дзвінок» (вона монтується всередині
+// nav) виглядали інакше, ніж решта сайту
+const nunito = Nunito_Sans({
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   preload: false,
   variable: '--font-sans',
 });
@@ -37,7 +40,7 @@ const Header = () => {
     <>
       {mobileMenuIsActive && <MobileMenu onClose={() => setMobileMenuIsActive(false)} />}
       <nav
-        className={`${inter.className} fixed top-0 left-0 right-0 transition-all duration-300 ${
+        className={`${nunito.className} fixed top-0 left-0 right-0 transition-all duration-300 ${
           mobileMenuIsActive
             ? 'py-3 bg-transparent z-[70]'
             : isScrolled
@@ -58,7 +61,7 @@ const Header = () => {
             {/* Logo */}
             <Link
               href="/"
-              className={`${inter.className} text-xl lg:text-2xl relative z-20 font-bold tracking-tight ${
+              className={`${nunito.className} text-xl lg:text-2xl relative z-20 font-bold tracking-tight ${
                 mobileMenuIsActive ? 'text-color-white' : isScrolled ? 'text-color-black' : 'text-color-white'
               } transition-colors duration-300`}
             >

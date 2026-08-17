@@ -2,7 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ILink } from '@/interfaces/link.interface';
+import ServicesDropdown from '@/components/Header/ServicesDropdown';
 import { scrollToId } from '@/utils/scroll.utils';
+import { isLandingPath } from '@/utils/nav.utils';
 
 interface LinkItemInterface {
   item: ILink;
@@ -20,7 +22,16 @@ const linkClass = (isScrolled?: boolean) =>
 
 const LinkItem = ({ item, isScrolled }: LinkItemInterface) => {
   const { pathname } = useRouter();
-  const isHome = pathname === '/';
+
+  if (item.children) {
+    return (
+      <ServicesDropdown
+        item={item}
+        isScrolled={isScrolled}
+        className={linkClass(isScrolled)}
+      />
+    );
+  }
 
   if (item.link) {
     return (
@@ -32,7 +43,9 @@ const LinkItem = ({ item, isScrolled }: LinkItemInterface) => {
     );
   }
 
-  if (isHome) {
+  // якорные секции есть на всех лендингах — скроллим по текущей странице,
+  // а уводим на главную только оттуда, где этих секций нет (/blog, /services)
+  if (isLandingPath(pathname)) {
     return (
       <li>
         <button

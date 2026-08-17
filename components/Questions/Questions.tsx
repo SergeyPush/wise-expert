@@ -26,7 +26,10 @@ const Questions = () => {
             delay={0.15}
             className={'flex justify-center items-center w-full lg:w-auto lg:min-w-[400px]'}
           >
-            <ContactForm className={'flex-1 max-w-md lg:max-w-none'} />
+            <ContactForm
+              location="questions"
+              className={'flex-1 max-w-md lg:max-w-none'}
+            />
           </ScrollReveal>
         </div>
       </Wrapper>
