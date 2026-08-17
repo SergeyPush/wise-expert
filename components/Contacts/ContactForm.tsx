@@ -30,26 +30,38 @@ const ContactForm = ({
     handleSubmit,
     register,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IContactForm>({ mode: 'onBlur' });
 
   const { showConfirmation } = useGlobalContext();
+  // ошибка отправки на сервер (не валидации) — показывается под кнопкой
+  const [submitError, setSubmitError] = React.useState(false);
 
-  const handleForm = (data: IContactForm) => {
-    console.log(data);
+  const handleForm = async (data: IContactForm) => {
+    setSubmitError(false);
 
-    sendTelegramMessage(formatData({ ...data, ...calculatorFormData }))
-      .then(() => showConfirmation(true))
-      .catch((err) => console.log(err));
+    try {
+      await sendTelegramMessage(formatData({ ...data, ...calculatorFormData }));
 
-    reset({ email: '', phone: '', question: '' });
+      // GTM: событие успешной отправки формы, не зависит от UI (попапа)
+      window.dataLayer?.push({ event: 'form_success' });
 
-    if (clearCalculatorForm) {
-      clearCalculatorForm();
-    }
+      showConfirmation(true);
 
-    if (setIsVisible) {
-      setIsVisible(false);
+      // очищаем и закрываем форму только после успешной отправки
+      reset({ email: '', phone: '', question: '' });
+
+      if (clearCalculatorForm) {
+        clearCalculatorForm();
+      }
+
+      if (setIsVisible) {
+        setIsVisible(false);
+      }
+    } catch (err) {
+      // при ошибке данные формы сохраняются, пользователь может повторить
+      console.error(err);
+      setSubmitError(true);
     }
   };
 
@@ -130,10 +142,17 @@ const ContactForm = ({
         <Button
           type={'submit'}
           format={'primary'}
-          text={'Розрахувати вартість'}
+          text={isSubmitting ? 'Відправляємо...' : 'Розрахувати вартість'}
           size={'wide'}
           className="w-full"
+          disabled={isSubmitting}
         />
+        {submitError && (
+          <p className={'text-color-red text-sm text-center mt-3'} role="alert">
+            Не вдалося відправити повідомлення. Спробуйте ще раз або
+            зателефонуйте нам.
+          </p>
+        )}
       </form>
     </div>
   );

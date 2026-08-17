@@ -5,6 +5,7 @@ export interface IBlogPost {
   excerpt: string;
   category: string;
   publishedAt: string;
+  updatedAt: string;
   readTime: number;
   coverImage: {
     url: string;

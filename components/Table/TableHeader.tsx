@@ -14,7 +14,7 @@ const tabsList = [
   },
   {
     name: 'people',
-    label: 'Кадровий облік',
+    label: 'Неприбуткові організації',
     id: 3,
   },
   {

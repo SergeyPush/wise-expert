@@ -1,0 +1,35 @@
+// Пульсирующее кольцо — тот же эффект, что у Telegram-виджета (см. fabPulse
+// в TelegramWidget.module.scss), но в цвет кнопки (color-blue).
+
+// Базовая тень кнопки = shadow-elevated из tailwind.config.js. Повторяем её
+// в каждом кадре: анимация переопределяет box-shadow целиком.
+$base-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+$ring: #2563EB;
+
+@keyframes phonePulse {
+  0%   { box-shadow: $base-shadow, 0 0 0 0 rgba($ring, 0.45); }
+  60%  { box-shadow: $base-shadow, 0 0 0 14px rgba($ring, 0); }
+  100% { box-shadow: $base-shadow, 0 0 0 0 rgba($ring, 0); }
+}
+
+.pulse {
+  // Мобайл — пульсирует постоянно
+  @media (max-width: 768px) {
+    animation: phonePulse 2.4s ease-out infinite;
+  }
+
+  // Десктоп — только при наведении
+  @media (min-width: 769px) {
+    &:hover {
+      animation: phonePulse 2.4s ease-out infinite;
+    }
+  }
+
+  // Идёт последним, чтобы перебить правила выше при равной специфичности
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    &:hover {
+      animation: none;
+    }
+  }
+}

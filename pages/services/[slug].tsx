@@ -8,7 +8,6 @@ import client from '@/utils/contentful.api';
 import { IServicePageFields } from '@/interfaces/service-page.interface';
 import { IHowItWorks } from '@/interfaces/how-it-works.interface';
 import { IWhyChooseUs } from '@/interfaces/why-choose-us.interface';
-import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
@@ -140,7 +139,6 @@ export default function ServicePage({
       />
       </Head>
       <main className={nunito.className}>
-        <Header />
 
         {/* Hero */}
         <section className="bg-gradient-to-br from-color-black to-color-light-black pt-24 pb-0 md:pt-28 overflow-hidden">

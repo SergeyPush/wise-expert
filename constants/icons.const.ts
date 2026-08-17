@@ -19,31 +19,42 @@ export const ListIcons: IIcon[] = [
   {
     Icon: ICONS.PHONE,
     link: CONTACTS.phone,
+    label: 'Телефон',
     text: '+38(099)3811118',
   },
   {
     Icon: ICONS.TELEGRAM,
     link: 'tg://resolve?domain=@WisExpert',
+    label: 'Telegram',
     text: '@WisExpert',
   },
   {
     Icon: ICONS.FACEBOOK,
     link: 'https://facebook.com/wisexpert',
+    label: 'Facebook',
     text: 'Wisexpert',
   },
   {
     Icon: ICONS.INSTAGRAM,
     link: 'https://www.instagram.com/wisexpert_buh',
+    label: 'Instagram',
     text: 'wisexpert_buh',
   },
   {
     Icon: ICONS.LINKEDIN,
     link: 'https://www.linkedin.com/company/бухгалтерська-компанія-wisexpert/',
+    label: 'LinkedIn',
     text: 'wisexpert',
   },
 ];
 
-/** Same as ListIcons but without the phone — used in the header nav */
+/** Сокращённый набор для шапки на 1024–1279px: все пять иконок занимают ~204px
+ *  и не помещаются в строку меню вместе со ссылками и кнопкой CTA.
+ *  Телефон и Telegram — основные каналы обращения, Facebook третий по порядку. */
+export const CompactIcons: IIcon[] = ListIcons.slice(0, 3);
+
+/** Same as ListIcons but without the phone — used in the contacts social cards,
+ *  where the phone has its own CTA (PhoneButton) */
 export const NavIcons: IIcon[] = ListIcons.filter(
   (item) => item.Icon !== ICONS.PHONE,
 );

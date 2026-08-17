@@ -3,18 +3,25 @@ import client from '@/utils/contentful.api';
 
 const BASE_URL = 'https://wisexpert.com.ua';
 
-const STATIC_PAGES = [
-  { loc: `${BASE_URL}/`, lastmod: '2026-03-29', changefreq: 'weekly', priority: '1.0' },
-  { loc: `${BASE_URL}/blog`, lastmod: '2026-03-29', changefreq: 'weekly', priority: '0.7' },
-  { loc: `${BASE_URL}/services/it`, lastmod: '2026-03-29', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${BASE_URL}/services/optova`, lastmod: '2026-03-29', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${BASE_URL}/services/rozdribna`, lastmod: '2026-03-29', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${BASE_URL}/services/vyrobnytstvo`, lastmod: '2026-03-29', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${BASE_URL}/services/horeca`, lastmod: '2026-03-29', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${BASE_URL}/services/posluhy`, lastmod: '2026-03-29', changefreq: 'monthly', priority: '0.9' },
-];
+const FALLBACK_DATE = '2026-03-29';
 
-function generateSitemap(urls: typeof STATIC_PAGES) {
+interface SitemapUrl {
+  loc: string;
+  lastmod: string;
+  changefreq: string;
+  priority: string;
+}
+
+const SERVICE_SLUG_TO_ID: Record<string, string> = {
+  it: '5jyN8q1yHA0UEMyZGwRDFs',
+  optova: '14Ufdnf0ubOu9OpwprgmhL',
+  rozdribna: '1EepYK0uDkEbPZakyCeDLc',
+  vyrobnytstvo: '5LgwI6wbO1UkHaFHZiNd9I',
+  horeca: '73drFNQdcTwZkAmht8SJIp',
+  posluhy: '3uOw2ZZlRcwy418LYuwIUs',
+};
+
+function generateSitemap(urls: SitemapUrl[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -39,29 +46,44 @@ export default function Sitemap() {
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   try {
-    const response = await client.getEntries({
-      content_type: 'blog',
-      select: ['fields.slug', 'sys.updatedAt'],
-      limit: 200,
-    });
+    const [blogResponse, ...serviceEntries] = await Promise.all([
+      client.getEntries({
+        content_type: 'blog',
+        select: ['fields.slug', 'sys.updatedAt'],
+        limit: 200,
+      }),
+      ...Object.values(SERVICE_SLUG_TO_ID).map((id) =>
+        client.getEntry(id, { select: ['sys.updatedAt'] } as never),
+      ),
+    ]);
 
-    const blogUrls = response.items
+    // Build service URLs with real lastmod from Contentful
+    const serviceUrls = Object.keys(SERVICE_SLUG_TO_ID).map((slug, i) => ({
+      loc: `${BASE_URL}/services/${slug}`,
+      lastmod: serviceEntries[i].sys.updatedAt?.split('T')[0] ?? FALLBACK_DATE,
+      changefreq: 'monthly',
+      priority: '0.9',
+    }));
+
+    const blogUrls = blogResponse.items
       .map((item) => {
         const f = item.fields as Record<string, unknown>;
         if (typeof f.slug !== 'string') return null;
-        const lastmod = item.sys.updatedAt
-          ? item.sys.updatedAt.split('T')[0]
-          : '2026-03-29';
         return {
           loc: `${BASE_URL}/blog/${f.slug}`,
-          lastmod,
+          lastmod: item.sys.updatedAt?.split('T')[0] ?? FALLBACK_DATE,
           changefreq: 'weekly',
           priority: '0.6',
         };
       })
-      .filter(Boolean) as typeof STATIC_PAGES;
+      .filter(Boolean) as SitemapUrl[];
 
-    const allUrls = [...STATIC_PAGES, ...blogUrls];
+    const staticUrls: SitemapUrl[] = [
+      { loc: `${BASE_URL}/`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '1.0' },
+      { loc: `${BASE_URL}/blog`, lastmod: blogUrls[0]?.lastmod ?? FALLBACK_DATE, changefreq: 'weekly', priority: '0.7' },
+    ];
+
+    const allUrls = [...staticUrls, ...serviceUrls, ...blogUrls];
     const sitemap = generateSitemap(allUrls);
 
     res.setHeader('Content-Type', 'application/xml');
@@ -69,7 +91,17 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     res.write(sitemap);
     res.end();
   } catch {
-    const sitemap = generateSitemap(STATIC_PAGES);
+    const fallbackUrls: SitemapUrl[] = [
+      { loc: `${BASE_URL}/`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '1.0' },
+      { loc: `${BASE_URL}/blog`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.7' },
+      ...Object.keys(SERVICE_SLUG_TO_ID).map((slug) => ({
+        loc: `${BASE_URL}/services/${slug}`,
+        lastmod: FALLBACK_DATE,
+        changefreq: 'monthly',
+        priority: '0.9',
+      })),
+    ];
+    const sitemap = generateSitemap(fallbackUrls);
     res.setHeader('Content-Type', 'application/xml');
     res.write(sitemap);
     res.end();

@@ -197,7 +197,7 @@ export default function ArticlePage({
                 headline: post.title,
                 description: post.excerpt,
                 datePublished: post.publishedAt,
-                dateModified: post.publishedAt,
+                dateModified: post.updatedAt,
                 author: author
                   ? { '@type': 'Person', name: author.name, jobTitle: author.role }
                   : { '@type': 'Organization', name: 'WisExpert' },
@@ -548,6 +548,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     excerpt: plainText(f.excerpt ?? f.description ?? ''),
     category: plainText(f.tag ?? f.category ?? ''),
     publishedAt: (f.publishedAt ?? f.date ?? item.sys.createdAt) as string,
+    updatedAt: item.sys.updatedAt,
     readTime: typeof f.readTime === 'number' ? f.readTime : 5,
     coverImage: coverImageUrl
       ? {

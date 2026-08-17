@@ -1,11 +1,23 @@
-version: '3'
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      # .env отдаётся сборке как secret, а не копируется в образ: ключи
+      # Contentful нужны блогу в getStaticProps на этапе build, но лежать
+      # в слое образа они не должны
+      secrets:
+        - env
     restart: unless-stopped
-    command: npm run start
+    # command не задаём: CMD образа запускает standalone-сервер (node server.js).
+    # Прежний `npm run start` в standalone-образе не работает — там нет ни
+    # package.json со скриптами, ни devDependencies.
     container_name: frontend
+    # Рантайм-переменные (в т.ч. TELEGRAM_BOT_TOKEN для /api/submit)
     env_file:
       - .env
     ports:
-      - "3000:3000"
+      - '3000:3000'
+
+secrets:
+  env:
+    file: .env

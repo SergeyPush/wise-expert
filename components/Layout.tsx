@@ -11,7 +11,7 @@ const Layout: FC<Children> = ({ children }) => {
   return (
     <>
       <DefaultSeo
-        title={'WisExpert — Бухгалтерські послуги для бізнесу | Україна'}
+        title={'Бухгалтерські послуги для бізнесу — WisExpert | Київ'}
         description={
           'Якісні бухгалтерські послуги для ІТ компаній, ресторанів, виробництва, торгівлі, будівництва та ін. Дізнайтесь ціни та умови на сайті WisExpert'
         }
@@ -40,19 +40,7 @@ const Layout: FC<Children> = ({ children }) => {
           site: '@wisexpert',
           cardType: 'summary_large_image',
         }}
-        additionalLinkTags={[
-          { rel: 'icon', href: '/favicon.ico' },
-          {
-            rel: 'alternate',
-            hrefLang: 'uk',
-            href: 'https://wisexpert.com.ua/',
-          },
-          {
-            rel: 'alternate',
-            hrefLang: 'x-default',
-            href: 'https://wisexpert.com.ua/',
-          },
-        ]}
+        additionalLinkTags={[{ rel: 'icon', href: '/favicon.ico' }]}
         additionalMetaTags={[
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'robots', content: 'index, follow' },

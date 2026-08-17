@@ -42,8 +42,8 @@ export default function Document() {
               },
               geo: {
                 '@type': 'GeoCoordinates',
-                latitude: 50.4501,
-                longitude: 30.5234,
+                latitude: 50.44911482766101,
+                longitude: 30.600674534902755,
               },
               contactPoint: {
                 '@type': 'ContactPoint',

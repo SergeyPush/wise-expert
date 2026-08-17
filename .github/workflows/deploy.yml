@@ -20,5 +20,17 @@ jobs:
             cd ${{ secrets.VPS_PROJECT_PATH }}
             git checkout -- . 2>/dev/null || true
             git pull origin main
-            docker compose build --no-cache
+            # Без --no-cache: он обнулял весь кэш слоёв, из-за чего npm ci
+            # заново тянул зависимости на каждом деплое, даже когда
+            # package-lock.json не менялся. Слой зависимостей теперь
+            # инвалидируется самим Docker'ом по хэшу lock-файла
+            docker compose build
             docker compose up -d
+            # Multi-stage оставляет прежние builder-слои висеть без тега;
+            # без очистки они копятся на диске VPS от деплоя к деплою
+            docker image prune -f
+            # Кэш сборки чистим по возрасту, а не целиком: на нём держится
+            # ускорение деплоя, но без ограничения он растёт бесконечно —
+            # к моменту ввода этого шага накопилось 15.19GB за 68 записей.
+            # Неделя переживает паузы между деплоями, кэш остаётся тёплым
+            docker builder prune -f --filter until=168h
