@@ -76,19 +76,21 @@ export function getPricingTable(): Promise<ITable> {
  *
  * @param heroTexts — заголовок и подзаголовок под конкретную страницу
  *   (/fop, /tov). Без него отдаём hero главной как есть.
- *
- * Запросы идут через Promise.all: раньше на главной было семь
- * последовательных await — на билде это лишние секунды на каждой странице.
+ * @param faqOverride — свой набор вопросов страницы (R7: у /fop и /tov он
+ *   разный и не совпадает с главной). Без него — общая запись Contentful,
+ *   как раньше. Когда передан, запись faq вообще не тянем — до появления
+ *   записей `faq`/`faQs` в Contentful это только лишний запрос.
  */
 export async function getLandingData(
   heroTexts?: HeroTexts,
+  faqOverride?: IFAQ,
 ): Promise<LandingData> {
   const [hero, advantages, tiles, clients, faq, reviews] = await Promise.all([
     getFields<IHero>(ENTRY_IDS.hero),
     getFields<IAdvantages>(ENTRY_IDS.advantages),
     getFields<ITiles>(ENTRY_IDS.tiles),
     getFields<IClients>(ENTRY_IDS.clients),
-    getFields<IFAQ>(ENTRY_IDS.faq),
+    faqOverride ? Promise.resolve(faqOverride) : getFields<IFAQ>(ENTRY_IDS.faq),
     getFields<IReviews>(ENTRY_IDS.reviews),
   ]);
 
