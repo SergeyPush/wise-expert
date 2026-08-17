@@ -6,15 +6,13 @@ import { ITable } from '@/interfaces/table.interface';
 import { IReviews } from '@/interfaces/reviews.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import { IFAQ } from '@/interfaces/faq.interface';
-import { HeroTexts } from '@/constants/hero.const';
 
 /**
  * Записи Contentful, из которых собирается лендинг. Раньше эти ID были
  * рассыпаны по getStaticProps главной — теперь один источник на три страницы.
  */
 const ENTRY_IDS = {
-  // slide 1 главной; hero-записи для /fop и /tov появятся здесь же, когда
-  // контент переедет в Contentful (пока тексты берём из констант)
+  // slide 1 главной; /fop и /tov передают свой heroId в getLandingData
   hero: '5Je6Bd1z5X1lpeWYJSCfXp',
   advantages: '4dDKOTMF5WeR5zIsKOTJyD',
   tiles: '38OxzgLsaAVgHagRJb6L7R',
@@ -74,19 +72,19 @@ export function getPricingTable(): Promise<ITable> {
 /**
  * Данные лендинга одним запросом-пачкой.
  *
- * @param heroTexts — заголовок и подзаголовок под конкретную страницу
- *   (/fop, /tov). Без него отдаём hero главной как есть.
+ * @param heroId — entry ID hero-записи конкретной страницы (/fop, /tov).
+ *   Без него отдаём hero главной.
  * @param faqOverride — свой набор вопросов страницы (R7: у /fop и /tov он
  *   разный и не совпадает с главной). Без него — общая запись Contentful,
  *   как раньше. Когда передан, запись faq вообще не тянем — до появления
  *   записей `faq`/`faQs` в Contentful это только лишний запрос.
  */
 export async function getLandingData(
-  heroTexts?: HeroTexts,
+  heroId?: string,
   faqOverride?: IFAQ,
 ): Promise<LandingData> {
   const [hero, advantages, tiles, clients, faq, reviews] = await Promise.all([
-    getFields<IHero>(ENTRY_IDS.hero),
+    getFields<IHero>(heroId ?? ENTRY_IDS.hero),
     getFields<IAdvantages>(ENTRY_IDS.advantages),
     getFields<ITiles>(ENTRY_IDS.tiles),
     getFields<IClients>(ENTRY_IDS.clients),
@@ -95,8 +93,7 @@ export async function getLandingData(
   ]);
 
   return {
-    // фото и разметка hero общие, меняются только тексты страницы
-    slide: { ...hero, ...heroTexts },
+    slide: hero,
     advantages,
     tiles,
     clients,

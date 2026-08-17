@@ -9,7 +9,7 @@ import PricingCards from '@/components/Pricing/PricingCards';
 import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
-import { TOV_HERO } from '@/constants/hero.const';
+import { TOV_HERO_ID } from '@/constants/hero.const';
 import { TOV_SUPPORT } from '@/constants/support.const';
 import { TOV_PRICING } from '@/constants/pricing.const';
 import { TOV_FAQ } from '@/constants/faq.const';
@@ -84,7 +84,7 @@ export default function TovPage({
 
 export async function getStaticProps() {
   return {
-    props: await getLandingData(TOV_HERO, TOV_FAQ),
+    props: await getLandingData(TOV_HERO_ID, TOV_FAQ),
     revalidate: 3600,
   };
 }

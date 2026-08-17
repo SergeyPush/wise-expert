@@ -9,7 +9,7 @@ import PricingCards from '@/components/Pricing/PricingCards';
 import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
-import { FOP_HERO } from '@/constants/hero.const';
+import { FOP_HERO_ID } from '@/constants/hero.const';
 import { FOP_SUPPORT } from '@/constants/support.const';
 import { FOP_PRICING } from '@/constants/pricing.const';
 import { FOP_FAQ } from '@/constants/faq.const';
@@ -84,7 +84,7 @@ export default function FopPage({
 
 export async function getStaticProps() {
   return {
-    props: await getLandingData(FOP_HERO, FOP_FAQ),
+    props: await getLandingData(FOP_HERO_ID, FOP_FAQ),
     revalidate: 3600,
   };
 }

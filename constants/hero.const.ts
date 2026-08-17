@@ -1,21 +1,6 @@
-import { IHero } from '@/interfaces/hero.interface';
-
 /**
- * Тексты hero для /fop и /tov (R1.1 и R1.2 требований).
- * Пока живут в коде: записи в Contentful создаём после реализации
- * компонентов (plan-fop-tov.md, порядок работ). Фото на всех трёх
- * страницах одно и то же — берём его из hero-записи главной.
+ * Entry ID hero-записей /fop и /tov в Contentful (R1.1 и R1.2 требований).
+ * Фото — тот же asset, что на главной (см. plan-fop-tov.md, шаг 3).
  */
-export type HeroTexts = Pick<IHero, 'title' | 'subtitle'>;
-
-export const FOP_HERO: HeroTexts = {
-  title: 'Бухгалтер для ФОП — ведення, звітність та податки без зайвих турбот',
-  subtitle:
-    'Передайте бухгалтерію професіоналам. WisExpert веде ФОП, контролює податки та звітність, допомагає з РРО/ПРРО, працівниками та іншими бухгалтерськими питаннями.',
-};
-
-export const TOV_HERO: HeroTexts = {
-  title: 'Бухгалтерське обслуговування ТОВ — повний супровід вашого бізнесу',
-  subtitle:
-    'Беремо бухгалтерський та податковий облік ТОВ на себе: звітність, податки, ПДВ, зарплата, кадри, первинні документи та консультації. Ви керуєте бізнесом — ми контролюємо бухгалтерію.',
-};
+export const FOP_HERO_ID = '1cnyHN0HFAXa2WVrktA6ZJ';
+export const TOV_HERO_ID = '2FKDxSONP54kVisB9xdtaG';
