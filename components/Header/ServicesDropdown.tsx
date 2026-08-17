@@ -91,12 +91,10 @@ const ServicesDropdown = ({
         aria-expanded={isOpen}
         onClick={() => setIsOpen((open) => !open)}
         onKeyDown={handleTriggerKeyDown}
+        // Фон только на hover — как у остальных пунктов меню (linkClass).
+        // Активная страница подсвечивается лишь текстом, без постоянного фона
         className={`${className} inline-flex items-center gap-1 ${
-          isActive
-            ? isScrolled
-              ? 'text-color-blue'
-              : 'text-color-white bg-color-white/10'
-            : ''
+          isActive ? (isScrolled ? 'text-color-blue' : 'text-color-white') : ''
         }`}
       >
         {item.title}
