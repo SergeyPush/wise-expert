@@ -71,8 +71,8 @@ export default function FopPage({
       <LandingShell>
         <HeroSwiper slide={slide} advantages={advantages} />
         {support && <Support data={support} />}
-        <Tiles tiles={tiles} />
         {pricing && <PricingCards data={pricing} />}
+        <Tiles tiles={tiles} />
         <Reviews reviews={reviews} />
         <Clients clients={clients} />
         <Calculator />
