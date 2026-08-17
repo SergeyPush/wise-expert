@@ -65,26 +65,32 @@ const PricingCard = ({ card, accent, index, inView }: PricingCardProps) => {
     return (
       /* Відступи виміряні по макету (не рівномірний gap): щільно біля номера групи,
          просторіше перед роздільником і пігулкою періоду */
+      /* mt-0 на мобільних дітях: глобальний ресет (`article > * + *`) вішає кожному
+         прямому нащадку article margin-top:1em — для колонки на десктопі це навмисно
+         перебито своїми md:mt-*, а для мобільного рядка забули, тому items-center
+         центрував уже роздутий invisible-margin box, і контент «тонув» до низу картки */
       <article style={transitionStyle} className={`${baseCard} flex flex-row items-center gap-3 px-4 py-4 text-left md:flex-col md:items-center md:gap-0 md:px-6 md:pt-6 md:pb-6 md:text-center`}>
         <span className="hidden text-xs font-bold uppercase tracking-[2px] text-color-muted md:block">
           {card.group.label}
         </span>
-        <span className={`text-4xl font-extrabold leading-none tracking-tight md:mt-4 md:text-5xl md:tracking-[-2px] ${AMOUNT[accent]}`}>
+        <span className={`mt-0 text-4xl font-extrabold leading-none tracking-tight md:mt-4 md:text-5xl md:tracking-[-2px] ${AMOUNT[accent]}`}>
           {card.group.number}
         </span>
-        <span className="text-xs font-bold uppercase tracking-wide text-color-muted md:hidden">
+        <span className="mt-0 text-xs font-bold uppercase tracking-wide text-color-muted md:hidden">
           {card.group.unit}
         </span>
         <span className="hidden text-xs font-bold uppercase tracking-[2px] text-color-muted md:mt-5 md:block">
           {card.group.unit}
         </span>
         <span className={`hidden h-0.5 w-14 rounded-full md:mt-3.5 md:block ${GROUP_SEP[accent]}`} />
-        <span className="ml-auto flex items-baseline gap-1.5 md:ml-0 md:mt-3">
+        <span className="ml-auto mt-0 flex items-baseline gap-1.5 md:ml-0 md:mt-3">
           <span className="text-2xl font-extrabold tracking-tight text-color-black md:text-3xl">{amt}</span>
           {cur && <span className="text-sm font-bold text-color-muted md:text-sm">{cur}</span>}
         </span>
         {card.period && (
-          <span className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold md:mt-3.5 md:px-5 md:py-1.5 md:text-lg ${GROUP_PILL[accent]}`}>
+          // min-w на мобільній: «/ місяць» і «/ квартал» різної ширини, без
+          // фіксованої ширини пігулка зсуває ціну (ml-auto) і цифри «стрибають» між картками
+          <span className={`mt-0 shrink-0 rounded-full px-3 py-1.5 text-center text-xs font-bold md:mt-3.5 md:w-auto md:min-w-0 md:px-5 md:py-1.5 md:text-lg ${GROUP_PILL[accent]} min-w-[92px]`}>
             {card.period}
           </span>
         )}
