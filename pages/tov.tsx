@@ -29,6 +29,13 @@ export default function TovPage({
   clients,
   faq,
 }: LandingData) {
+  // OG-картинка — то же фото хедера, что и на самой странице (R1: одно фото
+  // на всех трёх лендингах). Контентфул отдаёт protocol-relative URL —
+  // для OG нужен абсолютный, как в pages/services/[slug].tsx
+  const heroImageUrl = slide.image?.fields?.file?.url
+    ? `https:${slide.image.fields.file.url}`
+    : undefined;
+
   return (
     <>
       <NextSeo
@@ -41,6 +48,22 @@ export default function TovPage({
           url: SEO.canonical,
           type: 'website',
           locale: 'uk_UA',
+          siteName: 'WisExpert',
+          ...(heroImageUrl && {
+            images: [
+              {
+                url: heroImageUrl,
+                width: 1200,
+                height: 630,
+                alt: 'Команда WisExpert',
+              },
+            ],
+          }),
+        }}
+        twitter={{
+          handle: '@wisexpert',
+          site: '@wisexpert',
+          cardType: 'summary_large_image',
         }}
       />
       <LandingShell>
