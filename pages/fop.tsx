@@ -12,7 +12,7 @@ import { getLandingData, LandingData } from '@/utils/landing-data';
 import { FOP_HERO_ID } from '@/constants/hero.const';
 import { FOP_SUPPORT_ID } from '@/constants/support.const';
 import { FOP_PRICING_ID } from '@/constants/pricing.const';
-import { FOP_FAQ } from '@/constants/faq.const';
+import { FOP_FAQ_ID } from '@/constants/faq.const';
 
 const SEO = {
   title: 'Бухгалтер для ФОП — ведення та супровід ФОП | WisExpert',
@@ -90,7 +90,7 @@ export async function getStaticProps() {
       heroId: FOP_HERO_ID,
       supportId: FOP_SUPPORT_ID,
       pricingId: FOP_PRICING_ID,
-      faqOverride: FOP_FAQ,
+      faqId: FOP_FAQ_ID,
     }),
     revalidate: 3600,
   };

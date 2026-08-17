@@ -82,12 +82,8 @@ export interface GetLandingDataOptions {
   supportId?: string;
   /** Entry ID записи «Ціни» (/fop, /tov). Без него — null, главная остаётся на таблице. */
   pricingId?: string;
-  /**
-   * Свой набор вопросов страницы (R7: у /fop и /tov он разный и не совпадает
-   * с главной). Без него — общая запись Contentful, как раньше. Когда передан,
-   * запись faq вообще не тянем — до появления записей `faq`/`faQs` это лишний запрос.
-   */
-  faqOverride?: IFAQ;
+  /** Entry ID записи faQs (набор вопросов страницы, R7: у /fop и /tov свой). Без него — faQs главной. */
+  faqId?: string;
 }
 
 /** Данные лендинга одним запросом-пачкой. */
@@ -95,14 +91,14 @@ export async function getLandingData({
   heroId,
   supportId,
   pricingId,
-  faqOverride,
+  faqId,
 }: GetLandingDataOptions = {}): Promise<LandingData> {
   const [hero, advantages, tiles, clients, faq, reviews, support, pricing] = await Promise.all([
     getFields<IHero>(heroId ?? ENTRY_IDS.hero),
     getFields<IAdvantages>(ENTRY_IDS.advantages),
     getFields<ITiles>(ENTRY_IDS.tiles),
     getFields<IClients>(ENTRY_IDS.clients),
-    faqOverride ? Promise.resolve(faqOverride) : getFields<IFAQ>(ENTRY_IDS.faq),
+    getFields<IFAQ>(faqId ?? ENTRY_IDS.faq),
     getFields<IReviews>(ENTRY_IDS.reviews),
     supportId ? getFields<ISupport>(supportId) : Promise.resolve(null),
     pricingId ? getFields<IPricing>(pricingId) : Promise.resolve(null),

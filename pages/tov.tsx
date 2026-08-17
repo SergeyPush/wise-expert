@@ -12,7 +12,7 @@ import { getLandingData, LandingData } from '@/utils/landing-data';
 import { TOV_HERO_ID } from '@/constants/hero.const';
 import { TOV_SUPPORT_ID } from '@/constants/support.const';
 import { TOV_PRICING_ID } from '@/constants/pricing.const';
-import { TOV_FAQ } from '@/constants/faq.const';
+import { TOV_FAQ_ID } from '@/constants/faq.const';
 
 const SEO = {
   title: 'Бухгалтер для ТОВ — ведення та супровід компаній | WisExpert',
@@ -90,7 +90,7 @@ export async function getStaticProps() {
       heroId: TOV_HERO_ID,
       supportId: TOV_SUPPORT_ID,
       pricingId: TOV_PRICING_ID,
-      faqOverride: TOV_FAQ,
+      faqId: TOV_FAQ_ID,
     }),
     revalidate: 3600,
   };
