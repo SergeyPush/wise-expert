@@ -10,7 +10,7 @@ import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { FOP_HERO_ID } from '@/constants/hero.const';
-import { FOP_SUPPORT } from '@/constants/support.const';
+import { FOP_SUPPORT_ID } from '@/constants/support.const';
 import { FOP_PRICING } from '@/constants/pricing.const';
 import { FOP_FAQ } from '@/constants/faq.const';
 
@@ -28,6 +28,7 @@ export default function FopPage({
   reviews,
   clients,
   faq,
+  support,
 }: LandingData) {
   // OG-картинка — то же фото хедера, что и на самой странице (R1: одно фото
   // на всех трёх лендингах). Контентфул отдаёт protocol-relative URL —
@@ -68,7 +69,7 @@ export default function FopPage({
       />
       <LandingShell>
         <HeroSwiper slide={slide} advantages={advantages} />
-        <Support data={FOP_SUPPORT} />
+        {support && <Support data={support} />}
         <Tiles tiles={tiles} />
         <PricingCards data={FOP_PRICING} />
         <Reviews reviews={reviews} />
@@ -84,7 +85,11 @@ export default function FopPage({
 
 export async function getStaticProps() {
   return {
-    props: await getLandingData(FOP_HERO_ID, FOP_FAQ),
+    props: await getLandingData({
+      heroId: FOP_HERO_ID,
+      supportId: FOP_SUPPORT_ID,
+      faqOverride: FOP_FAQ,
+    }),
     revalidate: 3600,
   };
 }

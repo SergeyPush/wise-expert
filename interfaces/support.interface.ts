@@ -21,6 +21,8 @@ export interface ISupportItem {
 }
 
 export interface ISupport {
+  /** Название записи в Contentful — на верстку не влияет */
+  internalTitle?: string;
   /**
    * `grid` — центрований хед + 4 картки в рядок (ФОП).
    * `split` — текст ліворуч (липкий) + сітка 2×2 праворуч (ТОВ).

@@ -6,6 +6,7 @@ import { ITable } from '@/interfaces/table.interface';
 import { IReviews } from '@/interfaces/reviews.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import { IFAQ } from '@/interfaces/faq.interface';
+import { ISupport } from '@/interfaces/support.interface';
 
 /**
  * Записи Contentful, из которых собирается лендинг. Раньше эти ID были
@@ -58,6 +59,8 @@ export interface LandingData {
   reviews: IReviews;
   clients: IClients;
   faq: IFAQ;
+  // блок «Супровід»; на главной null — секция не рендерится
+  support: ISupport | null;
 }
 
 /**
@@ -69,27 +72,33 @@ export function getPricingTable(): Promise<ITable> {
   return getFields<ITable>(ENTRY_IDS.table);
 }
 
-/**
- * Данные лендинга одним запросом-пачкой.
- *
- * @param heroId — entry ID hero-записи конкретной страницы (/fop, /tov).
- *   Без него отдаём hero главной.
- * @param faqOverride — свой набор вопросов страницы (R7: у /fop и /tov он
- *   разный и не совпадает с главной). Без него — общая запись Contentful,
- *   как раньше. Когда передан, запись faq вообще не тянем — до появления
- *   записей `faq`/`faQs` в Contentful это только лишний запрос.
- */
-export async function getLandingData(
-  heroId?: string,
-  faqOverride?: IFAQ,
-): Promise<LandingData> {
-  const [hero, advantages, tiles, clients, faq, reviews] = await Promise.all([
+export interface GetLandingDataOptions {
+  /** Entry ID hero-записи конкретной страницы (/fop, /tov). Без него — hero главной. */
+  heroId?: string;
+  /** Entry ID записи «Супровід» (/fop, /tov). Без него секция не рендерится (главная). */
+  supportId?: string;
+  /**
+   * Свой набор вопросов страницы (R7: у /fop и /tov он разный и не совпадает
+   * с главной). Без него — общая запись Contentful, как раньше. Когда передан,
+   * запись faq вообще не тянем — до появления записей `faq`/`faQs` это лишний запрос.
+   */
+  faqOverride?: IFAQ;
+}
+
+/** Данные лендинга одним запросом-пачкой. */
+export async function getLandingData({
+  heroId,
+  supportId,
+  faqOverride,
+}: GetLandingDataOptions = {}): Promise<LandingData> {
+  const [hero, advantages, tiles, clients, faq, reviews, support] = await Promise.all([
     getFields<IHero>(heroId ?? ENTRY_IDS.hero),
     getFields<IAdvantages>(ENTRY_IDS.advantages),
     getFields<ITiles>(ENTRY_IDS.tiles),
     getFields<IClients>(ENTRY_IDS.clients),
     faqOverride ? Promise.resolve(faqOverride) : getFields<IFAQ>(ENTRY_IDS.faq),
     getFields<IReviews>(ENTRY_IDS.reviews),
+    supportId ? getFields<ISupport>(supportId) : Promise.resolve(null),
   ]);
 
   return {
@@ -99,5 +108,6 @@ export async function getLandingData(
     clients,
     faq,
     reviews,
+    support,
   };
 }

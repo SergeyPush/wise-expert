@@ -10,7 +10,7 @@ import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { TOV_HERO_ID } from '@/constants/hero.const';
-import { TOV_SUPPORT } from '@/constants/support.const';
+import { TOV_SUPPORT_ID } from '@/constants/support.const';
 import { TOV_PRICING } from '@/constants/pricing.const';
 import { TOV_FAQ } from '@/constants/faq.const';
 
@@ -28,6 +28,7 @@ export default function TovPage({
   reviews,
   clients,
   faq,
+  support,
 }: LandingData) {
   // OG-картинка — то же фото хедера, что и на самой странице (R1: одно фото
   // на всех трёх лендингах). Контентфул отдаёт protocol-relative URL —
@@ -68,7 +69,7 @@ export default function TovPage({
       />
       <LandingShell>
         <HeroSwiper slide={slide} advantages={advantages} />
-        <Support data={TOV_SUPPORT} />
+        {support && <Support data={support} />}
         <Tiles tiles={tiles} />
         <PricingCards data={TOV_PRICING} />
         <Reviews reviews={reviews} />
@@ -84,7 +85,11 @@ export default function TovPage({
 
 export async function getStaticProps() {
   return {
-    props: await getLandingData(TOV_HERO_ID, TOV_FAQ),
+    props: await getLandingData({
+      heroId: TOV_HERO_ID,
+      supportId: TOV_SUPPORT_ID,
+      faqOverride: TOV_FAQ,
+    }),
     revalidate: 3600,
   };
 }
