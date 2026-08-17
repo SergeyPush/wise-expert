@@ -11,7 +11,7 @@ import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { FOP_HERO_ID } from '@/constants/hero.const';
 import { FOP_SUPPORT_ID } from '@/constants/support.const';
-import { FOP_PRICING } from '@/constants/pricing.const';
+import { FOP_PRICING_ID } from '@/constants/pricing.const';
 import { FOP_FAQ } from '@/constants/faq.const';
 
 const SEO = {
@@ -29,6 +29,7 @@ export default function FopPage({
   clients,
   faq,
   support,
+  pricing,
 }: LandingData) {
   // OG-картинка — то же фото хедера, что и на самой странице (R1: одно фото
   // на всех трёх лендингах). Контентфул отдаёт protocol-relative URL —
@@ -71,7 +72,7 @@ export default function FopPage({
         <HeroSwiper slide={slide} advantages={advantages} />
         {support && <Support data={support} />}
         <Tiles tiles={tiles} />
-        <PricingCards data={FOP_PRICING} />
+        {pricing && <PricingCards data={pricing} />}
         <Reviews reviews={reviews} />
         <Clients clients={clients} />
         <Calculator />
@@ -88,6 +89,7 @@ export async function getStaticProps() {
     props: await getLandingData({
       heroId: FOP_HERO_ID,
       supportId: FOP_SUPPORT_ID,
+      pricingId: FOP_PRICING_ID,
       faqOverride: FOP_FAQ,
     }),
     revalidate: 3600,

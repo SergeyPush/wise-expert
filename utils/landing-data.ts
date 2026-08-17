@@ -7,6 +7,7 @@ import { IReviews } from '@/interfaces/reviews.interface';
 import { IClients } from '@/interfaces/clients.interface';
 import { IFAQ } from '@/interfaces/faq.interface';
 import { ISupport } from '@/interfaces/support.interface';
+import { IPricing } from '@/interfaces/pricing.interface';
 
 /**
  * Записи Contentful, из которых собирается лендинг. Раньше эти ID были
@@ -61,6 +62,8 @@ export interface LandingData {
   faq: IFAQ;
   // блок «Супровід»; на главной null — секция не рендерится
   support: ISupport | null;
+  // карточки цен (R4); на главной null — там старая таблица с вкладками
+  pricing: IPricing | null;
 }
 
 /**
@@ -77,6 +80,8 @@ export interface GetLandingDataOptions {
   heroId?: string;
   /** Entry ID записи «Супровід» (/fop, /tov). Без него секция не рендерится (главная). */
   supportId?: string;
+  /** Entry ID записи «Ціни» (/fop, /tov). Без него — null, главная остаётся на таблице. */
+  pricingId?: string;
   /**
    * Свой набор вопросов страницы (R7: у /fop и /tov он разный и не совпадает
    * с главной). Без него — общая запись Contentful, как раньше. Когда передан,
@@ -89,9 +94,10 @@ export interface GetLandingDataOptions {
 export async function getLandingData({
   heroId,
   supportId,
+  pricingId,
   faqOverride,
 }: GetLandingDataOptions = {}): Promise<LandingData> {
-  const [hero, advantages, tiles, clients, faq, reviews, support] = await Promise.all([
+  const [hero, advantages, tiles, clients, faq, reviews, support, pricing] = await Promise.all([
     getFields<IHero>(heroId ?? ENTRY_IDS.hero),
     getFields<IAdvantages>(ENTRY_IDS.advantages),
     getFields<ITiles>(ENTRY_IDS.tiles),
@@ -99,6 +105,7 @@ export async function getLandingData({
     faqOverride ? Promise.resolve(faqOverride) : getFields<IFAQ>(ENTRY_IDS.faq),
     getFields<IReviews>(ENTRY_IDS.reviews),
     supportId ? getFields<ISupport>(supportId) : Promise.resolve(null),
+    pricingId ? getFields<IPricing>(pricingId) : Promise.resolve(null),
   ]);
 
   return {
@@ -109,5 +116,6 @@ export async function getLandingData({
     faq,
     reviews,
     support,
+    pricing,
   };
 }

@@ -52,6 +52,8 @@ export interface IPricingNote {
 }
 
 export interface IPricing {
+  /** Название запису в Contentful — на верстку не впливає */
+  internalTitle?: string;
   accent: PricingAccent;
   kicker: string;
   /** Заголовок розбитий на частини: середня підсвічується акцентом */

@@ -11,7 +11,7 @@ import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
 import { TOV_HERO_ID } from '@/constants/hero.const';
 import { TOV_SUPPORT_ID } from '@/constants/support.const';
-import { TOV_PRICING } from '@/constants/pricing.const';
+import { TOV_PRICING_ID } from '@/constants/pricing.const';
 import { TOV_FAQ } from '@/constants/faq.const';
 
 const SEO = {
@@ -29,6 +29,7 @@ export default function TovPage({
   clients,
   faq,
   support,
+  pricing,
 }: LandingData) {
   // OG-картинка — то же фото хедера, что и на самой странице (R1: одно фото
   // на всех трёх лендингах). Контентфул отдаёт protocol-relative URL —
@@ -71,7 +72,7 @@ export default function TovPage({
         <HeroSwiper slide={slide} advantages={advantages} />
         {support && <Support data={support} />}
         <Tiles tiles={tiles} />
-        <PricingCards data={TOV_PRICING} />
+        {pricing && <PricingCards data={pricing} />}
         <Reviews reviews={reviews} />
         <Clients clients={clients} />
         <Calculator />
@@ -88,6 +89,7 @@ export async function getStaticProps() {
     props: await getLandingData({
       heroId: TOV_HERO_ID,
       supportId: TOV_SUPPORT_ID,
+      pricingId: TOV_PRICING_ID,
       faqOverride: TOV_FAQ,
     }),
     revalidate: 3600,
