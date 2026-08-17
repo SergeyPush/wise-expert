@@ -1,8 +1,10 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
 import { useInView } from '@/hooks/useInView';
 import { useGlobalContext } from '@/context/GlobalContext';
+import { getPageType, pushEvent } from '@/utils/analytics';
 import {
   ISupport,
   ISupportItem,
@@ -145,6 +147,16 @@ const SupportCard = ({
 const Support = ({ data }: SupportProps) => {
   const { setBookCallIsVisible } = useGlobalContext();
   const { ref: sectionRef, inView } = useInView(0.1);
+  const { pathname } = useRouter();
+
+  const handleCtaClick = () => {
+    pushEvent('cta_click', {
+      cta_location: 'support',
+      page_type: getPageType(pathname),
+      page_path: pathname,
+    });
+    setBookCallIsVisible(true);
+  };
 
   const chip = (
     <span
@@ -196,7 +208,7 @@ const Support = ({ data }: SupportProps) => {
         size="wide"
         text={data.ctaText}
         className="shrink-0 whitespace-nowrap"
-        onClick={() => setBookCallIsVisible(true)}
+        onClick={handleCtaClick}
       />
     </div>
   );

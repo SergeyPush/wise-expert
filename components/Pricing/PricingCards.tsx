@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
 import PricingCard from '@/components/Pricing/PricingCard';
@@ -6,6 +7,7 @@ import PricingIcon from '@/components/Pricing/icons';
 import { useInView } from '@/hooks/useInView';
 import { scrollToId } from '@/utils/scroll.utils';
 import { IPricing, PricingAccent } from '@/interfaces/pricing.interface';
+import { getPageType, pushEvent } from '@/utils/analytics';
 
 interface PricingCardsProps {
   data: IPricing;
@@ -51,6 +53,16 @@ const NOTE_ICON_BG = ['bg-color-light-blue text-color-blue', 'bg-color-light-vio
  */
 const PricingCards = ({ data }: PricingCardsProps) => {
   const { ref: sectionRef, inView } = useInView(0.1);
+  const { pathname } = useRouter();
+
+  const handleCtaClick = () => {
+    pushEvent('cta_click', {
+      cta_location: 'pricing',
+      page_type: getPageType(pathname),
+      page_path: pathname,
+    });
+    scrollToId('calc');
+  };
 
   return (
     <section
@@ -162,7 +174,7 @@ const PricingCards = ({ data }: PricingCardsProps) => {
             size="wide"
             text={data.ctaText}
             className="shrink-0 whitespace-nowrap"
-            onClick={() => scrollToId('calc')}
+            onClick={handleCtaClick}
             icon={<PricingIcon name="arrow-right" className="h-4 w-4" />}
           />
         </div>

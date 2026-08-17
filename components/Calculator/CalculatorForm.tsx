@@ -108,6 +108,7 @@ const CalculatorForm = () => {
         </div>
       </div>
       <ContactForm
+        location="calculator"
         calculatorFormData={calculatorForm}
         clearCalculatorForm={clearCalculatorForm}
       />
