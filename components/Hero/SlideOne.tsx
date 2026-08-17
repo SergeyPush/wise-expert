@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { IHero } from '@/interfaces/hero.interface';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
@@ -10,6 +11,7 @@ import { makeBolder } from '@/utils/bolder.utils';
 import { scrollToId } from '@/utils/scroll.utils';
 import { CONTACTS } from '@/constants/contact.const';
 import { motion, useReducedMotion } from 'framer-motion';
+import { getPageType, pushEvent } from '@/utils/analytics';
 
 interface HeroInterface {
   data: IHero;
@@ -23,6 +25,16 @@ const SlideOne = ({
     ? `${image.fields.file.url}?w=1920&q=80&fm=webp`
     : undefined;
   const shouldReduceMotion = useReducedMotion();
+  const { pathname } = useRouter();
+
+  const handleCtaClick = () => {
+    pushEvent('cta_click', {
+      cta_location: 'hero',
+      page_type: getPageType(pathname),
+      page_path: pathname,
+    });
+    scrollToId('calc');
+  };
 
   const fadeUp = (delay: number) =>
     shouldReduceMotion
@@ -89,7 +101,7 @@ const SlideOne = ({
               text={'Розрахувати вартість'}
               size={'wide'}
               className="w-full sm:w-auto"
-              onClick={() => scrollToId('calc')}
+              onClick={handleCtaClick}
             />
             {/* Телефон вместо "Дізнатися більше" (CRO-правки): tel-ссылка для прямого звонка */}
             <Button

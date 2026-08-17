@@ -20,6 +20,10 @@ module.exports = {
       'color-blue': '#2563EB',
       'color-blue-dark': '#1D4ED8',
       'color-blue-light': '#3B82F6',
+      // Второй акцент: секция «Супровід» на /tov и чередование иконок в карточках
+      'color-violet': '#7C4DF0',
+      'color-violet-dark': '#5F32D6',
+      'color-light-violet': '#F1ECFE',
       'color-white': '#ffffff',
       'color-light-blue': '#EFF6FF',
       'color-light-gray': '#F8FAFC',

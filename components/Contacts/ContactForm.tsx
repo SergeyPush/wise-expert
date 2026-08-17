@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import Button from '@/components/Button/Button';
 import { IContactForm, IDropdown } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
@@ -8,12 +9,15 @@ import InputMask from 'react-input-mask';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { sendData } from '@/utils/emailjs.api';
 import { sendTelegramMessage } from '@/utils/telegram.utils';
+import { FormLocation, getPageType, pushEvent } from '@/utils/analytics';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
 }
 
 interface ContactFormInterface {
+  // где на странице стоит форма — попадает в form_location события (R10)
+  location: FormLocation;
   calculatorFormData?: CalculatorData;
   clearCalculatorForm?: () => void;
   className?: string;
@@ -21,6 +25,7 @@ interface ContactFormInterface {
 }
 
 const ContactForm = ({
+  location,
   calculatorFormData,
   clearCalculatorForm,
   className,
@@ -34,6 +39,13 @@ const ContactForm = ({
   } = useForm<IContactForm>({ mode: 'onBlur' });
 
   const { showConfirmation } = useGlobalContext();
+  // признак страницы берём из роутера, а не хардкодим на каждый вызов формы
+  const { pathname } = useRouter();
+  const eventPayload = {
+    form_location: location,
+    page_type: getPageType(pathname),
+    page_path: pathname,
+  };
   // ошибка отправки на сервер (не валидации) — показывается под кнопкой
   const [submitError, setSubmitError] = React.useState(false);
 
@@ -43,8 +55,8 @@ const ContactForm = ({
     try {
       await sendTelegramMessage(formatData({ ...data, ...calculatorFormData }));
 
-      // GTM: событие успешной отправки формы, не зависит от UI (попапа)
-      window.dataLayer?.push({ event: 'form_success' });
+      // Имя события не меняем — в GTM/Ads на form_success уже настроены цели
+      pushEvent('form_success', eventPayload);
 
       showConfirmation(true);
 
@@ -62,6 +74,7 @@ const ContactForm = ({
       // при ошибке данные формы сохраняются, пользователь может повторить
       console.error(err);
       setSubmitError(true);
+      pushEvent('form_error', eventPayload);
     }
   };
 

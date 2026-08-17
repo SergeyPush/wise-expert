@@ -1,12 +1,24 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Nunito_Sans } from 'next/font/google';
 import styles from '@/styles/MobileMenu.module.scss';
 import Button from '@/components/Button/Button';
 import IconList from '@/components/Header/IconList';
 import { CONTACTS } from '@/constants/contact.const';
 import { LINKS } from '@/constants/links.const';
 import { scrollToId } from '@/utils/scroll.utils';
+import { isLandingPath } from '@/utils/nav.utils';
+import MobileMenuGroup from '@/components/Header/MobileMenuGroup';
+
+// Меню — сиблинг <nav>, не <main>, поэтому шрифт не наследуется ниоткуда
+// и без этого падает на дефолтный стек Tailwind
+const nunito = Nunito_Sans({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  preload: false,
+  variable: '--font-sans',
+});
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -14,7 +26,8 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
   const { pathname } = useRouter();
-  const isHome = pathname === '/';
+  // на /fop и /tov те же секции, что и на главной — скроллим локально
+  const isLanding = isLandingPath(pathname);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -34,7 +47,7 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
   const btnClass = "w-full text-left text-2xl font-semibold text-color-white py-3 px-4 rounded-xl hover:bg-color-white/10 transition-colors duration-200";
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${nunito.className} ${styles.wrapper}`}>
       {/* Top spacing for header */}
       <div className="h-20" />
 
@@ -44,11 +57,17 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
           <ul className="space-y-2">
             {LINKS.map((item) => (
               <li key={item.id}>
-                {item.link ? (
+                {item.children ? (
+                  <MobileMenuGroup
+                    item={item}
+                    itemClass={btnClass}
+                    onClose={onClose}
+                  />
+                ) : item.link ? (
                   <Link href={item.link} onClick={onClose} className={btnClass}>
                     {item.title}
                   </Link>
-                ) : isHome ? (
+                ) : isLanding ? (
                   <button onClick={() => handleScrollClick(item.id)} className={btnClass}>
                     {item.title}
                   </button>

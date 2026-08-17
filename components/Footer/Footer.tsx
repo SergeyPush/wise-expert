@@ -7,16 +7,21 @@ import Wrapper from '@/components/Wrapper';
 import IconList from '@/components/Header/IconList';
 import { LINKS } from '@/constants/links.const';
 import { scrollToId } from '@/utils/scroll.utils';
+import { isLandingPath } from '@/utils/nav.utils';
 import { CONTACTS } from '@/constants/contact.const';
 
 const Footer = () => {
-  const filteredLinks = [...LINKS];
-  filteredLinks.splice(4, 1);
+  // FAQ в футере не показываем; «Послуги» не разворачиваем — вместо пункта
+  // выводим ФОП и ТОВ отдельными ссылками. Фильтр по id, а не по индексу:
+  // от splice(4, 1) список ехал при любом изменении состава меню
+  const filteredLinks = LINKS.flatMap((link) =>
+    link.children ? link.children : link,
+  ).filter((link) => link.id !== 'faq');
 
   const pathname = usePathname();
 
   const handleClick = (id: string) => {
-    if (pathname === '/') {
+    if (isLandingPath(pathname)) {
       scrollToId(id);
     } else {
       window.location.href = `/#${id}`;
