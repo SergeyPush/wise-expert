@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import Head from 'next/head';
 import Wrapper from '@/components/Wrapper';
 import ScrollReveal from '@/components/ScrollReveal';
 import styles from './Reviews.module.scss';
 import type { IReviews, IReviewItem } from '@/interfaces/reviews.interface';
+import { jsonLd } from '@/utils/json-ld';
 
 // oklch palette — equal lightness/chroma, varied hue per reviewer
 const TINTS: Record<string, { bg: string; fg: string }> = {
@@ -107,8 +109,60 @@ export default function Reviews({ reviews }: ReviewsProps) {
     setBump((b) => b + 1);
   };
 
+  /*
+    Карусель держит в DOM только текущий отзыв, поэтому остальные тексты
+    краулеру не видны. Схема отдаёт все отзывы сразу и привязывает их к той же
+    сущности, что описана в _document (@id .../#organization).
+    Google не показывает звёзды по отзывам с собственного сайта компании,
+    но LLM эти данные читают и используют при рекомендации.
+  */
+  const reviewsSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AccountingService',
+    '@id': 'https://wisexpert.com.ua/#organization',
+    name: 'WisExpert',
+    url: 'https://wisexpert.com.ua',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: reviews.averageRating,
+      bestRating: 5,
+      worstRating: 1,
+      reviewCount: items.length,
+    },
+    review: items.map((item) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: item.name,
+        ...(item.role && { jobTitle: item.role }),
+        ...(item.company && {
+          worksFor: { '@type': 'Organization', name: item.company },
+        }),
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: item.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      reviewBody: item.quote,
+      ...(item.sphere && { about: item.sphere }),
+      itemReviewed: {
+        '@type': 'AccountingService',
+        name: 'WisExpert',
+        '@id': 'https://wisexpert.com.ua/#organization',
+      },
+    })),
+  };
+
   return (
     <section className={styles.section} id="reviews">
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(reviewsSchema) }}
+        />
+      </Head>
       <Wrapper>
         <ScrollReveal>
           <div className={styles.body}>

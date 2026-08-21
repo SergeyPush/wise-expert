@@ -16,6 +16,8 @@ import Button from '@/components/Button/Button';
 import BlogCard from '@/components/Blog/BlogCard';
 import ConsultationCta from '@/components/Blog/ConsultationCta';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
+import { findTeamMemberId, ORGANIZATION_ID } from '@/constants/team.const';
+import { jsonLd } from '@/utils/json-ld';
 import { useGlobalContext } from '@/context/GlobalContext';
 
 const nunito = Nunito_Sans({
@@ -34,10 +36,37 @@ interface AuthorFields {
 }
 
 interface ArticlePageProps {
-  post: IBlogPost & { body: Document | null };
+  post: IBlogPost & {
+    body: Document | null;
+    /**
+     * Лид под заголовком. Непустой только когда редактор заполнил excerpt
+     * в Contentful: иначе он повторял бы первый абзац статьи слово в слово.
+     * В meta description при этом всё равно идёт post.excerpt — там дубль
+     * не виден и лучше, чем пустое описание.
+     */
+    lead: string;
+  };
   author: AuthorFields | null;
   related: IBlogPost[];
 }
+
+/**
+ * Краткое описание статьи из её текста.
+ *
+ * Поле excerpt в Contentful заполнено не у всех постов — без фолбэка у таких
+ * страниц пустой meta description и нечего показать в лиде под заголовком,
+ * а он и есть тот абзац, который цитируют AI-поисковики.
+ */
+const summarizeBody = (body: string, limit = 220): string => {
+  const clean = body.replace(/\s+/g, ' ').trim();
+  if (!clean) return '';
+  if (clean.length <= limit) return clean;
+  // обрываем по концу предложения, если он попадает в разумный диапазон
+  const sentence = clean.slice(0, limit).match(/^.{80,}[.!?](?=\s|[А-ЯІЇЄA-Z])/);
+  if (sentence) return sentence[0].trim();
+  const cut = clean.slice(0, limit);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).trimEnd()}…`;
+};
 
 const formatDate = (dateStr: string) =>
   new Date(dateStr).toLocaleDateString('uk-UA', {
@@ -190,7 +219,7 @@ export default function ArticlePage({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
+            __html: jsonLd([
               {
                 '@context': 'https://schema.org',
                 '@type': 'Article',
@@ -198,21 +227,38 @@ export default function ArticlePage({
                 description: post.excerpt,
                 datePublished: post.publishedAt,
                 dateModified: post.updatedAt,
+                inLanguage: 'uk-UA',
+                ...(post.category && { articleSection: post.category }),
+                // @id сотрудника связывает статью с Person из графа в _document:
+                // для внешних авторов findTeamMemberId вернёт null и останется
+                // обычный Person без ссылки на организацию
                 author: author
-                  ? { '@type': 'Person', name: author.name, jobTitle: author.role }
-                  : { '@type': 'Organization', name: 'WisExpert' },
-                publisher: {
-                  '@type': 'Organization',
-                  name: 'WisExpert',
-                  logo: {
-                    '@type': 'ImageObject',
-                    url: 'https://wisexpert.com.ua/logo.png',
-                  },
-                },
+                  ? {
+                      '@type': 'Person',
+                      ...(findTeamMemberId(author.name)
+                        ? { '@id': findTeamMemberId(author.name) as string }
+                        : {}),
+                      name: author.name,
+                      jobTitle: author.role,
+                      ...(author.bio && { description: author.bio }),
+                    }
+                  : { '@id': ORGANIZATION_ID },
+                publisher: { '@id': ORGANIZATION_ID },
+                isPartOf: { '@id': 'https://wisexpert.com.ua/#website' },
                 ...(coverUrl && { image: coverUrl }),
                 mainEntityOfPage: {
                   '@type': 'WebPage',
                   '@id': `https://wisexpert.com.ua/blog/${post.slug}`,
+                },
+                // Заголовок и лид — то, что голосовые ассистенты и AI-выдача
+                // берут как краткий ответ
+                speakable: {
+                  '@type': 'SpeakableSpecification',
+                  // #article-lead есть только когда есть excerpt — не указываем
+                  // селектор, которого нет в разметке
+                  cssSelector: post.lead
+                    ? ['#article-title', '#article-lead']
+                    : ['#article-title'],
                 },
               },
               {
@@ -244,9 +290,27 @@ export default function ArticlePage({
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-color-white mb-5 tracking-tight leading-tight max-w-4xl">
+            <h1
+              id="article-title"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-color-white mb-5 tracking-tight leading-tight max-w-4xl"
+            >
               {post.title}
             </h1>
+
+            {/*
+              Лид с кратким ответом на вопрос заголовка. Раньше excerpt жил только
+              в meta description — на странице его не было. Теперь он в тексте:
+              это тот абзац, который цитируют AI-поисковики, и он же указан
+              в speakable схемы статьи.
+            */}
+            {post.lead && (
+              <p
+                id="article-lead"
+                className="text-lg md:text-xl text-color-white/70 leading-relaxed max-w-3xl mb-6"
+              >
+                {post.lead}
+              </p>
+            )}
 
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-4 text-color-white/50 text-sm mb-0 pb-8">
@@ -541,11 +605,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }
     : null;
 
+  const cmsExcerpt = plainText(f.excerpt ?? f.description ?? '').trim();
+
   const post = {
     id: item.sys.id,
     title: plainText(f.title),
     slug: plainText(f.slug),
-    excerpt: plainText(f.excerpt ?? f.description ?? ''),
+    // если редактор не заполнил excerpt — собираем описание из текста статьи,
+    // иначе meta description остаётся пустым
+    excerpt: cmsExcerpt || summarizeBody(plainText(f.text ?? '')),
+    // на страницу выводим только собственный excerpt: производный дублировал бы
+    // первый абзац статьи прямо над ним
+    lead: cmsExcerpt,
     category: plainText(f.tag ?? f.category ?? ''),
     publishedAt: (f.publishedAt ?? f.date ?? item.sys.createdAt) as string,
     updatedAt: item.sys.updatedAt,

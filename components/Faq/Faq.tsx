@@ -7,6 +7,7 @@ import { IFAQ } from '@/interfaces/faq.interface';
 import ScrollReveal from '@/components/ScrollReveal';
 import { useGlobalContext } from '@/context/GlobalContext';
 import styles from '@/styles/Faq.module.scss';
+import { jsonLd } from '@/utils/json-ld';
 
 interface FaqInterface {
   faq: IFAQ;
@@ -50,7 +51,7 @@ const Faq = ({ faq }: FaqInterface) => {
       <Head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }}
         />
       </Head>
       <section

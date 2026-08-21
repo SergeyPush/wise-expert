@@ -167,9 +167,37 @@ $r-md: 18px;
   color: #fff;
 }
 
-/* answer: height animated by framer-motion; this just clips overflow */
+/* answer: всегда в DOM (нужно краулерам AI-поиска), сворачивается на CSS.
+   grid-template-rows 0fr → 1fr даёт ту же анимацию высоты, что была у framer-motion,
+   но без размонтирования узла. visibility убирает свёрнутый текст из a11y-дерева,
+   оставляя его в исходном HTML. */
 .aWrap {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: grid-template-rows 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    visibility 0s linear 0.2s;
+}
+.itemOpen .aWrap {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transition: grid-template-rows 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    visibility 0s;
+}
+/* внутренний блок обязателен: min-height 0 позволяет grid-строке схлопнуться */
+.aInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aWrap,
+  .itemOpen .aWrap {
+    transition: none;
+  }
 }
 .a {
   font-size: 15px;

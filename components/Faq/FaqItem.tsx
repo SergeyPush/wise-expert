@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useId, useState } from 'react';
+import { motion } from 'framer-motion';
 import { FaqChevron, IcQuestion } from '@/components/Faq/faqIcons';
 import styles from '@/styles/Faq.module.scss';
 
@@ -11,6 +11,7 @@ interface FaqItemInterface {
 const FaqItem = ({ question, response }: FaqItemInterface) => {
   // Independent open state per item (multiple can be open) — как было
   const [active, setActive] = useState(false);
+  const id = useId();
 
   return (
     <div className={`${styles.item} ${active ? styles.itemOpen : ''}`}>
@@ -19,6 +20,8 @@ const FaqItem = ({ question, response }: FaqItemInterface) => {
         className={styles.q}
         onClick={() => setActive((prev) => !prev)}
         aria-expanded={active}
+        aria-controls={`${id}-answer`}
+        id={`${id}-question`}
       >
         {/* один знак вопроса для всех пунктов */}
         <span className={styles.qIcon}>
@@ -35,23 +38,29 @@ const FaqItem = ({ question, response }: FaqItemInterface) => {
           <FaqChevron />
         </motion.span>
       </button>
-      {/* answer height animation via framer-motion */}
-      <AnimatePresence initial={false}>
-        {active && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
-            className={styles.aWrap}
-          >
-            <div
-              className={styles.a}
-              dangerouslySetInnerHTML={{ __html: response }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/*
+        Ответ всегда в DOM, сворачивается через CSS (grid-template-rows 0fr→1fr).
+        Раньше был AnimatePresence с условным рендером — из-за него текста ответов
+        не было в HTML, и краулеры AI-поисковиков (GPTBot, ClaudeBot, PerplexityBot),
+        которые не выполняют JS, видели вопросы без ответов.
+      */}
+      {/*
+        role="region" здесь намеренно нет: на /tov таких пунктов 12, и каждый
+        стал бы отдельным ориентиром в навигации скринридера. Связки
+        aria-controls + aria-labelledby аккордеону достаточно.
+      */}
+      <div
+        className={styles.aWrap}
+        id={`${id}-answer`}
+        aria-labelledby={`${id}-question`}
+      >
+        <div className={styles.aInner}>
+          <div
+            className={styles.a}
+            dangerouslySetInnerHTML={{ __html: response }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -12,6 +12,7 @@ import BlogCard from '@/components/Blog/BlogCard';
 import Button from '@/components/Button/Button';
 import ConsultationCta from '@/components/Blog/ConsultationCta';
 import { useGlobalContext } from '@/context/GlobalContext';
+import { jsonLd } from '@/utils/json-ld';
 
 const nunito = Nunito_Sans({
   subsets: ['latin', 'cyrillic'],
@@ -67,7 +68,7 @@ export default function BlogPage({ posts }: BlogPageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLd({
               '@context': 'https://schema.org',
               '@type': 'BreadcrumbList',
               itemListElement: [

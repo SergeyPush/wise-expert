@@ -8,5 +8,28 @@ Disallow: /api/
 # Block access to Next.js internals
 Disallow: /_next/
 
+# AI-краулеры пускаем явно: видимость в ChatGPT, Claude, Perplexity, Gemini
+# и Copilot зависит от их доступа к сайту. Запреты дублируем — у отдельной
+# группы User-agent правила из группы `*` не наследуются.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
 # Sitemap location
 Sitemap: https://wisexpert.com.ua/sitemap.xml
+
+# Текстовая карта сайта для LLM-агентов:
+# https://wisexpert.com.ua/llms.txt
+# https://wisexpert.com.ua/llms-full.txt
