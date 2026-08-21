@@ -8,6 +8,8 @@ import client from '@/utils/contentful.api';
 import { IServicePageFields } from '@/interfaces/service-page.interface';
 import { IHowItWorks } from '@/interfaces/how-it-works.interface';
 import { IWhyChooseUs } from '@/interfaces/why-choose-us.interface';
+import { ORGANIZATION_ID } from '@/constants/team.const';
+import { jsonLd } from '@/utils/json-ld';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
 import Button from '@/components/Button/Button';
@@ -37,12 +39,22 @@ interface ServicePageProps {
   data: IServicePageFields;
   howItWorks: IHowItWorks;
   whyChooseUs: IWhyChooseUs;
+  /** sys.updatedAt записи услуги — дата актуальности цен на странице */
+  updatedAt: string;
 }
+
+const formatUpdatedAt = (iso: string) =>
+  new Date(iso).toLocaleDateString('uk-UA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 
 export default function ServicePage({
   data,
   howItWorks,
   whyChooseUs,
+  updatedAt,
 }: ServicePageProps) {
   const { setBookCallIsVisible } = useGlobalContext();
   const heroImageUrl = data.heroImage?.fields?.file?.url
@@ -83,25 +95,21 @@ export default function ServicePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
+          __html: jsonLd([
             {
               '@context': 'https://schema.org',
               '@type': 'Service',
               name: data.heroTitle,
               description: data.seoDescription,
               url: `https://wisexpert.com.ua/services/${data.slug}`,
-              provider: {
-                '@type': 'AccountingService',
-                name: 'WisExpert',
-                url: 'https://wisexpert.com.ua',
-                address: {
-                  '@type': 'PostalAddress',
-                  streetAddress: 'вул. Сверстюка, 11а',
-                  addressLocality: 'Київ',
-                  postalCode: '02002',
-                  addressCountry: 'UA',
-                },
-              },
+              // Ссылка на организацию из графа в _document вместо копии данных:
+              // так услуга, компания и отзывы читаются как одна сущность
+              provider: { '@id': ORGANIZATION_ID },
+              areaServed: [
+                { '@type': 'Country', name: 'Україна' },
+                { '@type': 'City', name: 'Київ' },
+              ],
+              serviceType: 'Бухгалтерські послуги',
               ...(data.price && {
                 offers: {
                   '@type': 'Offer',
@@ -115,6 +123,24 @@ export default function ServicePage({
                   },
                 },
               }),
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              '@id': `https://wisexpert.com.ua/services/${data.slug}`,
+              url: `https://wisexpert.com.ua/services/${data.slug}`,
+              name: data.seoTitle,
+              description: data.seoDescription,
+              inLanguage: 'uk-UA',
+              isPartOf: { '@id': 'https://wisexpert.com.ua/#website' },
+              about: { '@id': ORGANIZATION_ID },
+              // dateModified показывает свежесть цен — сигнал актуальности
+              // и для Google, и для AI-выдачи
+              dateModified: updatedAt,
+              speakable: {
+                '@type': 'SpeakableSpecification',
+                cssSelector: ['#service-title', '#service-lead'],
+              },
             },
             {
               '@context': 'https://schema.org',
@@ -149,10 +175,16 @@ export default function ServicePage({
                 <span className="inline-block text-xs font-semibold text-color-blue bg-color-blue/10 border border-color-blue/20 rounded-full px-3 py-1 mb-5 tracking-wide">
                   {data.tag}
                 </span>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-color-white mb-4 tracking-tight leading-tight">
+                <h1
+                  id="service-title"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-color-white mb-4 tracking-tight leading-tight"
+                >
                   {data.heroTitle}
                 </h1>
-                <p className="text-color-white/70 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
+                <p
+                  id="service-lead"
+                  className="text-color-white/70 text-base md:text-lg max-w-xl mb-8 leading-relaxed"
+                >
                   {data.heroSubtitle}
                 </p>
                 <p className="text-color-white/50 text-sm mb-1">від</p>
@@ -168,6 +200,18 @@ export default function ServicePage({
                   size="wide"
                   onClick={() => setBookCallIsVisible(true)}
                 />
+                {/*
+                  Видимая дата актуальности цен. AI-поисковики предпочитают
+                  свежие источники, а по бухгалтерии — тем более: ставки и
+                  лимиты меняются ежегодно. Дата берётся из sys.updatedAt
+                  Contentful, то есть обновляется правкой контента.
+                */}
+                <p className="text-color-white/40 text-sm mt-6">
+                  Ціни та умови актуальні на{' '}
+                  <time dateTime={updatedAt.slice(0, 10)}>
+                    {formatUpdatedAt(updatedAt)}
+                  </time>
+                </p>
               </div>
 
               {/* Right image */}
@@ -236,12 +280,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (!contentfulId) return { notFound: true };
 
-  const [{ fields: raw }, { fields: howItWorks }, { fields: whyChooseUs }] =
+  const [serviceEntry, { fields: howItWorks }, { fields: whyChooseUs }] =
     await Promise.all([
       client.getEntry(contentfulId),
       client.getEntry('4N6ZqoXb2UZN1AcfUWX55L'),
       client.getEntry('1SqpxKzGIux9TPJvJXlXPO'),
     ]);
+
+  const raw = serviceEntry.fields;
 
   // Contentful rich text fields return {nodeType, content, data} objects.
   // Extract plain text so we can render them as strings.
@@ -271,5 +317,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     cards,
   };
 
-  return { props: { data, howItWorks, whyChooseUs } };
+  return {
+    props: {
+      data,
+      howItWorks,
+      whyChooseUs,
+      updatedAt: serviceEntry.sys.updatedAt,
+    },
+  };
 };

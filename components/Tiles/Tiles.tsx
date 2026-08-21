@@ -6,12 +6,13 @@ import Title from '@/components/Title';
 import TilesList from '@/components/Tiles/TilesList';
 import TilesSwiper from '@/components/Tiles/TilesSwiper';
 import ScrollReveal from '@/components/ScrollReveal';
+import { jsonLd } from '@/utils/json-ld';
 
 interface TilesInterface {
   tiles: ITiles;
 }
 const Tiles = ({ tiles }: TilesInterface) => {
-  const jsonLd = {
+  const tilesSchema = {
     '@context': 'https://schema.org',
     '@type': 'OfferCatalog',
     name: tiles.title,
@@ -35,7 +36,7 @@ const Tiles = ({ tiles }: TilesInterface) => {
       <Head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(tilesSchema) }}
         />
       </Head>
       <Wrapper>
