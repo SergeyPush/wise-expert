@@ -61,7 +61,7 @@ const ContactForm = ({
       showConfirmation(true);
 
       // очищаем и закрываем форму только после успешной отправки
-      reset({ email: '', phone: '', question: '' });
+      reset({ name: '', phone: '', question: '' });
 
       if (clearCalculatorForm) {
         clearCalculatorForm();
@@ -95,23 +95,23 @@ const ContactForm = ({
 
         <div className={'flex flex-col gap-4 mb-4'}>
           <div className={'flex font-normal flex-col relative'}>
-            <InputLabel text={'Email:'} htmlFor={'email'} />
+            <InputLabel text={"Ім'я:"} htmlFor={'name'} />
             <input
-              id="email"
+              id="name"
               className={
                 'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200'
               }
-              type="email"
-              placeholder="Введіть email*"
-              {...register('email', { required: 'email is required' })}
+              type="text"
+              placeholder="Введіть ім'я*"
+              {...register('name', { required: "ім'я is required" })}
             />
-            {errors?.email && (
+            {errors?.name && (
               <span
                 className={
                   'text-color-red text-sm absolute bottom-[-20px] ml-1'
                 }
               >
-                Email обов&apos;язковий
+                Ім&apos;я обов&apos;язкове
               </span>
             )}
           </div>
