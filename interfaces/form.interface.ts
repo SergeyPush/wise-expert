@@ -1,5 +1,5 @@
 export interface IContactForm {
-  email: string;
+  name: string;
   phone: string;
   question: string;
 }
