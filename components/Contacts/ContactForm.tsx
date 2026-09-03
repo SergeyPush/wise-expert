@@ -95,14 +95,15 @@ const ContactForm = ({
 
         <div className={'flex flex-col gap-4 mb-4'}>
           <div className={'flex font-normal flex-col relative'}>
-            <InputLabel text={"Ім'я:"} htmlFor={'name'} />
+            <InputLabel text={"Ім'я"} htmlFor={'name'} required />
             <input
               id="name"
               className={
                 'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200'
               }
               type="text"
-              placeholder="Введіть ім'я*"
+              aria-required="true"
+              placeholder="Введіть ім'я"
               {...register('name', { required: "ім'я is required" })}
             />
             {errors?.name && (
@@ -117,7 +118,7 @@ const ContactForm = ({
           </div>
 
           <div className={'flex font-normal flex-col relative'}>
-            <InputLabel text={'Телефон:'} htmlFor={'phone'} />
+            <InputLabel text={'Телефон'} htmlFor={'phone'} required />
             <InputMask
               mask={'+38(099)999-99-99'}
               id="phone"
@@ -125,7 +126,8 @@ const ContactForm = ({
                 'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200'
               }
               type="text"
-              placeholder="Введіть телефон*"
+              aria-required="true"
+              placeholder="Введіть телефон"
               {...register('phone', { required: 'Телефон is required' })}
             />
             {errors?.phone && (
@@ -140,14 +142,14 @@ const ContactForm = ({
           </div>
         </div>
         <div className={'flex font-normal flex-col relative mb-6'}>
-          <InputLabel text={'Уточнююче питання:'} htmlFor={'question'} />
+          <InputLabel text={'Додаткова інформація'} htmlFor={'question'} />
           <textarea
             rows={3}
             id="question"
             className={
               'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200 resize-none'
             }
-            placeholder="Ваше повідомлення"
+            placeholder="Ваше повідомлення (не обов'язкове поле)"
             {...register('question')}
           />
         </div>
