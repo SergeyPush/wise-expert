@@ -82,14 +82,14 @@ const CalculatorForm = () => {
           <div className={'flex flex-col xl:flex-row gap-5'}>
             <CalculatorInput
               label={'Кількість співробітників'}
-              placeholder={'Введіть значення'}
+              placeholder={"Введіть значення (не обов'язкове поле)"}
               name={'NumberOfEmployees'}
               setState={setCalculatorForm}
               value={calculatorForm.NumberOfEmployees}
             />
             <CalculatorInput
               label={'Кількість документів/міс'}
-              placeholder={'Введіть значення'}
+              placeholder={"Введіть значення (не обов'язкове поле)"}
               name={'DocumentQuantity'}
               setState={setCalculatorForm}
               value={calculatorForm.DocumentQuantity}

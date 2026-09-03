@@ -30,12 +30,13 @@ const CalculatorDropdown = ({
   return (
     <div className={className}>
       <InputLabel text={label} className={'text-color-white'} />
+      {/* все поля калькулятора необязательные — помечаем это в плейсхолдере */}
       <Select
         value={value}
         isMulti={isMulti}
         options={options}
         instanceId={useId()}
-        placeholder={'Оберіть варіант'}
+        placeholder={"Оберіть варіант (не обов'язкове поле)"}
         styles={colorStyles}
         closeMenuOnSelect={true}
         hideSelectedOptions={true}
