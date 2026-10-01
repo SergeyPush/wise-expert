@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { ILink } from '@/interfaces/link.interface';
 
 interface MobileMenuGroupProps {
@@ -46,13 +45,15 @@ const MobileMenuGroup = ({ item, itemClass, onClose }: MobileMenuGroupProps) => 
         <ul className="mt-1 space-y-1 pl-4">
           {children.map((child) => (
             <li key={child.id}>
-              <Link
+              {/* обычный <a>, не next/link: страница услуги грузится полностью,
+                  чтобы GTM фиксировал загрузку, а не «Історія» (ТЗ правок) */}
+              <a
                 href={child.link}
                 onClick={onClose}
                 className="block rounded-xl px-4 py-2.5 text-xl font-medium text-color-white/80 transition-colors duration-200 hover:bg-color-white/10 hover:text-color-white"
               >
                 {child.title}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

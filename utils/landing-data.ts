@@ -84,6 +84,17 @@ export interface GetLandingDataOptions {
   pricingId?: string;
   /** Entry ID записи faQs (набор вопросов страницы, R7: у /fop и /tov свой). Без него — faQs главной. */
   faqId?: string;
+  /**
+   * Локальный контент вместо записей Contentful — для /dija, пока её тексты
+   * не перенесены в CMS. Hero берёт только тексты: фото остаётся из записи
+   * (heroId или hero главной). Локальные support/pricing/faq важнее *Id.
+   */
+  local?: {
+    hero?: Pick<IHero, 'title' | 'subtitle' | 'items'>;
+    support?: ISupport;
+    pricing?: IPricing;
+    faq?: IFAQ;
+  };
 }
 
 /** Данные лендинга одним запросом-пачкой. */
@@ -92,20 +103,23 @@ export async function getLandingData({
   supportId,
   pricingId,
   faqId,
+  local,
 }: GetLandingDataOptions = {}): Promise<LandingData> {
   const [hero, advantages, tiles, clients, faq, reviews, support, pricing] = await Promise.all([
     getFields<IHero>(heroId ?? ENTRY_IDS.hero),
     getFields<IAdvantages>(ENTRY_IDS.advantages),
     getFields<ITiles>(ENTRY_IDS.tiles),
     getFields<IClients>(ENTRY_IDS.clients),
-    getFields<IFAQ>(faqId ?? ENTRY_IDS.faq),
+    // локальные данные не ходят в Contentful — лишних запросов нет
+    local?.faq ?? getFields<IFAQ>(faqId ?? ENTRY_IDS.faq),
     getFields<IReviews>(ENTRY_IDS.reviews),
-    supportId ? getFields<ISupport>(supportId) : Promise.resolve(null),
-    pricingId ? getFields<IPricing>(pricingId) : Promise.resolve(null),
+    local?.support ?? (supportId ? getFields<ISupport>(supportId) : Promise.resolve(null)),
+    local?.pricing ?? (pricingId ? getFields<IPricing>(pricingId) : Promise.resolve(null)),
   ]);
 
   return {
-    slide: hero,
+    // spread, а не мутация: объект hero лежит в общем кэше getFields
+    slide: local?.hero ? { ...hero, ...local.hero } : hero,
     advantages,
     tiles,
     clients,

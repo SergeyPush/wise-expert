@@ -12,11 +12,16 @@ import { CONTACTS } from '@/constants/contact.const';
 
 const Footer = () => {
   // FAQ в футере не показываем; «Послуги» не разворачиваем — вместо пункта
-  // выводим ФОП и ТОВ отдельными ссылками. Фильтр по id, а не по индексу:
+  // выводим ФОП, ТОВ и Дія Сіті отдельными ссылками. Фильтр по id, а не по индексу:
   // от splice(4, 1) список ехал при любом изменении состава меню
   const filteredLinks = LINKS.flatMap((link) =>
     link.children ? link.children : link,
   ).filter((link) => link.id !== 'faq');
+
+  // страницы услуг (дети «Послуги») — грузятся полностью, как в меню хедера
+  const serviceIds = new Set(
+    LINKS.flatMap((link) => link.children ?? []).map((child) => child.id),
+  );
 
   const pathname = usePathname();
 
@@ -55,7 +60,18 @@ const Footer = () => {
             </span>
             <ul className="space-y-3">
               {filteredLinks.map(({ title, id, link }, index) =>
-                link ? (
+                link && serviceIds.has(id) ? (
+                  <li key={index}>
+                    {/* обычный <a>, не next/link: полная загрузка страницы
+                        услуги, чтобы GTM фиксировал её просмотр (ТЗ правок) */}
+                    <a
+                      href={link}
+                      className="text-color-white/60 hover:text-color-white transition-colors duration-200 text-sm"
+                    >
+                      {title}
+                    </a>
+                  </li>
+                ) : link ? (
                   <li key={index}>
                     <Link
                       href={link}

@@ -82,6 +82,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       { loc: `${BASE_URL}/`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '1.0' },
       { loc: `${BASE_URL}/fop`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.9' },
       { loc: `${BASE_URL}/tov`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.9' },
+      // TODO: /dija временно скрыта — вернуть в sitemap после запуска
+      // { loc: `${BASE_URL}/dija`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.9' },
       { loc: `${BASE_URL}/blog`, lastmod: blogUrls[0]?.lastmod ?? FALLBACK_DATE, changefreq: 'weekly', priority: '0.7' },
     ];
 
@@ -97,6 +99,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       { loc: `${BASE_URL}/`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '1.0' },
       { loc: `${BASE_URL}/fop`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.9' },
       { loc: `${BASE_URL}/tov`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.9' },
+      // TODO: /dija временно скрыта — вернуть в sitemap после запуска
+      // { loc: `${BASE_URL}/dija`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.9' },
       { loc: `${BASE_URL}/blog`, lastmod: FALLBACK_DATE, changefreq: 'weekly', priority: '0.7' },
       ...Object.keys(SERVICE_SLUG_TO_ID).map((slug) => ({
         loc: `${BASE_URL}/services/${slug}`,

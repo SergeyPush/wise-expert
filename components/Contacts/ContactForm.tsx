@@ -9,7 +9,12 @@ import InputMask from 'react-input-mask';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { sendData } from '@/utils/emailjs.api';
 import { sendTelegramMessage } from '@/utils/telegram.utils';
-import { FormLocation, getPageType, pushEvent } from '@/utils/analytics';
+import {
+  FORM_SUBMIT_EVENTS,
+  FormLocation,
+  getPageType,
+  pushEvent,
+} from '@/utils/analytics';
 
 interface CalculatorData {
   [key: string]: string | IDropdown | IDropdown[];
@@ -57,6 +62,8 @@ const ContactForm = ({
 
       // Имя события не меняем — в GTM/Ads на form_success уже настроены цели
       pushEvent('form_success', eventPayload);
+      // событие конкретной формы — только после успешной отправки, не по клику
+      pushEvent(FORM_SUBMIT_EVENTS[location], eventPayload);
 
       showConfirmation(true);
 

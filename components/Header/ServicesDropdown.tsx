@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ILink } from '@/interfaces/link.interface';
 
@@ -13,6 +12,9 @@ interface ServicesDropdownProps {
  * Десктопный пункт «Послуги» со списком ФОП / ТОВ. Отдельной страницы услуг
  * нет, поэтому сам пункт не ссылка, а кнопка: открывается наведением и
  * клавиатурой, закрывается по Esc, клику вне и переходу по ссылке.
+ *
+ * Пункты — обычные <a>, не next/link: страницы услуг должны грузиться
+ * полностью (ТЗ правок), иначе GTM видит «Історія» вместо загрузки страницы.
  */
 const ServicesDropdown = ({
   item,
@@ -121,7 +123,7 @@ const ServicesDropdown = ({
         >
           {children.map((child, index) => (
             <li key={child.id} role="none">
-              <Link
+              <a
                 href={child.link}
                 role="menuitem"
                 ref={(node) => {
@@ -136,7 +138,7 @@ const ServicesDropdown = ({
                 }`}
               >
                 {child.title}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
