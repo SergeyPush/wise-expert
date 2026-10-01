@@ -43,7 +43,6 @@ const Layout: FC<Children> = ({ children }) => {
         additionalLinkTags={[{ rel: 'icon', href: '/favicon.ico' }]}
         additionalMetaTags={[
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-          { name: 'robots', content: 'index, follow' },
           { name: 'author', content: 'WisExpert' },
         ]}
       />

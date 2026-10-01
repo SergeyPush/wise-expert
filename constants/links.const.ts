@@ -13,6 +13,8 @@ export const LINKS: ILink[] = [
     children: [
       { id: 'fop', title: 'ФОП', link: '/fop' },
       { id: 'tov', title: 'ТОВ', link: '/tov' },
+      // TODO: /dija временно скрыта до согласования цен и текстов
+      // { id: 'dija', title: 'Дія Сіті', link: '/dija' },
     ],
   },
   { id: 'useful', title: 'Кому корисні', link: '' },
