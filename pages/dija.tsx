@@ -9,13 +9,10 @@ import PricingCards from '@/components/Pricing/PricingCards';
 import Reviews from '@/components/Reviews/Reviews';
 import Clients from '@/components/Clients/Clients';
 import { getLandingData, LandingData } from '@/utils/landing-data';
-import { TOV_HERO_ID } from '@/constants/hero.const';
-import {
-  DIJA_FAQ,
-  DIJA_HERO,
-  DIJA_PRICING,
-  DIJA_SUPPORT,
-} from '@/constants/dija.const';
+import { DIJA_HERO_ID } from '@/constants/hero.const';
+import { DIJA_SUPPORT_ID } from '@/constants/support.const';
+import { DIJA_PRICING_ID } from '@/constants/pricing.const';
+import { DIJA_FAQ_ID } from '@/constants/faq.const';
 
 const SEO = {
   title: 'Бухгалтер для резидентів Дія.City — супровід IT-компаній | WisExpert',
@@ -25,8 +22,8 @@ const SEO = {
 };
 
 /**
- * Лендинг для резидентов Дія.City — структура как у /tov. Тексты пока
- * локальные (constants/dija.const.ts), в Contentful перенесём позже.
+ * Лендинг для резидентов Дія.City — структура как у /tov, контент в Contentful.
+ * Фото hero — тот же asset, что у /tov.
  */
 export default function DijaPage({
   slide,
@@ -49,10 +46,6 @@ export default function DijaPage({
         title={SEO.title}
         description={SEO.description}
         canonical={SEO.canonical}
-        // TODO: страница временно скрыта (нет в меню и sitemap) — убрать
-        // noindex/nofollow после согласования цен и текстов
-        noindex
-        nofollow
         openGraph={{
           title: SEO.title,
           description: SEO.description,
@@ -96,14 +89,10 @@ export default function DijaPage({
 export async function getStaticProps() {
   return {
     props: await getLandingData({
-      // фото hero — из записи /tov, тексты — локальные
-      heroId: TOV_HERO_ID,
-      local: {
-        hero: DIJA_HERO,
-        support: DIJA_SUPPORT,
-        pricing: DIJA_PRICING,
-        faq: DIJA_FAQ,
-      },
+      heroId: DIJA_HERO_ID,
+      supportId: DIJA_SUPPORT_ID,
+      pricingId: DIJA_PRICING_ID,
+      faqId: DIJA_FAQ_ID,
     }),
     revalidate: 3600,
   };

@@ -6,3 +6,4 @@
  */
 export const FOP_FAQ_ID = 'EDYSASEmHGizUU0UiuZ7e';
 export const TOV_FAQ_ID = '5NFQX4SCfcaUdkvdKVMU0f';
+export const DIJA_FAQ_ID = '6azPdVxMPVWQgM6dXYKDc2';
