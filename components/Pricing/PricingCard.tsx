@@ -174,7 +174,14 @@ const PricingCard = ({ card, accent, index, inView }: PricingCardProps) => {
           {price}
           {/* підпис під ціною показуємо тільки у wide-картці (кадровий облік) —
              у звичайних картках макет ціну підписом не супроводжує */}
-          {card.wide && card.period && (
+          {/* без plus період самостійний («/ місяць») — пігулкою, як у ФОП-картках;
+             з plus це початок фрази «за 1 спеціаліста, +500 грн…» — простим текстом */}
+          {card.wide && card.period && !card.plus && (
+            <span className={`w-fit rounded-full px-5 py-1.5 text-base font-bold md:text-lg ${GROUP_PILL[accent]}`}>
+              {card.period}
+            </span>
+          )}
+          {card.wide && card.period && card.plus && (
             <span className="text-sm text-color-muted">{card.period}</span>
           )}
           {card.note && <span className="text-sm text-color-muted">{card.note}</span>}

@@ -3,10 +3,10 @@ import { mapBlogPost } from '@/utils/contentful.utils';
 import { getLandingData } from '@/utils/landing-data';
 import { SERVICE_PAGES, TILE_SLUG_MAP } from '@/constants/services.const';
 import { CONTACTS } from '@/constants/contact.const';
-import { FOP_FAQ_ID, TOV_FAQ_ID } from '@/constants/faq.const';
-import { FOP_HERO_ID, TOV_HERO_ID } from '@/constants/hero.const';
-import { FOP_PRICING_ID, TOV_PRICING_ID } from '@/constants/pricing.const';
-import { FOP_SUPPORT_ID, TOV_SUPPORT_ID } from '@/constants/support.const';
+import { DIJA_FAQ_ID, FOP_FAQ_ID, TOV_FAQ_ID } from '@/constants/faq.const';
+import { DIJA_HERO_ID, FOP_HERO_ID, TOV_HERO_ID } from '@/constants/hero.const';
+import { DIJA_PRICING_ID, FOP_PRICING_ID, TOV_PRICING_ID } from '@/constants/pricing.const';
+import { DIJA_SUPPORT_ID, FOP_SUPPORT_ID, TOV_SUPPORT_ID } from '@/constants/support.const';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
 import { IFAQ } from '@/interfaces/faq.interface';
 import { IPricing } from '@/interfaces/pricing.interface';
@@ -66,14 +66,21 @@ function faqBlock(faq: IFAQ): string {
     .join('\n\n');
 }
 
-/** Тарифные карточки /fop и /tov в виде списка «название — цена». */
+/** Тарифные карточки /fop, /tov и /dija в виде списка «название — цена». */
 function pricingBlock(pricing: IPricing | null): string {
   if (!pricing) return '';
   const rows = pricing.cards.map((card) => {
     const name = card.group
       ? `${card.group.label} ${card.group.number} ${card.group.unit}`.trim()
       : card.title;
-    const price = [card.prefix, card.amount, card.period]
+    // plus — доплата за каждого следующего («+500 грн за кожного наступного»);
+    // period перед ним кончается запятой, так что фраза собирается сама
+    const price = [
+      card.prefix,
+      card.amount,
+      card.period,
+      card.plus && `${card.plus.amount} ${card.plus.caption}`,
+    ]
       .filter(Boolean)
       .join(' ');
     const extras = card.items?.length
@@ -94,8 +101,10 @@ interface LlmsData {
   faqMain: IFAQ;
   faqFop: IFAQ;
   faqTov: IFAQ;
+  faqDija: IFAQ;
   pricingFop: IPricing | null;
   pricingTov: IPricing | null;
+  pricingDija: IPricing | null;
   posts: IBlogPost[];
 }
 
@@ -161,7 +170,7 @@ async function fetchLlmsData(): Promise<LlmsData> {
   // getLandingData кэширует записи на процесс — три вызова не бьют по Contentful
   // трижды за одними и теми же tiles/faq. Блог берём через getBlogPosts:
   // короткая версия его уже могла прогреть.
-  const [main, fop, tov, posts] = await Promise.all([
+  const [main, fop, tov, dija, posts] = await Promise.all([
     getLandingData(),
     getLandingData({
       heroId: FOP_HERO_ID,
@@ -175,6 +184,12 @@ async function fetchLlmsData(): Promise<LlmsData> {
       pricingId: TOV_PRICING_ID,
       faqId: TOV_FAQ_ID,
     }),
+    getLandingData({
+      heroId: DIJA_HERO_ID,
+      supportId: DIJA_SUPPORT_ID,
+      pricingId: DIJA_PRICING_ID,
+      faqId: DIJA_FAQ_ID,
+    }),
     getBlogPosts(),
   ]);
 
@@ -183,8 +198,10 @@ async function fetchLlmsData(): Promise<LlmsData> {
     faqMain: main.faq,
     faqFop: fop.faq,
     faqTov: tov.faq,
+    faqDija: dija.faq,
     pricingFop: fop.pricing,
     pricingTov: tov.pricing,
+    pricingDija: dija.pricing,
     posts,
   };
 }
@@ -228,6 +245,7 @@ export async function buildLlmsTxt(): Promise<string> {
 - [Головна](${BASE_URL}/): послуги, ціни, калькулятор вартості, відгуки клієнтів
 - [Бухгалтер для ФОП](${BASE_URL}/fop): ведення ФОП — облік, податки, звітність, РРО/ПРРО, тарифи по групах єдиного податку
 - [Бухгалтерське обслуговування ТОВ](${BASE_URL}/tov): повний супровід компаній — облік, ПДВ, кадри, звітність, тарифи
+- [Бухгалтер для резидентів Дія.City](${BASE_URL}/dija): супровід IT-компаній у спецрежимі — податок на виведений капітал, гіг-контракти, контроль умов статусу, щорічний аудит, тарифи
 - [Блог](${BASE_URL}/blog): статті про податки, звітність і облік для українського бізнесу
 
 ## Галузеві напрямки
@@ -246,8 +264,17 @@ ${blogLinks}
 
 /** Полная версия — весь ключевой контент сайта в одном текстовом файле. */
 export async function buildLlmsFullTxt(): Promise<string> {
-  const { tiles, faqMain, faqFop, faqTov, pricingFop, pricingTov, posts } =
-    await getLlmsData();
+  const {
+    tiles,
+    faqMain,
+    faqFop,
+    faqTov,
+    faqDija,
+    pricingFop,
+    pricingTov,
+    pricingDija,
+    posts,
+  } = await getLlmsData();
 
   const tilesBlock = tiles.tile
     .map((t) => {
@@ -282,6 +309,10 @@ ${pricingBlock(pricingFop) || 'Актуальні тарифи — на стор
 
 ${pricingBlock(pricingTov) || 'Актуальні тарифи — на сторінці ' + BASE_URL + '/tov'}
 
+## Ціни на бухгалтерський супровід резидентів Дія.City
+
+${pricingBlock(pricingDija) || 'Актуальні тарифи — на сторінці ' + BASE_URL + '/dija'}
+
 ## Часті запитання про роботу з WisExpert
 
 ${faqBlock(faqMain)}
@@ -293,6 +324,10 @@ ${faqBlock(faqFop)}
 ## Часті запитання про бухгалтерію для ТОВ
 
 ${faqBlock(faqTov)}
+
+## Часті запитання про бухгалтерію для резидентів Дія.City
+
+${faqBlock(faqDija)}
 
 ## Статті блогу
 

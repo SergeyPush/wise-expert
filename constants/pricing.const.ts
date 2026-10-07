@@ -5,3 +5,4 @@
  */
 export const FOP_PRICING_ID = 'uSXjTU2nD8ZNXWGkcpJeQ';
 export const TOV_PRICING_ID = 'xBy0mCAUro471pJcGeN6K';
+export const DIJA_PRICING_ID = '7ynjN0SNqT2UQZu2IdQXFT';
