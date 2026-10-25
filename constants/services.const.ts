@@ -40,8 +40,6 @@ export const SERVICE_PAGES: IServicePage[] = [
 /** Map tile name (from Contentful) to service page slug */
 export const TILE_SLUG_MAP: Record<string, string> = {
   'ІТ-компанії': 'it',
-  // старое имя карточки — пока в Contentful не переименована; удалить после
-  'ІТ індустрія + ДІЯ.City': 'it',
   'Оптова торгівля': 'optova',
   'Роздрібна торгівля': 'rozdribna',
   'Виробництво': 'vyrobnytstvo',
