@@ -7,8 +7,8 @@ export interface IServicePage {
 export const SERVICE_PAGES: IServicePage[] = [
   {
     slug: 'it',
-    title: 'ІТ індустрія + ДІЯ.City',
-    description: 'Бухгалтерські послуги для ІТ компаній та резидентів ДІЯ.City',
+    title: 'ІТ-компанії',
+    description: 'Бухгалтерські послуги для ІТ-компаній',
   },
   {
     slug: 'optova',
@@ -39,6 +39,8 @@ export const SERVICE_PAGES: IServicePage[] = [
 
 /** Map tile name (from Contentful) to service page slug */
 export const TILE_SLUG_MAP: Record<string, string> = {
+  'ІТ-компанії': 'it',
+  // старое имя карточки — пока в Contentful не переименована; удалить после
   'ІТ індустрія + ДІЯ.City': 'it',
   'Оптова торгівля': 'optova',
   'Роздрібна торгівля': 'rozdribna',

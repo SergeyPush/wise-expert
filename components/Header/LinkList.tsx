@@ -1,6 +1,7 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import LinkItem from '@/components/Header/LinkItem';
-import { LINKS } from '@/constants/links.const';
+import { getNavLinks } from '@/utils/nav.utils';
 
 interface LinkListInterface {
   alignment?: 'vertical' | 'horizontal';
@@ -8,13 +9,15 @@ interface LinkListInterface {
   isScrolled?: boolean;
 }
 const LinkList = ({ alignment, className, isScrolled }: LinkListInterface) => {
+  const { pathname } = useRouter();
+
   return (
     <ul
       className={`lg:flex flex-row gap-1 xl:gap-2 items-center ${
         alignment === 'vertical' ? 'flex-col gap-4' : ''
       } ${className}`}
     >
-      {LINKS.map((item) => (
+      {getNavLinks(pathname).map((item) => (
         <LinkItem item={item} key={item.id} isScrolled={isScrolled} />
       ))}
     </ul>
