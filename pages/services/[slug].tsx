@@ -39,16 +39,9 @@ interface ServicePageProps {
   data: IServicePageFields;
   howItWorks: IHowItWorks;
   whyChooseUs: IWhyChooseUs;
-  /** sys.updatedAt записи услуги — дата актуальности цен на странице */
+  /** sys.updatedAt записи услуги — для dateModified в JSON-LD */
   updatedAt: string;
 }
-
-const formatUpdatedAt = (iso: string) =>
-  new Date(iso).toLocaleDateString('uk-UA', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
 
 export default function ServicePage({
   data,
@@ -200,18 +193,8 @@ export default function ServicePage({
                   size="wide"
                   onClick={() => setBookCallIsVisible(true)}
                 />
-                {/*
-                  Видимая дата актуальности цен. AI-поисковики предпочитают
-                  свежие источники, а по бухгалтерии — тем более: ставки и
-                  лимиты меняются ежегодно. Дата берётся из sys.updatedAt
-                  Contentful, то есть обновляется правкой контента.
-                */}
-                <p className="text-color-white/40 text-sm mt-6">
-                  Ціни та умови актуальні на{' '}
-                  <time dateTime={updatedAt.slice(0, 10)}>
-                    {formatUpdatedAt(updatedAt)}
-                  </time>
-                </p>
+                {/* видимую дату «Ціни та умови актуальні на …» убрали
+                    (п. 21 ТЗ Google Ads); свежесть осталась в JSON-LD dateModified */}
               </div>
 
               {/* Right image */}

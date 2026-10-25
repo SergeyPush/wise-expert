@@ -7,23 +7,24 @@ import Wrapper from '@/components/Wrapper';
 import IconList from '@/components/Header/IconList';
 import { LINKS } from '@/constants/links.const';
 import { scrollToId } from '@/utils/scroll.utils';
-import { isLandingPath } from '@/utils/nav.utils';
+import { getNavLinks, isLandingPath } from '@/utils/nav.utils';
 import { CONTACTS } from '@/constants/contact.const';
 
 const Footer = () => {
+  const pathname = usePathname();
+
   // FAQ в футере не показываем; «Послуги» не разворачиваем — вместо пункта
   // выводим ФОП, ТОВ и Дія Сіті отдельными ссылками. Фильтр по id, а не по индексу:
-  // от splice(4, 1) список ехал при любом изменении состава меню
-  const filteredLinks = LINKS.flatMap((link) =>
-    link.children ? link.children : link,
-  ).filter((link) => link.id !== 'faq');
+  // от splice(4, 1) список ехал при любом изменении состава меню.
+  // «Ціни» — только на страницах с секцией цен (getNavLinks)
+  const filteredLinks = getNavLinks(pathname)
+    .flatMap((link) => (link.children ? link.children : link))
+    .filter((link) => link.id !== 'faq');
 
   // страницы услуг (дети «Послуги») — грузятся полностью, как в меню хедера
   const serviceIds = new Set(
     LINKS.flatMap((link) => link.children ?? []).map((child) => child.id),
   );
-
-  const pathname = usePathname();
 
   const handleClick = (id: string) => {
     if (isLandingPath(pathname)) {

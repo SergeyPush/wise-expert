@@ -6,9 +6,8 @@ import styles from '@/styles/MobileMenu.module.scss';
 import Button from '@/components/Button/Button';
 import IconList from '@/components/Header/IconList';
 import { CONTACTS } from '@/constants/contact.const';
-import { LINKS } from '@/constants/links.const';
 import { scrollToId } from '@/utils/scroll.utils';
-import { isLandingPath } from '@/utils/nav.utils';
+import { getNavLinks, isLandingPath } from '@/utils/nav.utils';
 import MobileMenuGroup from '@/components/Header/MobileMenuGroup';
 
 // Меню — сиблинг <nav>, не <main>, поэтому шрифт не наследуется ниоткуда
@@ -55,7 +54,7 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
       <div className="flex-1 flex flex-col justify-center px-8 py-8">
         <nav>
           <ul className="space-y-2">
-            {LINKS.map((item) => (
+            {getNavLinks(pathname).map((item) => (
               <li key={item.id}>
                 {item.children ? (
                   <MobileMenuGroup
