@@ -15,8 +15,11 @@ services:
     # Рантайм-переменные (в т.ч. TELEGRAM_BOT_TOKEN для /api/submit)
     env_file:
       - .env
+    # Только loopback: снаружи сайт доступен через nginx (443). Без 127.0.0.1
+    # Docker публикует порт на всех интерфейсах в обход nginx и ufw — тогда
+    # limit_req на /api/ не работает, а X-Real-IP можно подделать
     ports:
-      - '3000:3000'
+      - '127.0.0.1:3000:3000'
 
 secrets:
   env:
