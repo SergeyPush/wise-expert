@@ -6,13 +6,14 @@ import 'swiper/css/pagination';
 import type { AppProps } from 'next/app';
 import Layout from '@/components/Layout';
 import { ContextProvider } from '@/context/GlobalContext';
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <ContextProvider>
       <Layout>
-        <GoogleAnalytics gaId="AW-16666601833" />
+        {/* Тег Google Ads AW-16666601833 здесь не нужен: его, 9 тегов конверсий
+            и Conversion Linker грузит GTM-контейнер из _document (GTM-TJGZ6TK6).
+            Раньше он ставился дважды — лишние ~50 КБ JS и двойной page_view */}
         <Component {...pageProps} key={router.pathname} />
       </Layout>
     </ContextProvider>

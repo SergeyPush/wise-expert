@@ -14,7 +14,6 @@
     "@contentful/rich-text-react-renderer": "^16.1.6",
     "@contentful/rich-text-types": "^17.2.5",
     "@emailjs/browser": "^4.4.1",
-    "@next/third-parties": "^15.5.4",
     "@types/node": "^24.7.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
