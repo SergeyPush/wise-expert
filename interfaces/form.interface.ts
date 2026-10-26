@@ -2,6 +2,8 @@ export interface IContactForm {
   name: string;
   phone: string;
   question: string;
+  // honeypot-поле, у человека всегда пустое
+  website?: string;
 }
 
 export interface IDropdown {

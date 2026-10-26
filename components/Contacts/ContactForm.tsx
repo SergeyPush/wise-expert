@@ -68,7 +68,7 @@ const ContactForm = ({
       showConfirmation(true);
 
       // очищаем и закрываем форму только после успешной отправки
-      reset({ name: '', phone: '', question: '' });
+      reset({ name: '', phone: '', question: '', website: '' });
 
       if (clearCalculatorForm) {
         clearCalculatorForm();
@@ -148,6 +148,17 @@ const ContactForm = ({
             )}
           </div>
         </div>
+        {/* Honeypot: поле спрятано за экраном и исключено из таб-навигации.
+            Человек его не заполняет, бот заполняет всё подряд — сервер по
+            непустому значению отбрасывает заявку как спам */}
+        <input
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className={'absolute -left-[9999px] w-px h-px opacity-0'}
+          {...register('website')}
+        />
         <div className={'flex font-normal flex-col relative mb-6'}>
           <InputLabel text={'Додаткова інформація'} htmlFor={'question'} />
           <textarea
