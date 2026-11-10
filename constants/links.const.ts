@@ -18,7 +18,8 @@ export const LINKS: ILink[] = [
   },
   { id: 'useful', title: 'Кому корисні', link: '' },
   { id: 'prices', title: 'Ціни', link: '' },
-  { id: 'calc', title: 'Калькулятор', link: '' },
+  // Тимчасово приховано з навігації — сама секція калькулятора на сторінках лишилась
+  // { id: 'calc', title: 'Калькулятор', link: '' },
   { id: 'faq', title: 'FAQ', link: '' },
   { id: 'contacts', title: 'Контакти', link: '' },
   { id: 'blog', title: 'Блог', link: '/blog' },
