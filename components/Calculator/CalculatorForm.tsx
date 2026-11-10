@@ -35,10 +35,12 @@ const CalculatorForm = () => {
   return (
     <div className={'flex flex-col lg:flex-row gap-8 lg:gap-12'}>
       <div className={'flex-1'}>
-        <Title text={'Калькулятор вартості'} align={'left'} color={'white'} />
+        {/* Заголовок секции: форма-запрос вместо калькулятора */}
+        <Title text={'Запит на співпрацю'} align={'left'} color={'white'} />
         <p className={'text-color-white/70 text-base mb-8 max-w-lg'}>
-          Ви можете приблизно розрахувати вартість робіт для Вашої компанії.
-          Заповніть форму і ми зв'яжемось з Вами
+          Заповніть коротку форму, щоб ми краще зрозуміли специфіку Вашого
+          бізнесу та могли запропонувати оптимальний формат бухгалтерського
+          обслуговування
         </p>
         <div className={'flex flex-col gap-5'}>
           <div className={'flex flex-col xl:flex-row gap-5'}>
