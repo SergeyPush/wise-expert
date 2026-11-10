@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 interface GlobalContextInterface {
   confirmationIsVisible: boolean;
@@ -19,9 +19,21 @@ export const ContextProvider = ({ children }: any) => {
     useState<boolean>(false);
   const [bookCallIsVisible, setBookCallIsVisible] = useState<boolean>(false);
 
+  // id активного таймера автоскрытия — чтобы не копить таймеры при повторных вызовах
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Чистим таймер при размонтировании провайдера
+  useEffect(() => {
+    return () => {
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
+  }, []);
+
   const showConfirmation = (value?: boolean) => {
+    // Сбрасываем предыдущий таймер, иначе он скроет новое подтверждение раньше времени
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     setConfirmationIsVisible(value ?? true);
-    setTimeout(() => setConfirmationIsVisible(false), 3000);
+    hideTimerRef.current = setTimeout(() => setConfirmationIsVisible(false), 3000);
   };
 
   return (

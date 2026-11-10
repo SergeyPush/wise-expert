@@ -7,7 +7,6 @@ import InputLabel from '@/components/Contacts/InputLabel';
 import { formatData } from '@/utils/formatData.utils';
 import InputMask from 'react-input-mask';
 import { useGlobalContext } from '@/context/GlobalContext';
-import { sendData } from '@/utils/emailjs.api';
 import { sendTelegramMessage } from '@/utils/telegram.utils';
 import { HONEYPOT_FIELD, MAX_VALUE_LENGTH } from '@/utils/submit.utils';
 import {
