@@ -93,10 +93,11 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
         </a>
         <Button
           format="primary"
-          text="Розрахувати вартість"
+          text="Звʼязатись з нами"
           size="wide"
           className="w-full"
-          onClick={() => handleScrollClick('calc')}
+          /* Веде до контактів — калькулятор тимчасово прихований з меню */
+          onClick={() => handleScrollClick('contacts')}
         />
         <IconList
           color="white"
