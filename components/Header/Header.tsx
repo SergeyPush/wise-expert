@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '@/context/GlobalContext';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import Link from 'next/link';
 import LinkList from '@/components/Header/LinkList';
 import IconList from '@/components/Header/IconList';
@@ -14,13 +14,6 @@ import BookCall from '@/components/Header/BookCall';
 // Тот же шрифт, что и в LandingShell/остальных сторінках — раньше тут був
 // Inter, тому хедер і модалка «Замовити дзвінок» (вона монтується всередині
 // nav) виглядали інакше, ніж решта сайту
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: false,
-  variable: '--font-sans',
-});
-
 const Header = () => {
   const [mobileMenuIsActive, setMobileMenuIsActive] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);

@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import client from '@/utils/contentful.api';
 import { IServicePageFields } from '@/interfaces/service-page.interface';
 import { IHowItWorks } from '@/interfaces/how-it-works.interface';
@@ -17,14 +17,6 @@ import WhatWeDo from '@/components/ServicePage/WhatWeDo';
 import HowItWorks from '@/components/ServicePage/HowItWorks';
 import WhyChooseUs from '@/components/ServicePage/WhyChooseUs';
 import { useGlobalContext } from '@/context/GlobalContext';
-
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: true,
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 const SLUG_TO_CONTENTFUL_ID: Record<string, string> = {
   it: '5jyN8q1yHA0UEMyZGwRDFs',
