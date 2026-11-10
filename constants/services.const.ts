@@ -46,3 +46,14 @@ export const TILE_SLUG_MAP: Record<string, string> = {
   'HORECA': 'horeca',
   'Послуги': 'posluhy',
 };
+
+/** Slug страницы услуги → Entry ID в Contentful.
+ *  Единый источник для /services/[slug] (getStaticPaths/Props) и sitemap.xml */
+export const SERVICE_SLUG_TO_CONTENTFUL_ID: Record<string, string> = {
+  it: '5jyN8q1yHA0UEMyZGwRDFs',
+  optova: '14Ufdnf0ubOu9OpwprgmhL',
+  rozdribna: '1EepYK0uDkEbPZakyCeDLc',
+  vyrobnytstvo: '5LgwI6wbO1UkHaFHZiNd9I',
+  horeca: '73drFNQdcTwZkAmht8SJIp',
+  posluhy: '3uOw2ZZlRcwy418LYuwIUs',
+};
