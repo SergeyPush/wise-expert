@@ -61,7 +61,8 @@ const PricingCards = ({ data }: PricingCardsProps) => {
       page_type: getPageType(pathname),
       page_path: pathname,
     });
-    scrollToId('calc');
+    // Веде до контактів — калькулятор тимчасово не використовуємо як ціль CTA
+    scrollToId('contacts');
   };
 
   return (

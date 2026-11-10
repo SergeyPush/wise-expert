@@ -33,7 +33,8 @@ const SlideOne = ({
       page_type: getPageType(pathname),
       page_path: pathname,
     });
-    scrollToId('calc');
+    // Веде до контактів — калькулятор тимчасово не використовуємо як ціль CTA
+    scrollToId('contacts');
   };
 
   const fadeUp = (delay: number) =>
@@ -98,7 +99,7 @@ const SlideOne = ({
           <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.5)}>
             <Button
               format={'primary'}
-              text={'Розрахувати вартість'}
+              text={'Звʼязатись з нами'}
               size={'wide'}
               className="w-full sm:w-auto"
               onClick={handleCtaClick}
