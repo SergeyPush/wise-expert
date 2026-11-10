@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useId, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { IDropdown } from '@/interfaces/form.interface';
+import { ICalculatorFormState, IDropdown } from '@/interfaces/form.interface';
 import InputLabel from '@/components/Contacts/InputLabel';
 
 const PLACEHOLDER = "Оберіть варіант (не обов'язкове поле)";
@@ -41,7 +41,7 @@ interface CalculatorDropdownInterface {
   isMulti?: boolean;
   className?: string;
   name: string;
-  setState: Dispatch<SetStateAction<{}>>;
+  setState: Dispatch<SetStateAction<ICalculatorFormState>>;
   value: string | IDropdown | IDropdown[];
 }
 

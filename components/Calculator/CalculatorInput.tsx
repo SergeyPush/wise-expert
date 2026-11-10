@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import InputLabel from '@/components/Contacts/InputLabel';
-import { IDropdown } from '@/interfaces/form.interface';
+import { ICalculatorFormState, IDropdown } from '@/interfaces/form.interface';
 
 interface CalculatorInterface {
   label: string;
   placeholder: string;
   name: string;
-  setState: Dispatch<SetStateAction<{}>>;
+  setState: Dispatch<SetStateAction<ICalculatorFormState>>;
   value: string | IDropdown | IDropdown[];
 }
 const CalculatorInput = ({

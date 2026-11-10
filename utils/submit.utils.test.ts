@@ -94,7 +94,7 @@ describe('escapeHtml / prepareTelegramMessage', () => {
 
 describe('createRateLimiter', () => {
   it('пропускает первые N запросов и режет следующий', () => {
-    let t = 0;
+    const t = 0;
     const limited = createRateLimiter(1000, 3, () => t);
     expect(limited('ip')).toBe(false);
     expect(limited('ip')).toBe(false);

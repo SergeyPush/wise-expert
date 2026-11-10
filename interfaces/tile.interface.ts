@@ -1,5 +1,5 @@
 interface Metadata {
-  tags: any[];
+  tags: unknown[];
 }
 
 interface Sys2 {

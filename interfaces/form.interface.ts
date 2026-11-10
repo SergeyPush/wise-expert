@@ -12,3 +12,6 @@ export interface IDropdown {
 }
 
 export type IDropdownValue = string | IDropdown | IDropdown[];
+
+/** Состояние формы калькулятора: имя поля → выбранное значение */
+export type ICalculatorFormState = Record<string, IDropdownValue>;

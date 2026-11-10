@@ -1,12 +1,56 @@
-name: Deploy to VPS
+name: CI / Deploy
 
 on:
+  # Проверки на каждом PR в main и на push в main; деплой — только push в main
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+
+# Новый push в ту же ветку/PR отменяет устаревший прогон проверок,
+# но деплой main не прерывается на середине
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Та же мажорная версия, что в Dockerfile (node:22-alpine)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      # getStaticProps тянет данные из Contentful — без ключей сборка упадёт.
+      # Lint уже прошёл отдельным шагом, в сборке его не повторяем
+      - name: Build
+        run: npx next build --no-lint
+        env:
+          NEXT_PUBLIC_CONTENTFUL_SPACE: ${{ secrets.CONTENTFUL_SPACE }}
+          NEXT_PUBLIC_CONTENTFUL_TOKEN: ${{ secrets.CONTENTFUL_TOKEN }}
+          NEXT_TELEMETRY_DISABLED: 1
+
   deploy:
+    # Деплой только после зелёных проверок и только для push в main
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: Production
     steps:

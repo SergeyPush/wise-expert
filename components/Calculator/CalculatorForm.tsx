@@ -10,14 +10,10 @@ import {
   taxSystem,
 } from '@/constants/calculator.const';
 import CalculatorInput from '@/components/Calculator/CalculatorInput';
-import { IDropdown } from '@/interfaces/form.interface';
+import { ICalculatorFormState } from '@/interfaces/form.interface';
 
 const CalculatorForm = () => {
-  interface calculatorFormInterface {
-    [key: string]: string | IDropdown | IDropdown[];
-  }
-
-  const initialState: calculatorFormInterface = {
+  const initialState: ICalculatorFormState = {
     OrganisationalForm: '',
     OrganizationalType: '',
     TaxSystem: '',

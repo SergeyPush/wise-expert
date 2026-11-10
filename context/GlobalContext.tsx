@@ -14,7 +14,7 @@ export const GlobalContext = React.createContext<GlobalContextInterface>({
   setBookCallIsVisible: () => { return; },
 });
 
-export const ContextProvider = ({ children }: any) => {
+export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [confirmationIsVisible, setConfirmationIsVisible] =
     useState<boolean>(false);
   const [bookCallIsVisible, setBookCallIsVisible] = useState<boolean>(false);
