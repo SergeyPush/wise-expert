@@ -63,7 +63,11 @@ jobs:
           script: |
             cd ${{ secrets.VPS_PROJECT_PATH }}
             git checkout -- . 2>/dev/null || true
-            git pull origin main
+            # Ровно тот коммит, что прошёл check, а не «последний main»:
+            # иначе при двух быстрых push деплой первого выкатил бы
+            # второй коммит до его проверок
+            git fetch origin main
+            git reset --hard ${{ github.sha }}
             # Без --no-cache: он обнулял весь кэш слоёв, из-за чего npm ci
             # заново тянул зависимости на каждом деплое, даже когда
             # package-lock.json не менялся. Слой зависимостей теперь

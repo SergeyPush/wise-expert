@@ -34,9 +34,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # .next/cache — инкрементальный кэш Next (компиляция модулей, оптимизация).
 # Как cache-mount он не попадает в слой образа, но сохраняется между сборками,
 # поэтому вторая сборка компилирует только изменившееся.
+#
+# --no-lint: ESLint уже прошёл в CI (job check), деплой идёт только после него —
+# повторный прогон на VPS лишь удлинял сборку
 RUN --mount=type=secret,id=env \
     --mount=type=cache,target=/app/.next/cache,sharing=locked \
-    set -a && . /run/secrets/env && set +a && npm run build
+    set -a && . /run/secrets/env && set +a && npx next build --no-lint
 
 # ---------- runner: то, что реально едет на сервер ----------
 # Отдельная стадия, чтобы в финальный образ не попали devDependencies,

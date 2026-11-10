@@ -8,9 +8,21 @@ const PLACEHOLDER = "Оберіть варіант (не обов'язкове �
 // Статическая копия закрытого react-select: те же размеры и цвета, что в
 // CalculatorDropdownStyles (итоговая высота react-select — 45.5px, замерено),
 // чтобы при подмене на настоящий Select форма не прыгала
-const SelectPlaceholder = () => (
+// Пока react-select не загружен, заглушка принимает фокус с клавиатуры: иначе
+// Tab перескакивал бы селекты. Фокус запускает загрузку, настоящий Select
+// появляется уже в фокусе (autoFocus). Без onFocus — декоративная копия
+// для состояния «чанк качается»
+const SelectPlaceholder = ({
+  label,
+  onFocus,
+}: {
+  label?: string;
+  onFocus?: () => void;
+}) => (
   <div
-    aria-hidden="true"
+    {...(onFocus
+      ? { tabIndex: 0, role: 'combobox', 'aria-label': label, 'aria-expanded': false, onFocus }
+      : { 'aria-hidden': true })}
     className="box-border flex min-h-[45.5px] items-center rounded-xl border border-solid border-color-white/15 bg-color-white/[0.08] p-1 text-[14px] leading-[22.4px]"
   >
     <span className="flex-1 px-2 py-0.5">
@@ -18,6 +30,7 @@ const SelectPlaceholder = () => (
     </span>
     {/* Шеврон react-select */}
     <svg
+      aria-hidden="true"
       height="20"
       width="20"
       viewBox="0 0 20 20"
@@ -32,7 +45,7 @@ const SelectPlaceholder = () => (
 // пока чанк качается — та же заглушка
 const CalculatorSelect = dynamic(
   () => import('@/components/Calculator/CalculatorSelect'),
-  { ssr: false, loading: SelectPlaceholder },
+  { ssr: false, loading: () => <SelectPlaceholder /> },
 );
 
 interface CalculatorDropdownInterface {
@@ -58,6 +71,8 @@ const CalculatorDropdown = ({
   const ref = useRef<HTMLDivElement>(null);
   // true — пора подгружать настоящий Select
   const [isNear, setIsNear] = useState(false);
+  // Загрузку запустил фокус с клавиатуры — передать фокус настоящему Select
+  const [focusRequested, setFocusRequested] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -95,6 +110,8 @@ const CalculatorDropdown = ({
           isMulti={isMulti}
           options={options}
           instanceId={instanceId}
+          autoFocus={focusRequested}
+          aria-label={label}
           placeholder={PLACEHOLDER}
           closeMenuOnSelect={true}
           hideSelectedOptions={true}
@@ -104,7 +121,13 @@ const CalculatorDropdown = ({
           name={name}
         />
       ) : (
-        <SelectPlaceholder />
+        <SelectPlaceholder
+          label={label}
+          onFocus={() => {
+            setFocusRequested(true);
+            setIsNear(true);
+          }}
+        />
       )}
     </div>
   );
