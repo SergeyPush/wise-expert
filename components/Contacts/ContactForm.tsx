@@ -7,8 +7,8 @@ import InputLabel from '@/components/Contacts/InputLabel';
 import { formatData } from '@/utils/formatData.utils';
 import InputMask from 'react-input-mask';
 import { useGlobalContext } from '@/context/GlobalContext';
-import { sendData } from '@/utils/emailjs.api';
 import { sendTelegramMessage } from '@/utils/telegram.utils';
+import { HONEYPOT_FIELD, MAX_VALUE_LENGTH } from '@/utils/submit.utils';
 import {
   FORM_SUBMIT_EVENTS,
   FormLocation,
@@ -68,7 +68,7 @@ const ContactForm = ({
       showConfirmation(true);
 
       // очищаем и закрываем форму только после успешной отправки
-      reset({ name: '', phone: '', question: '' });
+      reset({ name: '', phone: '', question: '', [HONEYPOT_FIELD]: '' });
 
       if (clearCalculatorForm) {
         clearCalculatorForm();
@@ -148,6 +148,19 @@ const ContactForm = ({
             )}
           </div>
         </div>
+        {/* Honeypot: поле спрятано за экраном и исключено из таб-навигации.
+            Человек его не заполняет, бот заполняет всё подряд — сервер по
+            непустому значению отбрасывает заявку как спам. Имя поля
+            бессмысленное (HONEYPOT_FIELD), чтобы автозаполнение браузера
+            не приняло его за website/url и не подставило значение */}
+        <input
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className={'absolute -left-[9999px] w-px h-px opacity-0'}
+          {...register(HONEYPOT_FIELD)}
+        />
         <div className={'flex font-normal flex-col relative mb-6'}>
           <InputLabel text={'Додаткова інформація'} htmlFor={'question'} />
           <textarea
@@ -157,8 +170,16 @@ const ContactForm = ({
               'font-normal px-4 py-3 border border-color-border rounded-xl placeholder:text-color-muted bg-color-light-gray focus:border-color-blue focus:bg-color-white focus:outline-none transition-all duration-200 resize-none'
             }
             placeholder="Ваше повідомлення (не обов'язкове поле)"
-            {...register('question')}
+            // тот же лимит, что и на сервере — иначе длинный вопрос давал бы
+            // 400 и общую ошибку без объяснения причины
+            maxLength={MAX_VALUE_LENGTH}
+            {...register('question', { maxLength: MAX_VALUE_LENGTH })}
           />
+          {errors?.question && (
+            <span className={'text-color-red text-sm absolute bottom-[-20px] ml-1'}>
+              Не більше {MAX_VALUE_LENGTH} символів
+            </span>
+          )}
         </div>
 
         <Button

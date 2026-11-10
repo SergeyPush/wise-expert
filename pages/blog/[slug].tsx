@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES, MARKS, Document } from '@contentful/rich-text-types';
 import client from '@/utils/contentful.api';
@@ -19,14 +19,6 @@ import { IBlogPost } from '@/interfaces/blog-post.interface';
 import { findTeamMemberId, ORGANIZATION_ID } from '@/constants/team.const';
 import { jsonLd } from '@/utils/json-ld';
 import { useGlobalContext } from '@/context/GlobalContext';
-
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: true,
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 interface AuthorFields {
   name: string;

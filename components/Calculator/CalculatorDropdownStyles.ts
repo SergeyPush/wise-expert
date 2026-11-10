@@ -1,7 +1,7 @@
 import { StylesConfig } from 'react-select';
 
 const colorStyles: StylesConfig = {
-  control: (styles: any, state: any) => ({
+  control: (styles, state) => ({
     ...styles,
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
     borderRadius: '0.75rem',

@@ -1,16 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
-
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: true,
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 export default function NotFoundPage() {
   return (

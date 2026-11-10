@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import client from '@/utils/contentful.api';
 import { mapBlogPost } from '@/utils/contentful.utils';
 import { IBlogPost } from '@/interfaces/blog-post.interface';
@@ -13,14 +13,6 @@ import Button from '@/components/Button/Button';
 import ConsultationCta from '@/components/Blog/ConsultationCta';
 import { useGlobalContext } from '@/context/GlobalContext';
 import { jsonLd } from '@/utils/json-ld';
-
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: true,
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 const PAGE_SIZE = 9;
 

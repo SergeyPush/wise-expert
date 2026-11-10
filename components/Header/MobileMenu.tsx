@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import styles from '@/styles/MobileMenu.module.scss';
 import Button from '@/components/Button/Button';
 import IconList from '@/components/Header/IconList';
@@ -12,13 +12,6 @@ import MobileMenuGroup from '@/components/Header/MobileMenuGroup';
 
 // Меню — сиблинг <nav>, не <main>, поэтому шрифт не наследуется ниоткуда
 // и без этого падает на дефолтный стек Tailwind
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: false,
-  variable: '--font-sans',
-});
-
 interface MobileMenuProps {
   onClose: () => void;
 }

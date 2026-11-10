@@ -35,15 +35,13 @@ const ClientsSwiper = ({ clients }: ClientSwiperInterface) => {
       disableOnInteraction: true,
     },
   };
-  const arrayOfImages = [
-    ...clients.images,
-    ...clients.images,
-    ...clients.images,
-  ];
+  // Без утроения массива: loop в Swiper 12 сам переставляет слайды,
+  // а 16 логотипов при максимум 4 на экране хватает для бесконечной ленты.
+  // Утроение давало 48 <img> в DOM и лишний layout
   return (
     <div className={'overflow-hidden'}>
       <Swiper {...swiperOptions}>
-        {arrayOfImages.map((image, index) => {
+        {clients.images.map((image, index) => {
           return (
             <SwiperSlide key={index}>
               <ImageSlide

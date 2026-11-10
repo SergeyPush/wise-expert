@@ -3,12 +3,13 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Nunito_Sans } from 'next/font/google';
+import { nunito } from '@/styles/fonts';
 import client from '@/utils/contentful.api';
 import { IServicePageFields } from '@/interfaces/service-page.interface';
 import { IHowItWorks } from '@/interfaces/how-it-works.interface';
 import { IWhyChooseUs } from '@/interfaces/why-choose-us.interface';
 import { ORGANIZATION_ID } from '@/constants/team.const';
+import { SERVICE_SLUG_TO_CONTENTFUL_ID } from '@/constants/services.const';
 import { jsonLd } from '@/utils/json-ld';
 import Footer from '@/components/Footer/Footer';
 import Wrapper from '@/components/Wrapper';
@@ -17,23 +18,6 @@ import WhatWeDo from '@/components/ServicePage/WhatWeDo';
 import HowItWorks from '@/components/ServicePage/HowItWorks';
 import WhyChooseUs from '@/components/ServicePage/WhyChooseUs';
 import { useGlobalContext } from '@/context/GlobalContext';
-
-const nunito = Nunito_Sans({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  preload: true,
-  variable: '--font-sans',
-  display: 'swap',
-});
-
-const SLUG_TO_CONTENTFUL_ID: Record<string, string> = {
-  it: '5jyN8q1yHA0UEMyZGwRDFs',
-  optova: '14Ufdnf0ubOu9OpwprgmhL',
-  rozdribna: '1EepYK0uDkEbPZakyCeDLc',
-  vyrobnytstvo: '5LgwI6wbO1UkHaFHZiNd9I',
-  horeca: '73drFNQdcTwZkAmht8SJIp',
-  posluhy: '3uOw2ZZlRcwy418LYuwIUs',
-};
 
 interface ServicePageProps {
   data: IServicePageFields;
@@ -251,7 +235,7 @@ export default function ServicePage({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Object.keys(SLUG_TO_CONTENTFUL_ID).map((slug) => ({
+  const paths = Object.keys(SERVICE_SLUG_TO_CONTENTFUL_ID).map((slug) => ({
     params: { slug },
   }));
   return { paths, fallback: false };
@@ -259,7 +243,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
-  const contentfulId = SLUG_TO_CONTENTFUL_ID[slug];
+  const contentfulId = SERVICE_SLUG_TO_CONTENTFUL_ID[slug];
 
   if (!contentfulId) return { notFound: true };
 

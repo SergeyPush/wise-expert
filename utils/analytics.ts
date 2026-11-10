@@ -6,6 +6,14 @@
  * настраивались без релиза кода.
  */
 
+// dataLayer создаёт GTM-сниппет в _document; типизация раньше приходила из
+// @next/third-parties, пакет удалён вместе с дублирующим тегом Ads
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[];
+  }
+}
+
 export type PageType = 'main' | 'fop' | 'tov' | 'dija';
 
 /** Где на странице стоит форма: модалка «Замовити дзвінок», калькулятор
