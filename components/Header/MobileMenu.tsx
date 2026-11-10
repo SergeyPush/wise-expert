@@ -86,9 +86,10 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
         </a>
         <Button
           format="primary"
-          text="Розрахувати вартість"
+          text="Звʼязатись з нами"
           size="wide"
           className="w-full"
+          /* Скрол до секції калькулятора (форма запиту на співпрацю) */
           onClick={() => handleScrollClick('calc')}
         />
         <IconList

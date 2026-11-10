@@ -61,6 +61,7 @@ const PricingCards = ({ data }: PricingCardsProps) => {
       page_type: getPageType(pathname),
       page_path: pathname,
     });
+    // Скрол до секції калькулятора (форма запиту на співпрацю)
     scrollToId('calc');
   };
 

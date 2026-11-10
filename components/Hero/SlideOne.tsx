@@ -37,6 +37,7 @@ const SlideOne = ({
       page_type: getPageType(pathname),
       page_path: pathname,
     });
+    // Скрол до секції калькулятора (форма запиту на співпрацю)
     scrollToId('calc');
   };
 
@@ -117,7 +118,7 @@ const SlideOne = ({
           >
             <Button
               format={'primary'}
-              text={'Розрахувати вартість'}
+              text={'Звʼязатись з нами'}
               size={'wide'}
               className="w-full sm:w-auto"
               onClick={handleCtaClick}
