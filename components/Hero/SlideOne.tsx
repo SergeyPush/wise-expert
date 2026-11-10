@@ -33,8 +33,8 @@ const SlideOne = ({
       page_type: getPageType(pathname),
       page_path: pathname,
     });
-    // Веде до контактів — калькулятор тимчасово не використовуємо як ціль CTA
-    scrollToId('contacts');
+    // Скрол до секції калькулятора (форма запиту на співпрацю)
+    scrollToId('calc');
   };
 
   const fadeUp = (delay: number) =>
