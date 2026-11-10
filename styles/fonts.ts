@@ -4,7 +4,8 @@ import { Nunito_Sans } from 'next/font/google';
 // генерирует свой набор @font-face и классов, поэтому импортировать отсюда
 export const nunito = Nunito_Sans({
   subsets: ['latin', 'cyrillic'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  // weight не задан: Nunito Sans вариативный, один файл на подмножество
+  // покрывает все начертания (400–800), а @font-face не дублируется под каждый вес
   preload: true,
   variable: '--font-sans',
   // Текст виден сразу системным шрифтом, без невидимого периода (FOIT)

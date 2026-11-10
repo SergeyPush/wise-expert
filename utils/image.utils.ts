@@ -1,3 +1,4 @@
 export const getUrl = (path: string) => {
-  return `http:${path}`;
+  // https: — с http: CDN Contentful отвечает редиректом на каждый логотип
+  return `https:${path}`;
 };

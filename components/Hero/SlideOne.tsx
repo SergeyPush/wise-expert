@@ -10,7 +10,6 @@ import styles from '@/styles/SlideOne.module.scss';
 import { makeBolder } from '@/utils/bolder.utils';
 import { scrollToId } from '@/utils/scroll.utils';
 import { CONTACTS } from '@/constants/contact.const';
-import { motion, useReducedMotion } from 'framer-motion';
 import { getPageType, pushEvent } from '@/utils/analytics';
 
 interface HeroInterface {
@@ -21,10 +20,15 @@ const SlideOne = ({
   data: { image, title, subtitle },
   advantages,
 }: HeroInterface) => {
-  const imageUrl = image?.fields?.file?.url
-    ? `${image.fields.file.url}?w=1920&q=80&fm=webp`
+  const baseUrl = image?.fields?.file?.url;
+  // URL картинки нужной ширины через Contentful Images API
+  const sized = (w: number) => `${baseUrl}?w=${w}&q=80&fm=webp`;
+  // Десктоп: фон на всю ширину экрана
+  const imageUrl = baseUrl ? sized(1920) : undefined;
+  // Мобильный: блок шириной в экран, 1920px (95 КБ) избыточно — браузер выберет по DPR
+  const mobileSrcSet = baseUrl
+    ? [640, 828, 1080].map((w) => `${sized(w)} ${w}w`).join(', ')
     : undefined;
-  const shouldReduceMotion = useReducedMotion();
   const { pathname } = useRouter();
 
   const handleCtaClick = () => {
@@ -36,36 +40,48 @@ const SlideOne = ({
     scrollToId('calc');
   };
 
-  const fadeUp = (delay: number) =>
-    shouldReduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 24 },
-          animate: { opacity: 1, y: 0 },
-          transition: {
-            duration: 0.6,
-            delay,
-            ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
-          },
-        };
+  // Анимация появления на CSS: framer-motion отдавал в SSR opacity:0,
+  // и первый экран был невидим до загрузки и гидрации JS
+  const fadeUp = (delay: number) => ({
+    style: { animationDelay: `${delay}s` },
+  });
 
   return (
     <>
       {imageUrl && (
         <Head>
-          <link rel="preload" as="image" href={imageUrl} fetchPriority="high" />
+          {/* Preload только для десктопного фона: CSS background браузер
+              находит поздно. Мобильный <img> есть в HTML с fetchpriority=high,
+              а preload с imagesrcset Chrome качал и на десктопе, игнорируя media */}
+          <link
+            rel="preload"
+            as="image"
+            href={imageUrl}
+            media="(min-width: 768px)"
+            fetchPriority="high"
+          />
         </Head>
       )}
       <div className={styles.background}>
         {/* Mobile: in-flow image block */}
         {imageUrl && (
           <div className={styles.mobileImageBlock}>
-            <img
-              src={imageUrl}
-              alt={image?.fields?.title || 'WisExpert team'}
-              className={styles.mobileImg}
-              {...({ fetchpriority: 'high' } as object)}
-            />
+            <picture>
+              {/* На десктопе блок скрыт, но <img> всё равно скачался бы —
+                  отдаём прозрачный 1×1 gif вместо мобильной картинки */}
+              <source
+                media="(min-width: 768px)"
+                srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              />
+              <img
+                src={sized(828)}
+                srcSet={mobileSrcSet}
+                sizes="100vw"
+                alt={image?.fields?.title || 'WisExpert team'}
+                className={styles.mobileImg}
+                {...({ fetchpriority: 'high' } as object)}
+              />
+            </picture>
             <div className={styles.mobileOverlay} />
           </div>
         )}
@@ -78,24 +94,27 @@ const SlideOne = ({
 
         {/* pb уменьшен на десктопе — блок текста ниже, title не накрывает лица */}
         <Wrapper className="relative z-10 flex-1 flex flex-col justify-end pb-24 md:min-h-screen md:justify-end md:pb-[100px] lg:justify-end lg:pb-[60px] lg:pt-20 xl:pb-[64px]">
-          <motion.h1
-            className={styles.title}
-            dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
+          <h1
             {...fadeUp(0.1)}
+            className={`${styles.title} ${styles.fadeUp}`}
+            dangerouslySetInnerHTML={{ __html: makeBolder(title, 'WisExpert') }}
           />
           {/* Render subtitle only when present — empty <h2> still holds margin */}
           {subtitle && (
-            <motion.h2
-              className={styles.subtitle}
-              dangerouslySetInnerHTML={{ __html: subtitle }}
+            <h2
               {...fadeUp(0.25)}
+              className={`${styles.subtitle} ${styles.fadeUp}`}
+              dangerouslySetInnerHTML={{ __html: subtitle }}
             />
           )}
           {/* Variant 6 advantages block: stats + checkmark benefits */}
-          <motion.div {...fadeUp(0.35)}>
+          <div {...fadeUp(0.35)} className={styles.fadeUp}>
             <Advantages data={advantages} />
-          </motion.div>
-          <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4" {...fadeUp(0.5)}>
+          </div>
+          <div
+            {...fadeUp(0.5)}
+            className={`flex flex-col sm:flex-row gap-3 sm:gap-4 ${styles.fadeUp}`}
+          >
             <Button
               format={'primary'}
               text={'Розрахувати вартість'}
@@ -111,7 +130,7 @@ const SlideOne = ({
               className="w-full sm:w-auto"
               href={CONTACTS.phone}
             />
-          </motion.div>
+          </div>
         </Wrapper>
       </div>
     </>
