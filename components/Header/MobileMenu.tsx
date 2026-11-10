@@ -96,8 +96,8 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
           text="Звʼязатись з нами"
           size="wide"
           className="w-full"
-          /* Веде до контактів — калькулятор тимчасово прихований з меню */
-          onClick={() => handleScrollClick('contacts')}
+          /* Скрол до секції калькулятора (форма запиту на співпрацю) */
+          onClick={() => handleScrollClick('calc')}
         />
         <IconList
           color="white"
